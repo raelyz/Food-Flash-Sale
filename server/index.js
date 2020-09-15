@@ -11,7 +11,6 @@ app.use(express.urlencoded({
     extended: true
 }))
 app.use(express.static(clientBuildPath))
-app.use(cors());
 
 app.get("/", (request,response)=>{
      response.sendFile(path.join(clientBuildPath, '/index.html'));
