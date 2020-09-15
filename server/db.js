@@ -1,21 +1,47 @@
+const pg = require('pg');
+const url = require('url');
 
-const Pool = require("pg").Pool;
-require("dotenv").config();
+var configs;
 
-const devConfig = {
-  user: process.env.PG_USER,
-  host: process.env.PG_HOST,
-  database: process.env.PG_DATABASE,
-  port: process.env.PG_PORT,
-};
+if( process.env.DATABASE_URL ){
 
-// const devConfig = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
+  const params = url.parse(process.env.DATABASE_URL);
+  const auth = params.auth.split(':');
 
-const proConfig = process.env.DATABASE_URL; //heroku addons
+ configs = {
+    user: auth[0],
+    password: auth[1],
+    host: params.hostname,
+    port: params.port,
+    database: params.pathname.split('/')[1],
+    ssl: {
+        rejectUnauthorized: false
+    }
+  };
+}else{
+  configs = {
+    user: 'eugenelim',
+    host: '127.0.0.1',
+    database: 'project2',
+    port: 5432
+  };
+}
 
-const pool = new Pool({
-  connectionString:
-    process.env.NODE_ENV === "production" ? proConfig : devConfig,
+const pool = new pg.Pool(configs);
+
+pool.on('error', function (err) {
+  console.log('idle client error', err.message, err.stack);
 });
 
-module.exports = pool;
+
+const allFunction = require('./models/models');
+
+const poolRoutes = allFunction( pool );
+
+module.exports = {
+  queryInterface: (text, params, callback) => {
+    return pool.query(text, params, callback);
+  },
+  pool:pool,
+  poolRoutes
+};

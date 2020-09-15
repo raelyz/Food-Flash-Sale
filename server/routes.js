@@ -1,13 +1,6 @@
 module.exports = (app, allModels) => {
 
+  const controllerCallbacks = require('./controllers/controllers')(allModels);
 
-
-
-  // require the controller
-  const puppyControllerCallbacks = require('./controllers/controllers')(allModels);
-
-  app.get('/', puppyControllerCallbacks.getHome);
-  app.get('/login/user', puppyControllerCallbacks.logIn);
-
-
+  app.get('/', controllerCallbacks.Home);
 };
