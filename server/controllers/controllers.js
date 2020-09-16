@@ -124,7 +124,7 @@ module.exports = (db) => {
         // Clear all cookies and send empty object
         response.send({})
     }
-    
+
 let getTimeline = (request,response)=> {
 
     db.poolRoutes.getTimelineFX((err,result)=>{
@@ -219,17 +219,16 @@ let getIndivShop = (request,response)=> {
 
   return {
     getHome,
-    getLoginDetails,
     getTimeline,
     getIndivShop,
-    
+
     getDashboardMerchant,
     getNewListing,
     getAllListing,
     getToggleListing,
     getEditListing,
     getUpdateListing,
-    
+
     getUserLoginDetails,
     getMerchantLoginDetails,
     postUserDetails,
