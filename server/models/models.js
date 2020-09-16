@@ -148,7 +148,7 @@ module.exports = (dbPoolInstance) => {
   }
 
   let getToggleListingFX = (values, callback) => {
-    let query = `update TABLE LISTING set live = $1 where listing_id = $2`
+    let query = `update TABLE LISTING set live = $1, time = CURRENT_TIMESTAMP where listing_id = $2`
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) {
         console.log(err, `error in gettogglelistingfx`)
@@ -198,12 +198,22 @@ module.exports = (dbPoolInstance) => {
         console.log(err, `error in getorderhistoryfx`)
         callback(err, null)
       } else {
-        console.log("hi")
         callback(null, result.rows)
       }
     })
   }
 
+  let getReceiptListingFX = (values, callback) => {
+    let query = `select * from orders where receipt_id=$1`
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) {
+        console.log(err, `error in getreceiptlistingfx`)
+        callback(err, null)
+      } else {
+        callback(null, result)
+      }
+    })
+  }
   return {
     getDashboardMerchantFX,
     getNewListingFX,
@@ -215,6 +225,7 @@ module.exports = (dbPoolInstance) => {
     getLoginDetailsFX,
     getTimelineFX,
     getIndivShopFX,
+    getReceiptListingFX,
 
     getUserLoginDetailsFX,
     getMerchantLoginDetailsFX,

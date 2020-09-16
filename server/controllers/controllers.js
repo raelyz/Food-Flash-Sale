@@ -226,6 +226,16 @@ module.exports = (db) => {
     })
   }
 
+  let getReceiptListing = (request, response) => {
+    let values = [request.body.receipt_id]
+    db.poolRoutes.getReceiptListingFX(values, (err, result) => {
+      if (err) {
+        console.log(err, `err at getreceiptlisting controller`)
+      } else {
+        response.json(result.rows)
+      }
+    })
+  }
 
 
 
@@ -241,6 +251,7 @@ module.exports = (db) => {
     getEditListing,
     getUpdateListing,
     getOrderHistory,
+    getReceiptListing,
 
     getUserLoginDetails,
     getMerchantLoginDetails,
