@@ -1,4 +1,4 @@
-const sha256=require('js-sha256');
+const sha256 = require('js-sha256');
 const path = require("path");
 const clientBuildPath = path.join(__dirname, '../../client/build')
 
@@ -6,137 +6,137 @@ let SALT = "debuggod";
 let reference = "";
 
 module.exports = (db) => {
-    let getHome = (request,response) => {
-        if(!request.cookies['loggedIn']) {
-            response.send({})
+  let getHome = (request, response) => {
+    if (!request.cookies['loggedIn']) {
+      response.send({})
     } else {
-        let reference = request.cookies['reference']
-        let cookieValue = request.cookies['loggedIn']
-        if(cookieValue === sha256(`true${SALT}-${reference}`)) {
-            // Add conditional statement in App.js, where if App.js received something render the timeline page instead using the cookies
-                response.send({
-                    userId: response.cookie.user_id,
-                    userName: response.cookie.username
-                })
-            } else {
-            // If App.js receives nothing, then will just render the landing page
-                response.send({})
-            }
-        }
-    }
-
-    let getUserLoginDetails=(request,response)=> {
-        let values = [ request.body.username, request.body.email, sha256(`${request.body.password}`) ]
-            db.poolRoutes.getUserLoginDetailsFX(values, (err,results)=> {
-                // If username/password does not match with the DB|| username < 1 characters long || password < 1 characters long || email < 1 characters long
-                if(results.rows.length === 0 || request.body.username === 0 || request.body.password === 0 || request.body.email === 0) {
-                    response.send({})
-                } else {
-                    response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.user_id).toString())}`))
-                    response.cookie("reference", (`${sha256((results.user_id).toString())}`))
-                    // UID means User ID UUN means User username
-                    response.cookie("UID", results.user_id)
-                    response.cookie("UUN", results.username)
-                    response.send({
-                        userId: results.user_id,
-                        userName: results.username
-                    })
-                }
-            })
-    }
-    let getMerchantLoginDetails=(request,response)=> {
-        let values = [ request.body.name, request.body.email, sha256(`${request.body.password}`) ]
-            db.poolRoutes.getMerchantLoginDetailsFX(values, (err,results)=> {
-                if(results.rows.length === 0 || request.body.name === 0 || request.body.password === 0 || request.body.email === 0) {
-                    response.send({})
-                } else {
-                    response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.merchant_id).toString())}`))
-                    response.cookie("reference", (`${sha256((results.merchant_id).toString())}`))
-                    // UID means Merchant ID UUN means Merchant username
-                    response.cookie("MID", results.merchant_id)
-                    response.cookie("MUN", results.name)
-                    response.send({
-                        merchantId: results.merchant_id,
-                        merchantUsername: results.name
-                    })
-                }
-            })
-    }
-
-
-    let postUserDetails=(request,response)=> {
-        let values = [ request.body.username,request.body.email ]
-        // Query to check if the login details already exists
-        db.poolRoutes.getUserDetailsFX(values, (err,results)=> {
-            // If the username already exists render the same login page
-            // If query returned nothing || if user registers with an empty username || if user register a password with no length
-            // Add @ email check here
-            if(results.length !== 0 || results.username.length == 0 || request.body.password.length == 0) {
-                response.send({})
-            } else {
-                values.push(sha256(`${request.body.password}`));
-                // If the username does not exists render the email input page and pass in object of user ID and user UN
-                db.poolRoutes.insertUserDetailsFX(values, (err,results2)=> {
-                    response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.user_id).toString())}`))
-                    response.cookie("reference", (`${sha256((results2.user_id).toString())}`))
-                    response.cookie("UID", results.user_id)
-                    response.cookie("UUN", results.username)
-                    response.send({
-                        userId: results.user_id,
-                        userName: results.username
-                    })
-                })
-            }
+      let reference = request.cookies['reference']
+      let cookieValue = request.cookies['loggedIn']
+      if (cookieValue === sha256(`true${SALT}-${reference}`)) {
+        // Add conditional statement in App.js, where if App.js received something render the timeline page instead using the cookies
+        response.send({
+          userId: response.cookie.user_id,
+          userName: response.cookie.username
         })
-    }
-    let postMerchantDetails=(request,response)=> {
-        let values = [ request.body.name,request.body.email ]
-        // Query to check if the login details already exists
-        db.poolRoutes.getMerchantDetailsFX(values, (err,results)=> {
-            // If the merchant username already exists render the same login page
-            // If query returned nothing || if merchant registers with and empty name || if merchant register a password with no length
-            if(results.length !== 0 || results.name.length == 0 || request.body.password.length == 0) {
-                response.send({})
-            } else {
-                values.push(sha256(`${request.body.password}`));
-                // If the username does not exists render the email input page and pass in object of merchant ID and merchant UN
-                db.poolRoutes.insertMerchantDetailsFX(values, (err,results2)=> {
-                    response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.merchant_id).toString())}`))
-                    response.cookie("reference", (`${sha256((results2.merchant_id).toString())}`))
-                    response.cookie("MID", results.merchant_id)
-                    response.cookie("MUN", results.name)
-                    response.send({
-                        merchantId: results.merchant_id,
-                        merchantUsername: results.name
-                    })
-                })
-            }
-        })
-    }
-
-    let logout=(request,response)=> {
-        response.cookie("loggedIn", "")
-        response.cookie("reference", "")
-        response.cookie("UID", "")
-        response.cookie("MID", "")
-        response.cookie("UUD", "")
-        response.cookie("MUD", "")
-        // Clear all cookies and send empty object
+      } else {
+        // If App.js receives nothing, then will just render the landing page
         response.send({})
+      }
     }
+  }
 
-let getTimeline = (request,response)=> {
-
-    db.poolRoutes.getTimelineFX((err,result)=>{
-        if(err){
-            console.log("error at controllertimeline----", err.message);
-        } else{
-            let data = result.rows;
-            console.log(data,"--- hello from controller timeline")
-            response.send(data)
-        }
+  let getUserLoginDetails = (request, response) => {
+    let values = [request.body.username, request.body.email, sha256(`${request.body.password}`)]
+    db.poolRoutes.getUserLoginDetailsFX(values, (err, results) => {
+      // If username/password does not match with the DB|| username < 1 characters long || password < 1 characters long || email < 1 characters long
+      if (results.rows.length === 0 || request.body.username === 0 || request.body.password === 0 || request.body.email === 0) {
+        response.send({})
+      } else {
+        response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.user_id).toString())}`))
+        response.cookie("reference", (`${sha256((results.user_id).toString())}`))
+        // UID means User ID UUN means User username
+        response.cookie("UID", results.user_id)
+        response.cookie("UUN", results.username)
+        response.send({
+          userId: results.user_id,
+          userName: results.username
         })
-}
+      }
+    })
+  }
+  let getMerchantLoginDetails = (request, response) => {
+    let values = [request.body.name, request.body.email, sha256(`${request.body.password}`)]
+    db.poolRoutes.getMerchantLoginDetailsFX(values, (err, results) => {
+      if (results.rows.length === 0 || request.body.name === 0 || request.body.password === 0 || request.body.email === 0) {
+        response.send({})
+      } else {
+        response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.merchant_id).toString())}`))
+        response.cookie("reference", (`${sha256((results.merchant_id).toString())}`))
+        // UID means Merchant ID UUN means Merchant username
+        response.cookie("MID", results.merchant_id)
+        response.cookie("MUN", results.name)
+        response.send({
+          merchantId: results.merchant_id,
+          merchantUsername: results.name
+        })
+      }
+    })
+  }
+
+
+  let postUserDetails = (request, response) => {
+    let values = [request.body.username, request.body.email]
+    // Query to check if the login details already exists
+    db.poolRoutes.getUserDetailsFX(values, (err, results) => {
+      // If the username already exists render the same login page
+      // If query returned nothing || if user registers with an empty username || if user register a password with no length
+      // Add @ email check here
+      if (results.length !== 0 || results.username.length == 0 || request.body.password.length == 0) {
+        response.send({})
+      } else {
+        values.push(sha256(`${request.body.password}`));
+        // If the username does not exists render the email input page and pass in object of user ID and user UN
+        db.poolRoutes.insertUserDetailsFX(values, (err, results2) => {
+          response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.user_id).toString())}`))
+          response.cookie("reference", (`${sha256((results2.user_id).toString())}`))
+          response.cookie("UID", results.user_id)
+          response.cookie("UUN", results.username)
+          response.send({
+            userId: results.user_id,
+            userName: results.username
+          })
+        })
+      }
+    })
+  }
+  let postMerchantDetails = (request, response) => {
+    let values = [request.body.name, request.body.email]
+    // Query to check if the login details already exists
+    db.poolRoutes.getMerchantDetailsFX(values, (err, results) => {
+      // If the merchant username already exists render the same login page
+      // If query returned nothing || if merchant registers with and empty name || if merchant register a password with no length
+      if (results.length !== 0 || results.name.length == 0 || request.body.password.length == 0) {
+        response.send({})
+      } else {
+        values.push(sha256(`${request.body.password}`));
+        // If the username does not exists render the email input page and pass in object of merchant ID and merchant UN
+        db.poolRoutes.insertMerchantDetailsFX(values, (err, results2) => {
+          response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.merchant_id).toString())}`))
+          response.cookie("reference", (`${sha256((results2.merchant_id).toString())}`))
+          response.cookie("MID", results.merchant_id)
+          response.cookie("MUN", results.name)
+          response.send({
+            merchantId: results.merchant_id,
+            merchantUsername: results.name
+          })
+        })
+      }
+    })
+  }
+
+  let logout = (request, response) => {
+    response.cookie("loggedIn", "")
+    response.cookie("reference", "")
+    response.cookie("UID", "")
+    response.cookie("MID", "")
+    response.cookie("UUD", "")
+    response.cookie("MUD", "")
+    // Clear all cookies and send empty object
+    response.send({})
+  }
+
+  let getTimeline = (request, response) => {
+
+    db.poolRoutes.getTimelineFX((err, result) => {
+      if (err) {
+        console.log("error at controllertimeline----", err.message);
+      } else {
+        let data = result.rows;
+        console.log(data, "--- hello from controller timeline")
+        response.send(data)
+      }
+    })
+  }
 
   let getDashboardMerchant = (request, response) => {
   }
@@ -201,18 +201,30 @@ let getTimeline = (request,response)=> {
     })
   }
 
-let getIndivShop = (request,response)=> {
+  let getOrderHistory = (request, response) => {
+    let { UID } = request.cookies
+    let values = [2]
+    db.poolRoutes.getOrderHistoryFX(values, (err, result) => {
+      if (err) {
+        console.log(err, "error at getorderhistory controller")
+      } else {
+        response.send(result)
+      }
+    })
+  }
+
+  let getIndivShop = (request, response) => {
     let values = [request.params.id];
-    db.poolRoutes.getIndivShopFX(values,(err,result)=>{
-        if(err){
-            console.log("error at controllerindivshop----", err.message);
-        } else{
-            let data = result.rows;
-            console.log(data,"--- hello from controllerindivShop")
-            response.send(data)
-        }
-        })
-}
+    db.poolRoutes.getIndivShopFX(values, (err, result) => {
+      if (err) {
+        console.log("error at controllerindivshop----", err.message);
+      } else {
+        let data = result.rows;
+        console.log(data, "--- hello from controllerindivShop")
+        response.send(data)
+      }
+    })
+  }
 
 
 
@@ -228,6 +240,7 @@ let getIndivShop = (request,response)=> {
     getToggleListing,
     getEditListing,
     getUpdateListing,
+    getOrderHistory,
 
     getUserLoginDetails,
     getMerchantLoginDetails,
