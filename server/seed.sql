@@ -33,19 +33,19 @@ INSERT INTO category (category_name) VALUES('hearty meals');
 
 
 INSERT INTO listing (item_name,unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
-  description) VALUES('Hawaiian Pizza',10,10,8,5,1,6,'Either you hate or u love');
+  description,time_limit_min) VALUES('Hawaiian Pizza',10,10,8,5,1,6,'Either you hate or u love',120);
 
 INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
-  description) VALUES('xiao long bao',20,10,15,10,3,5,'soupy dumplings');
+  description,time_limit_min) VALUES('xiao long bao',20,10,15,10,3,5,'soupy dumplings',120);
 
 INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
-  description) VALUES('Nuggets',5,10,4,2,5,1,'nuggets r life');
+  description,time_limit_min) VALUES('Nuggets',5,10,4,2,5,1,'nuggets r life',60);
 
 INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
-  description) VALUES('chicken chop',14,10,12,7,6,4,'a hearty chicken chop');
+  description,time_limit_min) VALUES('chicken chop',14,10,12,7,6,4,'a hearty chicken chop',180);
 
 INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
-  description) VALUES('Aburi Don',20,10,15,10,6,5,'feeling torchy');
+  description,time_limit_min) VALUES('Aburi Don',20,10,15,10,6,5,'feeling torchy',180);
 
 INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
-  description) VALUES('Salmon Soba',20,10,17,10,6,2,'for the health fanatic');
+  description,time_limit_min) VALUES('Salmon Soba',20,10,17,10,6,2,'for the health fanatic',60);
