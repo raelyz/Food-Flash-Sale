@@ -39,7 +39,9 @@ CREATE TABLE IF NOT EXISTS listing(
   category_id INTEGER,
   merchant_id INTEGER,
   description TEXT,
-  time_limit_min INTEGER
+  time_limit_min INTEGER,
+  live BOOLEAN
+
 );
 
 CREATE TABLE IF NOT EXISTS orders(

@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
+const cookieParser = require('cookie-parser');
 const pool = require("./db");
 const PORT = process.env.PORT || 5000;
 const path = require("path"); //native node
@@ -11,13 +11,14 @@ app.use(express.urlencoded({
     extended: true
 }))
 app.use(express.static(clientBuildPath))
+app.use(cookieParser())
 
-app.get("/", (request,response)=>{
-     response.sendFile(path.join(clientBuildPath, '/index.html'));
-})
-app.get("*",(request,response)=>{
-    response.sendFile(path.join(clientBuildPath, '/index.html'))
-})
+const allModels = require('./db');
+
+const setRoutesFunction = require('./routes');
+
+setRoutesFunction(app, allModels);
+
 
 app.listen(PORT, () => {
   console.log(`server has started on port ${PORT}`);
