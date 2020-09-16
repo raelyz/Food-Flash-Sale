@@ -12,7 +12,7 @@ const IndivListing = (props) => {
         <h4>{props.item_name}</h4>
         <p>quantity: {props.quantity}</p>
         <p>original price: {props.originalPrice}</p>
-        <p>discount: {props.discount}</p>
+        <p>discount: {props.discount*100}%</p>
         <p>Final Price: {props.discPrice}</p>
         <button value ={props.listing_id} name='add' onClick={(e)=>{
                     e.persist()

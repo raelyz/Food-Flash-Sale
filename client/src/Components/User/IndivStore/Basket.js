@@ -13,7 +13,7 @@ export default class Basket extends React.Component {
           <div>
           {cartItems.length> 0? <ul>{cartItems.map((item,index) =>{
             return <li key={index}>Item:{item.name}
-            x {item.count} Price: {item.price} <button
+            x {item.count/2} Price: {item.price} <button
             onClick={(e)=>{
                     e.persist()
                     this.props.handleRemoveFromCart(e,item)

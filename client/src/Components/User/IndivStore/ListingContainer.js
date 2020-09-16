@@ -26,6 +26,8 @@ export default class ListingContainer extends React.Component {
         this.handleRemoveFromCart = this.handleRemoveFromCart.bind(this)
 
     }
+
+//payment click handlling
 //delete from cart
 handleRemoveFromCart(e,item){
     this.setState(state=>{
