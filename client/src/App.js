@@ -4,11 +4,13 @@ import './App.css';
 
 export default class App extends React.Component {
 
+
     componentDidMount() {
+
         fetch('/timeline')
         .then(res=>res.text())
         .then(res=> console.log(res))
-    }
+            }
     render() {
 
       return (

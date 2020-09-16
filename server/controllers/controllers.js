@@ -56,7 +56,7 @@ module.exports = (db) => {
                     response.cookie("MID", results.merchant_id)
                     response.cookie("MUN", results.name)
                     response.send({
-                        marchantId: results.merchant_id,
+                        merchantId: results.merchant_id,
                         merchantUsername: results.name
                     })
                 }
@@ -106,7 +106,7 @@ module.exports = (db) => {
                     response.cookie("MID", results.merchant_id)
                     response.cookie("MUN", results.name)
                     response.send({
-                        marchantId: results.merchant_id,
+                        merchantId: results.merchant_id,
                         merchantUsername: results.name
                     })
                 })
