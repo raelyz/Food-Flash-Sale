@@ -5,9 +5,9 @@ import './App.css';
 export default class App extends React.Component {
 
     componentDidMount() {
-        fetch('/home')
-        .then(res=>res.json())
-        .then(res=>{console.log(res)})
+        fetch('/timeline')
+        .then(res=>res.text())
+        .then(res=> console.log(res))
     }
     render() {
 
