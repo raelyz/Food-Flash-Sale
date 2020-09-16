@@ -26,7 +26,6 @@ module.exports = (db) => {
     }
 
     let getUserLoginDetails=(request,response)=> {
-        // If request.body.username exists means its a user not a merchant
         let values = [ request.body.username, request.body.email, sha256(`${request.body.password}`) ]
             db.poolRoutes.getUserLoginDetailsFX(values, (err,results)=> {
                 // If username/password does not match with the DB|| username < 1 characters long || password < 1 characters long || email < 1 characters long
@@ -46,7 +45,6 @@ module.exports = (db) => {
             })
     }
     let getMerchantLoginDetails=(request,response)=> {
-        // If request.body.username exists means its a user not a merchant
         let values = [ request.body.name, request.body.email, sha256(`${request.body.password}`) ]
             db.poolRoutes.getMerchantLoginDetailsFX(values, (err,results)=> {
                 if(results.rows.length === 0 || request.body.name === 0 || request.body.password === 0 || request.body.email === 0) {
@@ -72,6 +70,7 @@ module.exports = (db) => {
         db.poolRoutes.getUserDetailsFX(values, (err,results)=> {
             // If the username already exists render the same login page
             // If query returned nothing || if user registers with an empty username || if user register a password with no length
+            // Add @ email check here
             if(results.length !== 0 || results.username.length == 0 || request.body.password.length == 0) {
                 response.send({})
             } else {
@@ -120,18 +119,122 @@ module.exports = (db) => {
         response.cookie("reference", "")
         response.cookie("UID", "")
         response.cookie("MID", "")
-
         response.cookie("UUD", "")
         response.cookie("MUD", "")
         // Clear all cookies and send empty object
         response.send({})
     }
+    
+let getTimeline = (request,response)=> {
+
+    db.poolRoutes.getTimelineFX((err,result)=>{
+        if(err){
+            console.log("error at controllertimeline----", err.message);
+        } else{
+            let data = result.rows;
+            console.log(data,"--- hello from controller timeline")
+            response.send(data)
+        }
+        })
+}
+
+  let getDashboardMerchant = (request, response) => {
+  }
+
+  let getNewListing = (request, response) => {
+    let { name, pw } = request.body
+    let values = [name, pw]
+    db.poolRoutes.getNewListingFX(values, (error, result) => {
+      if (error) {
+        console.log(error, 'error at getNewMerchant Controller')
+      } else {
+        response.send("registration successful!")
+      }
+    })
+  }
+
+  let getAllListing = (request, response) => {
+    let { merchant_id } = request.cookies
+    let values = [merchant_id]
+    db.poolRoutes.getAllListingFX(values, (error, result) => {
+      if (error) {
+        console.log(error, 'error at getAllListing Controller')
+      } else {
+        response.send(result)
+      }
+    })
+  }
+
+  let getToggleListing = (request, response) => {
+    let { toggle, listing_id } = request.body
+    let values = [toggle, listing_id]
+    db.poolRoutes.getToggleListingFX(values, (error, result) => {
+      if (error) {
+        console.log(error, `error at getActivateListing Controller`)
+      } else {
+        response.send("toggle successful")
+      }
+    })
+  }
+
+  let getEditListing = (request, response) => {
+    let { listing_id } = request.body
+    let values = [listing_id]
+    db.poolRoutes.getEditListingFX(values, (error, result) => {
+      if (error) {
+        console.log(error, `error at geteditlisting controller`)
+      } else {
+        response.send(result)
+      }
+    })
+  }
+
+  let getUpdateListing = (request, response) => {
+    let { item_name, unit_price, quantity, price_ceiling, price_floor, category_id, merchant_id, description, time_limit_min, live, listing_id } = request.body
+    let values = [item_name, unit_price, quantity, price_ceiling, price_floor, category_id, merchant_id, description, time_limit_min, live, listing_id]
+    db.poolRoutes.getUpdateListingFX(values, (error, result) => {
+      if (error) {
+        console.log(error, `erroratgetupdatelisting controlelr`)
+      } else {
+        response.send("update successful!")
+      }
+    })
+  }
+
+let getIndivShop = (request,response)=> {
+    let values = [request.params.id];
+    db.poolRoutes.getIndivShopFX(values,(err,result)=>{
+        if(err){
+            console.log("error at controllerindivshop----", err.message);
+        } else{
+            let data = result.rows;
+            console.log(data,"--- hello from controllerindivShop")
+            response.send(data)
+        }
+        })
+}
+
+
+
+
   return {
     getHome,
+    getLoginDetails,
+    getTimeline,
+    getIndivShop,
+    
+    getDashboardMerchant,
+    getNewListing,
+    getAllListing,
+    getToggleListing,
+    getEditListing,
+    getUpdateListing,
+    
     getUserLoginDetails,
     getMerchantLoginDetails,
     postUserDetails,
     postMerchantDetails,
     logout
+
   };
 }
