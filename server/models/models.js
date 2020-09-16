@@ -98,14 +98,14 @@ module.exports = (dbPoolInstance) => {
     let getTimelineFX =(callback) =>{
     let query ="select * from merchant inner join listing on merchant.merchant_id = listing.merchant_id where live=true";
     dbPoolInstance.query(query,(err,result)=>{
-        console.log(result.rows,"---from models")
+        console.log(result,"---from models")
         callback(err,result)
 
     })
   }
 
   let getIndivShopFX  =(values,callback) =>{
-    let query ="select * from listing where listing.merchant_id = $1";
+    let query ="select * from listing inner join merchant on listing.merchant_id = merchant.merchant_id and merchant.merchant_id = $1";
     dbPoolInstance.query(query,values,(err,result)=>{
         console.log(result,"---from modelsindiv shop")
         callback(err,result)
@@ -132,7 +132,7 @@ module.exports = (dbPoolInstance) => {
 
 
   let getAllListingFX = (values, callback) => {
-    let query = `SELECT * FROM LISTING WHERE MERCHANT_ID = $1`
+    let query = `SELECT * FROM LISTING WHERE MERCHANT_ID = $1 `
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) {
         console.log(err, `error in getAllListing Models`)
@@ -202,7 +202,7 @@ module.exports = (dbPoolInstance) => {
     getLoginDetailsFX,
     getTimelineFX,
     getIndivShopFX,
-    
+
     getUserLoginDetailsFX,
     getMerchantLoginDetailsFX,
 
