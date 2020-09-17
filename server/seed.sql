@@ -30,7 +30,6 @@
 
 
 INSERT INTO listing (item_name,unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
-
   description,time_limit_min,live,time) VALUES('Hawaiian Pizza',10,10,8,5,1,6,'Either you hate or u love',120,true,current_timestamp);
 
 INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
@@ -48,9 +47,11 @@ INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,ca
 INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
   description,time_limit_min,live,time) VALUES('Salmon Soba',20,10,17,10,6,2,'for the health fanatic',60,true,current_timestamp);
 
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES('1',1,5,5,5);
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES('1',1,5,5,5);
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES('1',1,5,5,5);
+
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(1,1,5,5,5);
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(1,1,5,5,5);
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(1,1,5,5,5);
+
 
 -- INSERT INTO receipt (user_id,merchant_id) VALUES(2,6);
 -- INSERT INTO receipt (user_id,merchant_id) VALUES(2,6);

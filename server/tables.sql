@@ -38,8 +38,8 @@ CREATE TABLE IF NOT EXISTS listing(
   merchant_id INTEGER,
   description TEXT,
   time_limit_min INTEGER,
-  live BOOLEAN,
-  time TIMESTAMP
+  live BOOLEAN DEFAULT false,
+  time TIMESTAMP NULL DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS orders(

@@ -99,7 +99,7 @@ module.exports = (dbPoolInstance) => {
   let getTimelineFX = (callback) => {
     let query = "select * from merchant inner join listing on merchant.merchant_id = listing.merchant_id where live=true";
     dbPoolInstance.query(query, (err, result) => {
-      console.log(result.rows, "---from models")
+      // console.log(result.rows, "---from models")
       callback(err, result)
 
 
@@ -126,7 +126,7 @@ module.exports = (dbPoolInstance) => {
     let query = `INSERT INTO listing (item_name,unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,description) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) {
-        console.log(err, `error in getNewMerchant Models`)
+        console.log(err, `error in getNewListing Models`)
         callback(err, null)
       } else {
         callback(null, null)
@@ -152,7 +152,7 @@ module.exports = (dbPoolInstance) => {
   }
 
   let getToggleListingFX = (values, callback) => {
-    let query = `update TABLE LISTING set live = $1, time = CURRENT_TIMESTAMP where listing_id = $2`
+    let query = `update LISTING set live = $1, time = CURRENT_TIMESTAMP where listing_id = $2`
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) {
         console.log(err, `error in gettogglelistingfx`)
