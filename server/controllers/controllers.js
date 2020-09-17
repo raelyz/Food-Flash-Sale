@@ -190,8 +190,8 @@ module.exports = (db) => {
   }
 
   let getUpdateListing = (request, response) => {
-    let { item_name, unit_price, quantity, price_ceiling, price_floor, category_id, merchant_id, description, time_limit_min, live, listing_id } = request.body
-    let values = [item_name, unit_price, quantity, price_ceiling, price_floor, category_id, merchant_id, description, time_limit_min, live, listing_id]
+    let { item_name, unit_price, quantity, price_ceiling, price_floor, category_id, merchant_id, description, time_limit_min, listing_id } = request.body
+    let values = [item_name, unit_price, quantity, price_ceiling, price_floor, category_id, description, listing_id]
     db.poolRoutes.getUpdateListingFX(values, (error, result) => {
       if (error) {
         console.log(error, `erroratgetupdatelisting controlelr`)

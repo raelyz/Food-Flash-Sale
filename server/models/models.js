@@ -184,7 +184,7 @@ module.exports = (dbPoolInstance) => {
   }
 
   let getUpdateListingFX = (values, callback) => {
-    let query = `update listing set item_name = $1, unit_price = $2, quantity = $3, price_ceiling =$4, price_floor = $5, category_id = $6, description = $8 where listing_id = $9`
+    let query = `update listing set item_name = $1, unit_price = $2, quantity = $3, price_ceiling =$4, price_floor = $5, category_id = $6, description = $7 where listing_id = $8`
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) {
         console.log(err, `error in getUpdatListingFX`)
