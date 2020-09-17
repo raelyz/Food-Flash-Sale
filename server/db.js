@@ -22,7 +22,10 @@ if (process.env.DATABASE_URL) {
   configs = {
     user: 'postgres',
     host: '127.0.0.1',
+
+
     database: 'project2',
+
     port: 5432
   };
 }
