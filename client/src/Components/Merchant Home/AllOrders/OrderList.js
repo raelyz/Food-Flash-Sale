@@ -16,6 +16,11 @@ class OrderList extends React.Component {
         this.format = this.format.bind(this);
     }
 
+//set state with props from parent: SEARCH
+    static getDerivedStateFromProps(nextProps,prevState) {
+        //mounting
+        return { sort: nextProps.sort}
+    }
 
     componentDidMount() {
         //mounting
@@ -24,10 +29,10 @@ class OrderList extends React.Component {
         .then(res => res.json())
         .then(res => {
             if(res.length < 1){
-                this.setState({html: 'No matching search results. try another term?'})
+                this.setState({html: 'You have no orders yet'})
             } else {
                 let formattedResult = this.format(res);
-                this.setState({result: res, html:formattedResult})
+                this.setState({ordersResult: res, html:formattedResult})
             }
         })
         .catch(error => {
@@ -35,6 +40,16 @@ class OrderList extends React.Component {
     });
     }
     }
+
+    //force the page to re-render
+    componentDidUpdate (prevProps) {
+        if(prevProps.sort !== this.props.sort){
+            this.sortMe(this.state.ordersResult, this.state.sort)
+            let sortedhtml = this.format(this.state.ordersResult);
+            this.setState({html: sortedhtml})
+        }
+    }
+
 
 //take the res.json and convert into nice HTML
 format(array) {
@@ -49,6 +64,28 @@ format(array) {
         return <IndivOrder order_id={order_id} price={price} quantity={quantity} name={name} date={date} revenue ={revenue}  key={index} />
     })
 }
+
+   // sorts results based on selected category
+
+sortMe(array,category){
+    switch(category){
+        case "name":
+        array.sort((a,b)=>{
+            return(b.item_name > a.item_name) ? 1: -1
+        })
+        break;
+    case "revenue":
+        array.sort((a,b)=>{
+            return(b.revenue > a.revenue) ? 1: -1
+        })
+        break;
+
+    default:
+            return array;
+
+    }
+}
+
 
     render(){
         return (
