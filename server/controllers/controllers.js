@@ -290,7 +290,7 @@ let postSubmitReceiptOrder = (request,response)=> {
   }
 
   let getMerchantOrders = (request, response) => {
-    let values = [request.body.merchant_id]
+    let values = [request.params.id]
 
     db.poolRoutes.getMerchantOrdersFX(values, (err, result) => {
       if (err) {

@@ -8,10 +8,10 @@ class OrderListContainer extends React.Component {
     constructor(props) {
         super(props)
         this.state ={
-            display: true,
-            realDisplay = this.props.realDisplay, //for integration
+            display: true
+            // realDisplay :this.props.realDisplay, //for integration
         }
-        this.format = this.format.bind(this);
+
     }
 //set state with props from parent: SEARCH
     static getDerivedStateFromProps(nextProps,prevState) {
@@ -25,7 +25,7 @@ class OrderListContainer extends React.Component {
             if(this.state.display) {
                 return(
                     <div>
-                    <OrderList/>
+                    <OrderList display={this.state.display}/>
                     </div>
                     )
 

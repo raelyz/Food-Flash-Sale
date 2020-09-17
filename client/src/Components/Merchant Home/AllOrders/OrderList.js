@@ -20,13 +20,7 @@ class OrderList extends React.Component {
     componentDidMount() {
         //mounting
         if(this.props.display) {
-        fetch("/getMerchantOrders",{
-            method:'GET',
-            headers: {
-                'Content-Type':'application/json'
-            },
-            body: JSON.stringify({merchant_id: this.state.merchant_id})
-        })
+        fetch("/merchantorders/"+this.state.merchant_id)
         .then(res => res.json())
         .then(res => {
             if(res.length < 1){

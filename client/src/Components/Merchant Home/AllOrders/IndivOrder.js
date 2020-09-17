@@ -3,7 +3,7 @@ import React from 'react';
 
 const IndivOrder = (props) => {
     return (
-<IndivOrder order_id={order_id} price={price} quantity={quantity} name={name} date={date} revenue ={revenue}  key={index} />
+
 
 
         <div className="IndivOrder">

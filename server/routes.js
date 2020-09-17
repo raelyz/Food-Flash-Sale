@@ -26,7 +26,7 @@ module.exports = (app, allModels) => {
     app.get('/indivshop/:id',controllerCallbacks.getIndivShop)
     app.post('/submitOrder',controllerCallbacks.postSubmitReceiptOrder)
     //get all orders for merchant
-    app.get('/merchantorders',controllerCallbacks.getMerchantOrders)
+    app.get('/merchantorders/:id',controllerCallbacks.getMerchantOrders)
 
 
 
