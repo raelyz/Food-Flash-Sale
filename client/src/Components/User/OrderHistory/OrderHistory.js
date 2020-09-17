@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import OrderDetails from './OrderDetails/OrderDetails'
 
 
 export default class OrderHistory extends Component {
@@ -19,19 +20,23 @@ export default class OrderHistory extends Component {
             }))
     }
 
-    componentWillUnmount() {
-        this.setState({
-            fetch: false
-        })
-    }
+    // componentWillUnmount() {
+    //     this.setState({
+    //         fetch: false
+    //     })
+    // }
     render() {
 
         const orderHistory = this.state.orderHistory.map((orderHistory, index) => {
             return (<div>
                 <div key={index}>{orderHistory.receipt_id}
                     {orderHistory.name} {orderHistory.cuisine}</div>
-                <button onClick={(e) => { }}
-                />
+                <OrderDetails receipt_id={orderHistory.receipt_id} />
+                <button onClick={(e) => {
+                    e.persist()
+                    e.preventDefault()
+                }}
+                >Order Again</button>
             </div>)
         })
 
