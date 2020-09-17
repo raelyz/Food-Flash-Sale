@@ -3,6 +3,7 @@ module.exports = (app, allModels) => {
   const controllerCallbacks = require('./controllers/controllers')(allModels);
 
 
+
   app.get("/home", controllerCallbacks.getHome);
   app.get("/home/login/user", controllerCallbacks.getUserLoginDetails);
   app.get("/home/login/merchant", controllerCallbacks.getMerchantLoginDetails);
@@ -22,5 +23,6 @@ module.exports = (app, allModels) => {
   //get indiv shop for users : all listings in merchant
   app.get('/indivshop/:id', controllerCallbacks.getIndivShop)
   app.post('/submitOrder',controllerCallbacks.postSubmitReceiptOrder)
-  
+  app.get('/merchantorders/:id',controllerCallbacks.getMerchantOrders)
+
 };

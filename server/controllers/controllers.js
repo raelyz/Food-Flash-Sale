@@ -192,8 +192,8 @@ module.exports = (db) => {
   }
 
   let getUpdateListing = (request, response) => {
-    let { item_name, unit_price, quantity, price_ceiling, price_floor, category_id, merchant_id, description, time_limit_min, live, listing_id } = request.body
-    let values = [item_name, unit_price, quantity, price_ceiling, price_floor, category_id, merchant_id, description, time_limit_min, live, listing_id]
+    let { item_name, unit_price, quantity, price_ceiling, price_floor, category_id, merchant_id, description, time_limit_min, listing_id } = request.body
+    let values = [item_name, unit_price, quantity, price_ceiling, price_floor, category_id, description, listing_id]
     db.poolRoutes.getUpdateListingFX(values, (error, result) => {
       if (error) {
         console.log(error, `erroratgetupdatelisting controlelr`)
@@ -291,9 +291,24 @@ let postSubmitReceiptOrder = (request,response)=> {
     })
   }
 
+
+  let getMerchantOrders = (request, response) => {
+    let values = [request.params.id]
+
+    db.poolRoutes.getMerchantOrdersFX(values, (err, result) => {
+      if (err) {
+        console.log(err, `err at getMerchant Orderscontroller`)
+      } else {
+        response.json(result.rows)
+      }
+    })
+  }
+
+
   let helpme = (request, response) => {
     response.send("help la")
   }
+
 
 
 
@@ -317,7 +332,8 @@ let postSubmitReceiptOrder = (request,response)=> {
     postUserDetails,
     postMerchantDetails,
     logout,
-    postSubmitReceiptOrder
+    postSubmitReceiptOrder,
+    getMerchantOrders
 
   };
 }
