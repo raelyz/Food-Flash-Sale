@@ -123,7 +123,7 @@ module.exports = (dbPoolInstance) => {
   }
 
   let getNewListingFX = (values, callback) => {
-    let query = `INSERT INTO listing (item_name,unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,description) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`
+    let query = `INSERT INTO listing (item_name,unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,description,time_limit_min) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) {
         console.log(err, `error in getNewListing Models`)
