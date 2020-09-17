@@ -132,7 +132,7 @@ module.exports = (db) => {
         console.log("error at controllertimeline----", err.message);
       } else {
         let data = result.rows;
-        console.log(data, "--- hello from controller timeline")
+        // console.log(data, "--- hello from controller timeline")
         response.send(data)
       }
     })
@@ -142,19 +142,21 @@ module.exports = (db) => {
   }
 
   let getNewListing = (request, response) => {
-    let { name, pw } = request.body
-    let values = [name, pw]
+    console.log('im here!')
+    console.log(request.body)
+    let { item_name, unit_price, quantity, price_ceiling, price_floor, description, time_limit_min, merchant_id } = request.body
+    let values = [item_name, unit_price, quantity, price_ceiling, price_floor, description, time_limit_min, merchant_id]
     db.poolRoutes.getNewListingFX(values, (error, result) => {
       if (error) {
-        console.log(error, 'error at getNewMerchant Controller')
+        console.log(error, 'error at getNewListing Controller')
       } else {
-        response.send("registration successful!")
+        response.sendStatus(200)
       }
     })
   }
 
   let getAllListing = (request, response) => {
-    let { merchant_id } = request.cookies
+    let merchant_id = request.params.id
     let values = [merchant_id]
     db.poolRoutes.getAllListingFX(values, (error, result) => {
       if (error) {
@@ -166,8 +168,8 @@ module.exports = (db) => {
   }
 
   let getToggleListing = (request, response) => {
-    let { toggle, listing_id } = request.body
-    let values = [toggle, listing_id]
+    let { boolean, listing_id } = request.body
+    let values = [boolean, listing_id]
     db.poolRoutes.getToggleListingFX(values, (error, result) => {
       if (error) {
         console.log(error, `error at getActivateListing Controller`)
@@ -289,6 +291,7 @@ let postSubmitReceiptOrder = (request,response)=> {
     })
   }
 
+
   let getMerchantOrders = (request, response) => {
     let values = [request.params.id]
 
@@ -299,6 +302,11 @@ let postSubmitReceiptOrder = (request,response)=> {
         response.json(result.rows)
       }
     })
+  }
+
+
+  let helpme = (request, response) => {
+    response.send("help la")
   }
 
 
@@ -317,6 +325,7 @@ let postSubmitReceiptOrder = (request,response)=> {
     getUpdateListing,
     getOrderHistory,
     getReceiptListing,
+    helpme,
 
     getUserLoginDetails,
     getMerchantLoginDetails,
