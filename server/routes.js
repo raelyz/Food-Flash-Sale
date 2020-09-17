@@ -23,6 +23,7 @@ module.exports = (app, allModels) => {
     app.get('/timeline', controllerCallbacks.getTimeline)
     //get indiv shop for users : all listings in merchant
     app.get('/indivshop/:id',controllerCallbacks.getIndivShop)
+    app.post('/submitOrder',controllerCallbacks.postSubmitReceiptOrder)
 
 
 };

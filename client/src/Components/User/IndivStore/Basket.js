@@ -17,9 +17,10 @@ export default class Basket extends React.Component {
             onClick={(e)=>{
                     e.persist()
                     this.props.handleRemoveFromCart(e,item)
-
                 }}>
-            Delete</button></li>
+            Delete</button>
+
+                </li>
         })}</ul> : <div>Start adding items!</div>}
             </div>
             </>

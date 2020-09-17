@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/exhlim/SEI-24-Project-3/issues"
   },
-  "homepage": "https://github.com/exhlim/SEI-24-Project-3#readme"
+  "homepage": "https://github.com/exhlim/SEI-24-Project-3#readme",
+  "dependencies": {
+    "axios": "^0.20.0"
+  }
 }

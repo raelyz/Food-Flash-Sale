@@ -214,6 +214,56 @@ let getIndivShop = (request,response)=> {
         })
 }
 
+let postSubmitReceiptOrder = (request,response)=> {
+    let checked= false;
+    let checkValue =[request.body.listing_id];
+    let values = [1,request.body.merchant_id]
+    console.log(checkValue,"----this is from checkValue");
+    db.poolRoutes.checkInventoryFX(checkValue,(err,result)=>{
+        if(err){
+            console.log("error at controllerCheckInventory----", err.message);
+        } else{
+            (result.rows[0].quantity > checkValue[0]? checked=true: checked=false)
+            let inventoryQuantity = result.rows[0].quantity;
+            console.log(checked)
+            if(checked){
+        db.poolRoutes.postSubmitReceiptFX(values,(err,res)=>{
+        if(err){
+            console.log("error at controllerSubmitReceipt----", err.message);
+        } else{
+            console.log(res.rows)
+            let receipt_id = res.rows[0].receipt_id;
+            let value = [receipt_id, request.body.listing_id,request.body.price,request.body.quantity,request.body.revenue];
+            db.poolRoutes.postSubmitOrderFX(value,(err,ress)=>{
+                if(err){
+                    console.log(err.message,"---error at order")
+                } else {
+                    console.log(ress.rows)
+                    let quantity = inventoryQuantity - request.body.quantity
+                    let valuez = [quantity, request.body.listing_id]
+                    db.poolRoutes.depleteInventoryFX(valuez,(err,rez)=>{
+                        if(err){
+                            console.log(err.message, "---error at updateinvenyory")
+                        } else{
+                            console.log(rez.rows)
+                        }
+                    })
+                }
+            })
+
+
+        }
+    })
+
+    }
+        }
+    })
+
+}
+
+
+// handle payment failure!!!!!!!!!!! if payment fails, add back into inventory
+
 
 
 
@@ -233,7 +283,8 @@ let getIndivShop = (request,response)=> {
     getMerchantLoginDetails,
     postUserDetails,
     postMerchantDetails,
-    logout
+    logout,
+    postSubmitReceiptOrder
 
   };
 }

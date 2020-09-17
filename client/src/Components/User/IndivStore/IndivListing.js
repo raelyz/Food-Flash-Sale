@@ -3,7 +3,7 @@ import React from 'react';
 
 const IndivListing = (props) => {
 
-    const addToCart = {name:props.item_name,price: props.discPrice} ;
+    const addToCart = {name:props.item_name,price: props.discPrice,merchant_id:props.merchant_id, listing_id:props.listing_id} ;
 
     return (
 

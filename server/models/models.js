@@ -191,6 +191,42 @@ module.exports = (dbPoolInstance) => {
     })
   }
 
+ let postSubmitReceiptFX  = (values,callback) => {
+    let query = "INSERT INTO receipt (user_id,merchant_id) VALUES($1,$2) RETURNING *"
+    dbPoolInstance.query(query,values,(err,result)=>{
+        console.log(result,"---from models")
+        callback(err,result)
+    })
+  }
+
+  let postSubmitOrderFX = (value,callback) => {
+    let query = "INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES($1,$2,$3,$4,$5) returning *"
+    dbPoolInstance.query(query,value,(err,result)=>{
+        console.log(result,"---from models")
+        callback(err,result)
+
+    })
+  }
+
+let checkInventoryFX = (checkValue,callback) => {
+    let query = "SELECT quantity from listing where listing_id = $1"
+    dbPoolInstance.query(query,checkValue,(err,result)=>{
+        console.log(result,"---from models")
+        callback(err,result)
+
+    })
+  }
+
+  let depleteInventoryFX =(depletedValue, callback) => {
+
+    let query = "UPDATE listing set quantity = $1 where listing_id =$2 RETURNING *"
+    dbPoolInstance.query(query,depletedValue,(err,result)=>{
+        console.log(result,"---from models")
+        callback(err,result)
+
+    })
+  }
+
 
   return {
     getDashboardMerchantFX,
@@ -210,6 +246,12 @@ module.exports = (dbPoolInstance) => {
     insertMerchantDetailsFX,
 
     getUserDetailsFX,
-    getMerchantDetailsFX
+    getMerchantDetailsFX,
+
+    postSubmitReceiptFX,
+    postSubmitOrderFX,
+
+    checkInventoryFX,
+    depleteInventoryFX,
   };
 };

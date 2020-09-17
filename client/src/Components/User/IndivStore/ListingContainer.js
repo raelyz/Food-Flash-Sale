@@ -1,6 +1,7 @@
 import React from 'react';
 import IndivListing from './IndivListing';
 import Basket from './Basket';
+import PaymentOverlay from './PaymentOverlay';
 
 
 
@@ -17,17 +18,31 @@ export default class ListingContainer extends React.Component {
             html: [],
             result: [],
             cart: [],
-            viewCart: false
+            viewCart: false,
+            checkout: false
         }
 
         this.addToCart = this.addToCart.bind(this);
         this.navigateTo = this.navigateTo.bind(this)
         this.handleAddToCart = this.handleAddToCart.bind(this)
-        this.handleRemoveFromCart = this.handleRemoveFromCart.bind(this)
+        this.handleRemoveFromCart = this.handleRemoveFromCart.bind(this);
+        this.handleCheckOut = this.handleCheckOut.bind(this)
 
     }
+//
+
+
+
 
 //payment click handlling
+handleCheckOut(){
+    this.setState({checkout: true})
+
+}
+
+
+
+
 //delete from cart
 handleRemoveFromCart(e,item){
     this.setState(state=>{
@@ -44,6 +59,7 @@ addToCart(e,addToCart){
     this.setState((prevState)=>
         ({cart:[...prevState.cart,addToCart]}))
 }
+
 
 // view cart button
 navigateTo(){
@@ -67,6 +83,7 @@ handleAddToCart(e,product){
         }
         localStorage.setItem("cart",JSON.stringify(cart));
         return cart;
+        console.log(this.state.cart)
     })
 }
 
@@ -79,6 +96,15 @@ handleAddToCart(e,product){
         .then(res =>
                 this.setState({result: res, html:this.format(res),merchant_name: res[0].name})
         )
+    }
+
+
+//update and re-render once checkout is clicked and this.state.checkout=true;
+
+componentDidUpdate (prevProps,prevState) {
+        if(prevState.checkout !== this.state.checkout){
+            return <PaymentOverlay/>
+        }
     }
 
 
@@ -97,25 +123,34 @@ format(array) {
         let merchant_name = item.name;
         let cuisine = item.cuisine;
         let listing_id = item.listing_id;
+        let merchant_id =item.merchant_id
 
         return <div key={index}>
-        <IndivListing item_name={item_name} quantity={quantity} discPrice ={discPrice} originalPrice={originalPrice} discPrice={discPrice}discount={discount} merchant_name={merchant_name} cuisine={cuisine}  onClick ={this.handleAddToCart}/>
+        <IndivListing item_name={item_name} quantity={quantity} discPrice ={discPrice} originalPrice={originalPrice} discPrice={discPrice}discount={discount} merchant_name={merchant_name} cuisine={cuisine}  onClick ={this.handleAddToCart} listing_id={listing_id} merchant_id={merchant_id}/>
 
         </div>
     })
 }
 
 
-
-
     render(){
 
+        if(this.state.checkout){
+            return (
+            <div><PaymentOverlay cart={this.state.cart}/></div>
 
-        if(this.state.viewCart){
+            )
+        }
+
+
+
+
+       if(this.state.viewCart){
             return (
             <div>
             <Basket cart={this.state.cart} handleRemoveFromCart={this.handleRemoveFromCart}/>
             <button onClick={this.navigateTo}>View Cart {this.state.cart.length}</button>
+            <button onClick={this.handleCheckOut}>checkout</button>
                 <h1>You are viewing deals from {this.state.merchant_name}</h1>
                 <br/>
 

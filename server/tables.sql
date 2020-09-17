@@ -1,5 +1,3 @@
-
-
 CREATE TABLE IF NOT EXISTS users(
   user_id SERIAL PRIMARY KEY,
   username TEXT,
@@ -40,7 +38,8 @@ CREATE TABLE IF NOT EXISTS listing(
   merchant_id INTEGER,
   description TEXT,
   time_limit_min INTEGER,
-  live BOOLEAN
+  live BOOLEAN,
+  time TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS orders(
