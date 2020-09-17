@@ -1,6 +1,7 @@
 const db = require("../db");
 
 module.exports = (dbPoolInstance) => {
+
   let getUserLoginDetailsFX = (value, callback) => {
     let query = `SELECT * FROM users WHERE username=$1 AND email=$2 AND password=$3`
     dbPoolInstance.query(query, value, (err, result) => {
@@ -101,14 +102,17 @@ module.exports = (dbPoolInstance) => {
       // console.log(result.rows, "---from models")
       callback(err, result)
 
+
     })
   }
 
-  let getIndivShopFX = (values, callback) => {
-    let query = "select * from listing where listing.merchant_id = $1";
-    dbPoolInstance.query(query, values, (err, result) => {
-      console.log(result, "---from modelsindiv shop")
-      callback(err, result)
+
+  let getIndivShopFX  =(values,callback) =>{
+    let query ="select * from listing inner join merchant on listing.merchant_id = merchant.merchant_id and merchant.merchant_id = $1";
+    dbPoolInstance.query(query,values,(err,result)=>{
+        console.log(result,"---from modelsindiv shop")
+        callback(err,result)
+
     })
   }
 
@@ -132,7 +136,7 @@ module.exports = (dbPoolInstance) => {
 
 
   let getAllListingFX = (values, callback) => {
-    let query = `SELECT * FROM LISTING WHERE MERCHANT_ID = $1`
+    let query = `SELECT * FROM LISTING WHERE MERCHANT_ID = $1 `
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) {
         console.log(err, `error in getAllListing Models`)
@@ -191,6 +195,44 @@ module.exports = (dbPoolInstance) => {
     })
   }
 
+
+ let postSubmitReceiptFX  = (values,callback) => {
+    let query = "INSERT INTO receipt (user_id,merchant_id) VALUES($1,$2) RETURNING *"
+    dbPoolInstance.query(query,values,(err,result)=>{
+        console.log(result,"---from models")
+        callback(err,result)
+    })
+  }
+
+  let postSubmitOrderFX = (value,callback) => {
+    let query = "INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES($1,$2,$3,$4,$5) returning *"
+    dbPoolInstance.query(query,value,(err,result)=>{
+        console.log(result,"---from models")
+        callback(err,result)
+
+    })
+  }
+
+let checkInventoryFX = (checkValue,callback) => {
+    let query = "SELECT quantity from listing where listing_id = $1"
+    dbPoolInstance.query(query,checkValue,(err,result)=>{
+        console.log(result,"---from models")
+        callback(err,result)
+
+    })
+  }
+
+  let depleteInventoryFX =(depletedValue, callback) => {
+
+    let query = "UPDATE listing set quantity = $1 where listing_id =$2 RETURNING *"
+    dbPoolInstance.query(query,depletedValue,(err,result)=>{
+        console.log(result,"---from models")
+        callback(err,result)
+
+    })
+  }
+
+
   let getOrderHistoryFX = (values, callback) => {
     let query = `select * from receipt INNER JOIN merchant on receipt.merchant_id = merchant.merchant_id where user_id=$1 ORDER BY receipt_id ASC`;
     dbPoolInstance.query(query, values, (err, result) => {
@@ -202,6 +244,7 @@ module.exports = (dbPoolInstance) => {
       }
     })
   }
+
 
   let getReceiptListingFX = (values, callback) => {
     let query = `select * from orders where receipt_id=$1`
@@ -225,7 +268,10 @@ module.exports = (dbPoolInstance) => {
     getLoginDetailsFX,
     getTimelineFX,
     getIndivShopFX,
+
+
     getReceiptListingFX,
+
 
     getUserLoginDetailsFX,
     getMerchantLoginDetailsFX,
@@ -234,6 +280,12 @@ module.exports = (dbPoolInstance) => {
     insertMerchantDetailsFX,
 
     getUserDetailsFX,
-    getMerchantDetailsFX
+    getMerchantDetailsFX,
+
+    postSubmitReceiptFX,
+    postSubmitOrderFX,
+
+    checkInventoryFX,
+    depleteInventoryFX,
   };
 };
