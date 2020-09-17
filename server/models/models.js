@@ -257,6 +257,18 @@ let checkInventoryFX = (checkValue,callback) => {
       }
     })
   }
+
+
+  let getMerchantOrdersFX =(values,callback) =>{
+    let query ="SELECT * from orders inner join listing on orders.listing_id =listing.listing_id where listing.merchant_id=$1";
+    dbPoolInstance.query(query,values,(err,result)=>{
+        console.log(result,"---from models merchant orders")
+        callback(err,result)
+
+    })
+  }
+
+
   return {
     getDashboardMerchantFX,
     getNewListingFX,
@@ -287,5 +299,6 @@ let checkInventoryFX = (checkValue,callback) => {
 
     checkInventoryFX,
     depleteInventoryFX,
+    getMerchantOrdersFX
   };
 };

@@ -2,9 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import TimeLine from './Components/User/TimeLine/TimeLine';
-import OrderHistory from './Components/User/OrderHistory/OrderHistory'
-import Login from './Components/User/HomeLogin/Login'
+
+import OrderListContainer from './Components/Merchant Home/AllOrders/OrderListComponent';
+
 export default class App extends React.Component {
 
 
@@ -18,9 +18,8 @@ export default class App extends React.Component {
 
         return (
             <div className="App">
-                <Login />
-                <TimeLine />
-                <OrderHistory />
+
+                <OrderListContainer />
 
             </div>
         );

@@ -15,6 +15,7 @@ module.exports = (app, allModels) => {
 
     app.get('/dashboard/merchant', controllerCallbacks.getDashboardMerchant)
     app.post('/newListing', controllerCallbacks.getNewListing)
+
     app.get('/all/listing', controllerCallbacks.getAllListing)
     app.post('/togglelisting', controllerCallbacks.getToggleListing)
     app.get('/editlisting', controllerCallbacks.getEditListing)
@@ -24,6 +25,8 @@ module.exports = (app, allModels) => {
     //get indiv shop for users : all listings in merchant
     app.get('/indivshop/:id',controllerCallbacks.getIndivShop)
     app.post('/submitOrder',controllerCallbacks.postSubmitReceiptOrder)
+    //get all orders for merchant
+    app.get('/merchantorders',controllerCallbacks.getMerchantOrders)
 
 
 

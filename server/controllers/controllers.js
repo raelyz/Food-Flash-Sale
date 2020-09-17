@@ -289,6 +289,18 @@ let postSubmitReceiptOrder = (request,response)=> {
     })
   }
 
+  let getMerchantOrders = (request, response) => {
+    let values = [request.body.merchant_id]
+
+    db.poolRoutes.getMerchantOrdersFX(values, (err, result) => {
+      if (err) {
+        console.log(err, `err at getMerchant Orderscontroller`)
+      } else {
+        response.json(result.rows)
+      }
+    })
+  }
+
 
 
 
@@ -311,7 +323,8 @@ let postSubmitReceiptOrder = (request,response)=> {
     postUserDetails,
     postMerchantDetails,
     logout,
-    postSubmitReceiptOrder
+    postSubmitReceiptOrder,
+    getMerchantOrders
 
   };
 }
