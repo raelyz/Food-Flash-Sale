@@ -15,7 +15,11 @@ import MercNavbar from './Components/Merchant Home/Navbar/Navbar'
 import MercHome from './Components/Merchant Home/Home'
 import MerchFooter from './Components/Merchant Home/Footer/Footer'
 
+import GeoLocation from './Components/User/GeoLocation/GeoLocation';
+
+
 const stripper = process.env.REACT_APP_PUBLISHABLE_KEY
+
 
 export default class App extends React.Component {
     constructor() {
@@ -149,6 +153,7 @@ export default class App extends React.Component {
                         onRegistered={this.onRegistered}
                         onLogin={this.onLogin}
                         />
+                        <GeoLocation />
                         <Footer />
                     </div>
                 );
