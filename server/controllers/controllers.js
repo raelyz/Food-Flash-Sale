@@ -9,18 +9,24 @@ let reference = "";
 module.exports = (db) => {
   let getHome = (request, response) => {
     if (!request.cookies['loggedIn']) {
-        console.log("no cookies found")
       response.send({})
     } else {
-        console.log("inside cookies")
       let reference = request.cookies['reference']
       let cookieValue = request.cookies['loggedIn']
       if (cookieValue === sha256(`true${SALT}-${reference}`)) {
         // Add conditional statement in App.js, where if App.js received something render the timeline page instead using the cookies
-        response.send({
-          userId: response.cookie.user_id,
-          userName: response.cookie.username
-        })
+        if(request.cookies['UID'] && request.cookies['UUN']) {
+            response.send({
+              userId: request.cookies['UID'],
+              userName: request.cookies['UUN']
+            })
+        }
+        if(request.cookies['MID'] && request.cookies['MUN']) {
+            response.send({
+              merchantId: request.cookies['MID'],
+              merchantUsername: request.cookies['MUN']
+            })
+        }
       }
     }
   }
@@ -32,11 +38,11 @@ module.exports = (db) => {
       if (results.rows.length === 0) {
         response.send({})
       } else {
-        response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].user_id).toString())}`))
-        response.cookie("reference", (`${sha256((results.rows[0].user_id).toString())}`))
+        response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].user_id).toString())}`), {maxAge: 600000})
+        response.cookie("reference", (`${sha256((results.rows[0].user_id).toString())}`), {maxAge: 600000})
         // UID means User ID UUN means User username
-        response.cookie("UID", results.rows[0].user_id)
-        response.cookie("UUN", results.rows[0].username)
+        response.cookie("UID", results.rows[0].user_id, {maxAge: 600000})
+        response.cookie("UUN", results.rows[0].username, {maxAge: 600000})
         response.send({
           userId: results.rows[0].user_id,
           userName: results.rows[0].username
@@ -51,11 +57,11 @@ module.exports = (db) => {
       if (results.rows.length === 0) {
         response.send({})
       } else {
-        response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].merchant_id).toString())}`))
-        response.cookie("reference", (`${sha256((results.rows[0].merchant_id).toString())}`))
+        response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].merchant_id).toString())}`), {maxAge: 600000})
+        response.cookie("reference", (`${sha256((results.rows[0].merchant_id).toString())}`), {maxAge: 600000})
         // UID means Merchant ID UUN means Merchant username
-        response.cookie("MID", results.rows[0].merchant_id)
-        response.cookie("MUN", results.rows[0].name)
+        response.cookie("MID", results.rows[0].merchant_id, {maxAge: 600000})
+        response.cookie("MUN", results.rows[0].name, {maxAge: 600000})
         response.send({
           merchantId: results.rows[0].merchant_id,
           merchantUsername: results.rows[0].name
@@ -73,18 +79,15 @@ module.exports = (db) => {
       // If query returned nothing || if user registers with an empty username || if user register a password with no length
       // Add @ email check here
       if (results.rows.length !== 0 || request.body.username.length == 0 || request.body.password.length == 0) {
-        console.log("Sign up failed")
         response.send({})
       } else {
         values.push(sha256(`${request.body.password}`));
         // If the username does not exists render the email input page and pass in object of user ID and user UN
         db.poolRoutes.insertUserDetailsFX(values, (err, results2) => {
-            console.log(results2)
-          response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.user_id).toString())}`))
-          response.cookie("reference", (`${sha256((results2.user_id).toString())}`))
-          response.cookie("UID", results2.user_id)
-          response.cookie("UUN", results2.username)
-          console.log("User registered")
+          response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.user_id).toString())}`), {maxAge: 600000})
+          response.cookie("reference", (`${sha256((results2.user_id).toString())}`), {maxAge: 600000})
+          response.cookie("UID", results2.user_id, {maxAge: 600000})
+          response.cookie("UUN", results2.username, {maxAge: 600000})
           response.send({
             userId: results2.user_id,
             userName: results2.username
@@ -102,17 +105,15 @@ module.exports = (db) => {
       // If the merchant username already exists render the same login page
       // If query returned nothing || if merchant registers with and empty name || if merchant register a password with no length
       if (results.rows.length !== 0 || request.body.name.length == 0 || request.body.password.length == 0) {
-        console.log("Sign up failed")
         response.send({})
       } else {
         values.push(sha256(`${request.body.password}`));
         // If the username does not exists render the email input page and pass in object of merchant ID and merchant UN
         db.poolRoutes.insertMerchantDetailsFX(values, (err, results2) => {
-          response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.merchant_id).toString())}`))
-          response.cookie("reference", (`${sha256((results2.merchant_id).toString())}`))
-          response.cookie("MID", results2.merchant_id)
-          response.cookie("MUN", results2.name)
-          console.log("Merchant registered")
+          response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.merchant_id).toString())}`), {maxAge: 600000})
+          response.cookie("reference", (`${sha256((results2.merchant_id).toString())}`), {maxAge: 600000})
+          response.cookie("MID", results2.merchant_id, {maxAge: 600000})
+          response.cookie("MUN", results2.name, {maxAge: 600000})
           response.send({
             merchantId: results2.merchant_id,
             merchantUsername: results2.name
@@ -123,13 +124,12 @@ module.exports = (db) => {
   }
 
   let logout = (request, response) => {
-    response.cookie("loggedIn", "")
-    response.cookie("reference", "")
-    response.cookie("UID", "")
-    response.cookie("MID", "")
-    response.cookie("UUD", "")
-    response.cookie("MUD", "")
-    // Clear all cookies and send empty object
+    response.cookie("UID", "", {maxAge: 1})
+    response.cookie("loggedIn", "", {maxAge: 1})
+    response.cookie("reference", "", {maxAge: 1})
+    response.cookie("MID", "", {maxAge: 1})
+    response.cookie("UUN", "", {maxAge: 1})
+    response.cookie("MUN", "", {maxAge: 1})
     response.send({})
   }
 

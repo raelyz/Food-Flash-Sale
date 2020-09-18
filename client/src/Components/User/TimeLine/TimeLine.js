@@ -21,8 +21,6 @@ export default class TimeLine extends Component {
                 })
             })
     }
-
-
     render() {
         const merchantCard = this.state.timeLine.map((eachCard, index) => {
             const discount = (eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100
@@ -48,6 +46,7 @@ export default class TimeLine extends Component {
                     <div>Image here</div>
                     <Link className="login break" to="/Timeline">Timeline</Link>
                     <Link className="login break" to="/Orderhistory">Order history</Link>
+                    <button onClick={this.props.onLogout}>Log out</button>
                 </div>
                 <main>
                     <Switch>

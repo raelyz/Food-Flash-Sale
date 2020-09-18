@@ -1,25 +1,17 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import TimeLine from './Components/User/TimeLine/TimeLine';
-import OrderHistory from './Components/User/OrderHistory/OrderHistory'
-import Login from './Components/User/HomeLogin/Login'
-import ItemList from './Components/Merchant/ItemList/ItemList'
-import CreateItem from './Components/Merchant/CreateItem/CreateItem';
 import PaymentOverlay from './Components/User/IndivStore/PaymentOverlay';
-import ListingContainer from './Components/User/IndivStore/ListingContainer';
 import Home from './Components/User/Home'
 import Navbar from './Components/User/Navbar/Navbar'
 import Footer from './Components/User/Footer/Footer'
 import MercNavbar from './Components/Merchant Home/Navbar/Navbar'
 import MercHome from './Components/Merchant Home/Home'
 import MerchFooter from './Components/Merchant Home/Footer/Footer'
-import EditForm from './Components/Merchant Home/Edit/EditForm'
-import EditContainer from './Components/Merchant Home/Edit/EditContainer'
-import OrderListContainer from './Components/Merchant Home/AllOrders/OrderListContainer'
 import GeoLocation from './Components/User/GeoLocation/GeoLocation';
 
 import UserSuperContainer from './Components/User/UserSuperContainer'
+import MerchantSuperContainer from './Components/Merchant Home/MerchantSuperContainer'
 
 const stripper = process.env.REACT_APP_PUBLISHABLE_KEY
 
@@ -125,22 +117,27 @@ export default class App extends React.Component {
             changePage: e.target.value
         })
     }
+    onLogout=(e)=> {
+        fetch('/logout')
+            .then(res => res.json())
+            .then(res => {})
+        this.setState({
+            merchantId: "",
+            merchantUsername: "",
+            userId: "",
+            userName: ""
+        })
+    }
     render() {
         // If merchnatID and merchantUsername is present render the merchant dashboard page and pass in their respective data
         if(this.state.merchantId && this.state.merchantUsername) {
             return (
-                <div className="App MainContainerMerchant">
-                    <ItemList />
-                    <CreateItem />
-                    <EditForm />
-                    <EditContainer />
-                    <OrderListContainer />
-                </div>
+                <MerchantSuperContainer className="App MainContainerMerchant" onLogout={this.onLogout}/>
                 )
         } else if(this.state.userId && this.state.userName) {
             // If userId and userName is present, render the timeline page and pass in their respective data
             return (
-                <UserSuperContainer className="App MainContainerUser" userId={this.state.userId} />
+                <UserSuperContainer className="App MainContainerUser" userId={this.state.userId} onLogout={this.onLogout}/>
             );
         } else {
             if(this.state.changePage == 'user') {
