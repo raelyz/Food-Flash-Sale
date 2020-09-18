@@ -4,7 +4,7 @@ export default class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            username: "",
+            name: "",
             password: ""
         }
     }
@@ -15,12 +15,12 @@ export default class Login extends Component {
     }
     onSubmit=(e)=> {
          e.preventDefault();
-         const { username, password } = this.state;
+         const { name, password } = this.state;
              const data = {
-                  username,
+                  name,
                   password
                 };
-         fetch('/home/login/user',{
+         fetch('/home/login/merchant',{
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -30,9 +30,10 @@ export default class Login extends Component {
             res.json()
         ).then(res=> {
             // if the user acctually successfully registered
-            if(res.userId && res.userName) {
-                let login = this.props.onLogin
-                login(res.userId, res.userName)
+            console.log(res)
+            if(res.merchantId && res.merchantUsername) {
+                let login = this.props.MercOnLogin
+                login(res.merchantId, res.merchantUsername)
             }
         }).catch(err=> {
             console.log(err)
@@ -42,9 +43,9 @@ export default class Login extends Component {
         return (
             <div className="login-overlay" style={{display: this.props.displaylogin}}>
                 <div className="formsParent">
-                <div>User Login</div>
+                <div>Merchant Login</div>
                 <form onSubmit={this.onSubmit} className="forms" >
-                    <input type="text" name="username" placeholder="Username" onChange={this.onChange}/>
+                    <input type="text" name="name" placeholder="Username" onChange={this.onChange}/>
                     <br/>
                     <input type="password" name="password" placeholder="password" onChange={this.onChange}/>
                     <br/>

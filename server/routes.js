@@ -5,11 +5,15 @@ module.exports = (app, allModels) => {
 
 
   app.get("/home", controllerCallbacks.getHome);
-  app.get("/home/login/user", controllerCallbacks.getUserLoginDetails);
-  app.get("/home/login/merchant", controllerCallbacks.getMerchantLoginDetails);
+
+  app.post("/home/login/user", controllerCallbacks.getUserLoginDetails);
+  app.post("/home/login/merchant", controllerCallbacks.getMerchantLoginDetails);
+
   app.post("/home/register/user", controllerCallbacks.postUserDetails);
   app.post("/home/register/merchant", controllerCallbacks.postMerchantDetails);
+
   app.get("/logout", controllerCallbacks.logout)
+
   app.get('/dashboard/merchant', controllerCallbacks.getDashboardMerchant)
   app.post('/newListing', controllerCallbacks.getNewListing)
   app.get('/all/listing/:id', controllerCallbacks.getAllListing)
