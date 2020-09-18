@@ -96,8 +96,14 @@
 }
 
 .indMerc {
+	color: black;
 	display: flex;
 	margin: 20px;
-	border: 1px solid red;
+	border: 5px solid teal;
+	border-radius: 5px;
 	cursor: pointer;
+}
+
+.indMerc:hover {
+	background-color: lightgrey;
 }
