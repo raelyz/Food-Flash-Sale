@@ -48,26 +48,26 @@
 	height: 10vh;
 	align-items: center;
 }
-.login {
+/*.login {
 	position: relative;
 	left: 75%;
 	cursor: pointer;
-}
+}*/
 .break {
 	margin-right: 20px;
 	cursor: pointer;
 }
-.options {
+/*.options {
 	position: relative;
 	left: 70%;
 	height: 30%;
-}
+}*/
 .hero {
 	height: 65vh;
 	background-color: cornflowerblue;
 }
 .footer {
-	height: 25vh;
+	height: 20vh;
 	background-color: grey;
 }
 .login-overlay {
@@ -93,4 +93,11 @@
 	background-color: white;
 	height: 200px;
 	width: 400px;
+}
+
+.indMerc {
+	display: flex;
+	margin: 20px;
+	border: 1px solid red;
+	cursor: pointer;
 }

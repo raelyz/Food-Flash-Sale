@@ -11,7 +11,7 @@ export default class GeoLocation extends React.Component {
             latUser: 0,
             lonUser:0
         }
-
+        // go into indiv listing
     }
 //
 componentDidMount() {
@@ -26,9 +26,6 @@ componentDidMount() {
             console.log('geolocation not available');
         }
     }
-
-
-
 
 
     render(){

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import OrderDetails from './OrderDetails/OrderDetails'
+import {withRouter} from 'react-router-dom'
 
-
-export default class OrderHistory extends Component {
+class OrderHistory extends Component {
     constructor() {
         super()
         this.state = {
@@ -49,3 +49,5 @@ export default class OrderHistory extends Component {
 
     }
 }
+
+export default withRouter(OrderHistory)
