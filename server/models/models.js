@@ -3,35 +3,20 @@ const db = require("../db");
 module.exports = (dbPoolInstance) => {
 
   let getUserLoginDetailsFX = (value, callback) => {
-    let query = `SELECT * FROM users WHERE username=$1 AND email=$2 AND password=$3`
+    let query = `SELECT * FROM users WHERE username=$1 AND password=$2`
     dbPoolInstance.query(query, value, (err, result) => {
-      if (err) {
-        callback(err, null)
-      } else {
-        if (result.rows.length > 0) {
-          callback(null, result.rows[0])
-        } else {
-          callback(null, null)
-        }
-      }
-    })
-  }
+        callback(err,result)
+      })
+    }
+
   let getMerchantLoginDetailsFX = (value, callback) => {
-    let query = `SELECT * FROM merchant WHERE name=$1 AND email=$2 AND password=$3`
+    let query = `SELECT * FROM merchant WHERE name=$1 AND password=$2`
     dbPoolInstance.query(query, value, (err, result) => {
-      if (err) {
-        callback(err, null)
-      } else {
-        if (result.rows.length > 0) {
-          callback(null, result.rows[0])
-        } else {
-          callback(null, null)
-        }
-      }
-    })
+        callback(err,result)
+      })
   }
   let insertUserDetailsFX = (value, callback) => {
-    let query = `INSERT INTO user (username,email,password) VALUES ($1,$2,$3) RETURNING * `
+    let query = `INSERT INTO users (username,email,password) VALUES ($1,$2,$3) RETURNING * `
     dbPoolInstance.query(query, value, (err, result) => {
       if (err) {
         callback(err, null)
@@ -45,7 +30,7 @@ module.exports = (dbPoolInstance) => {
     })
   }
   let insertMerchantDetailsFX = (value, callback) => {
-    let query = `INSERT INTO merchant (name,email,password) VALUES ($1,$2,$3) RETURNING * `
+    let query = `INSERT INTO merchant (name,email,address,uen,cuisine,password) VALUES ($1,$2,$3,$4,$5,$6) RETURNING * `
     dbPoolInstance.query(query, value, (err, result) => {
       if (err) {
         callback(err, null)
@@ -59,34 +44,18 @@ module.exports = (dbPoolInstance) => {
     })
   }
   let getUserDetailsFX = (value, callback) => {
-    let query = `SELECT * FROM users WHERE username=$1 AND email=$2`
+    let query = `SELECT * FROM users WHERE username=$1 OR email=$2`
     dbPoolInstance.query(query, value, (err, result) => {
-      if (err) {
-        callback(err, null)
-      } else {
-        if (result.rows.length > 0) {
-          callback(null, result.rows[0])
-        } else {
-          callback(null, null)
-        }
-      }
+        callback(err, result)
     })
   }
 
   let getMerchantDetailsFX = (value, callback) => {
-    let query = `SELECT * FROM merchant WHERE name=$1 AND email=$2`
+    let query = `SELECT * FROM merchant WHERE name=$1 OR email=$2 OR address=$3 OR uen=$4 AND cuisine=$5`
     dbPoolInstance.query(query, value, (err, result) => {
-      if (err) {
-        callback(err, null)
-      } else {
-        if (result.rows.length > 0) {
-          callback(null, result.rows[0])
-        } else {
-          callback(null, null)
-        }
-      }
-    })
-  }
+        callback(err,result)
+      })
+    }
 
   let getLoginDetailsFX = (value, callback) => {
     let queryLoginDetails = `SELECT * FROM users WHERE username=$1,password=$2,email=$3`
