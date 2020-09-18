@@ -9,8 +9,10 @@ let reference = "";
 module.exports = (db) => {
   let getHome = (request, response) => {
     if (!request.cookies['loggedIn']) {
+        console.log("no cookies found")
       response.send({})
     } else {
+        console.log("inside cookies")
       let reference = request.cookies['reference']
       let cookieValue = request.cookies['loggedIn']
       if (cookieValue === sha256(`true${SALT}-${reference}`)) {
@@ -19,52 +21,50 @@ module.exports = (db) => {
           userId: response.cookie.user_id,
           userName: response.cookie.username
         })
-      } else {
-        // If App.js receives nothing, then will just render the landing page
-        response.send({})
       }
     }
   }
-
+  // WHEN AN EXISTING USER IS LOGGING IN
   let getUserLoginDetails = (request, response) => {
-    let values = [request.body.username, request.body.email, sha256(`${request.body.password}`)]
+    let values = [request.body.username, sha256(`${request.body.password}`)]
     db.poolRoutes.getUserLoginDetailsFX(values, (err, results) => {
-      // If username/password does not match with the DB|| username < 1 characters long || password < 1 characters long || email < 1 characters long
-      if (results.rows.length === 0 || request.body.username === 0 || request.body.password === 0 || request.body.email === 0) {
+      // If username/password does not match with the DB
+      if (results.rows.length === 0) {
         response.send({})
       } else {
-        response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.user_id).toString())}`))
-        response.cookie("reference", (`${sha256((results.user_id).toString())}`))
+        response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].user_id).toString())}`))
+        response.cookie("reference", (`${sha256((results.rows[0].user_id).toString())}`))
         // UID means User ID UUN means User username
-        response.cookie("UID", results.user_id)
-        response.cookie("UUN", results.username)
+        response.cookie("UID", results.rows[0].user_id)
+        response.cookie("UUN", results.rows[0].username)
         response.send({
-          userId: results.user_id,
-          userName: results.username
+          userId: results.rows[0].user_id,
+          userName: results.rows[0].username
         })
       }
     })
   }
+  // WHEN AN EXISTING MERCHANT IS LOGGING IN
   let getMerchantLoginDetails = (request, response) => {
-    let values = [request.body.name, request.body.email, sha256(`${request.body.password}`)]
+    let values = [request.body.name, sha256(`${request.body.password}`)]
     db.poolRoutes.getMerchantLoginDetailsFX(values, (err, results) => {
-      if (results.rows.length === 0 || request.body.name === 0 || request.body.password === 0 || request.body.email === 0) {
+      if (results.rows.length === 0) {
         response.send({})
       } else {
-        response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.merchant_id).toString())}`))
-        response.cookie("reference", (`${sha256((results.merchant_id).toString())}`))
+        response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].merchant_id).toString())}`))
+        response.cookie("reference", (`${sha256((results.rows[0].merchant_id).toString())}`))
         // UID means Merchant ID UUN means Merchant username
-        response.cookie("MID", results.merchant_id)
-        response.cookie("MUN", results.name)
+        response.cookie("MID", results.rows[0].merchant_id)
+        response.cookie("MUN", results.rows[0].name)
         response.send({
-          merchantId: results.merchant_id,
-          merchantUsername: results.name
+          merchantId: results.rows[0].merchant_id,
+          merchantUsername: results.rows[0].name
         })
       }
     })
   }
 
-
+  // WHEN REGISTERING A NEW USER
   let postUserDetails = (request, response) => {
     let values = [request.body.username, request.body.email]
     // Query to check if the login details already exists
@@ -72,31 +72,37 @@ module.exports = (db) => {
       // If the username already exists render the same login page
       // If query returned nothing || if user registers with an empty username || if user register a password with no length
       // Add @ email check here
-      if (results.length !== 0 || results.username.length == 0 || request.body.password.length == 0) {
+      if (results.rows.length !== 0 || request.body.username.length == 0 || request.body.password.length == 0) {
+        console.log("Sign up failed")
         response.send({})
       } else {
         values.push(sha256(`${request.body.password}`));
         // If the username does not exists render the email input page and pass in object of user ID and user UN
         db.poolRoutes.insertUserDetailsFX(values, (err, results2) => {
+            console.log(results2)
           response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.user_id).toString())}`))
           response.cookie("reference", (`${sha256((results2.user_id).toString())}`))
-          response.cookie("UID", results.user_id)
-          response.cookie("UUN", results.username)
+          response.cookie("UID", results2.user_id)
+          response.cookie("UUN", results2.username)
+          console.log("User registered")
           response.send({
-            userId: results.user_id,
-            userName: results.username
+            userId: results2.user_id,
+            userName: results2.username
           })
         })
       }
     })
   }
+  // WHEN REGISTERING A NEW MERCHANT
   let postMerchantDetails = (request, response) => {
-    let values = [request.body.name, request.body.email]
+    let address = request.body.address + "!!!!" + request.body.postalCode
+    let values = [request.body.name, request.body.email,address,request.body.uen,request.body.cuisine]
     // Query to check if the login details already exists
     db.poolRoutes.getMerchantDetailsFX(values, (err, results) => {
       // If the merchant username already exists render the same login page
       // If query returned nothing || if merchant registers with and empty name || if merchant register a password with no length
-      if (results.length !== 0 || results.name.length == 0 || request.body.password.length == 0) {
+      if (results.rows.length !== 0 || request.body.name.length == 0 || request.body.password.length == 0) {
+        console.log("Sign up failed")
         response.send({})
       } else {
         values.push(sha256(`${request.body.password}`));
@@ -104,11 +110,12 @@ module.exports = (db) => {
         db.poolRoutes.insertMerchantDetailsFX(values, (err, results2) => {
           response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.merchant_id).toString())}`))
           response.cookie("reference", (`${sha256((results2.merchant_id).toString())}`))
-          response.cookie("MID", results.merchant_id)
-          response.cookie("MUN", results.name)
+          response.cookie("MID", results2.merchant_id)
+          response.cookie("MUN", results2.name)
+          console.log("Merchant registered")
           response.send({
-            merchantId: results.merchant_id,
-            merchantUsername: results.name
+            merchantId: results2.merchant_id,
+            merchantUsername: results2.name
           })
         })
       }
@@ -193,8 +200,8 @@ module.exports = (db) => {
   }
 
   let getUpdateListing = (request, response) => {
-    let { item_name, unit_price, quantity, price_ceiling, price_floor, category_id, merchant_id, description, time_limit_min, live, listing_id } = request.body
-    let values = [item_name, unit_price, quantity, price_ceiling, price_floor, category_id, merchant_id, description, time_limit_min, live, listing_id]
+    let { item_name, unit_price, quantity, price_ceiling, price_floor, category_id, merchant_id, description, time_limit_min, listing_id } = request.body
+    let values = [item_name, unit_price, quantity, price_ceiling, price_floor, category_id, description, listing_id]
     db.poolRoutes.getUpdateListingFX(values, (error, result) => {
       if (error) {
         console.log(error, `erroratgetupdatelisting controlelr`)
@@ -316,9 +323,24 @@ module.exports = (db) => {
     })
   }
 
+
+  let getMerchantOrders = (request, response) => {
+    let values = [request.params.id]
+
+    db.poolRoutes.getMerchantOrdersFX(values, (err, result) => {
+      if (err) {
+        console.log(err, `err at getMerchant Orderscontroller`)
+      } else {
+        response.json(result.rows)
+      }
+    })
+  }
+
+
   let helpme = (request, response) => {
     response.send("help la")
   }
+
 
 
 
@@ -342,7 +364,8 @@ module.exports = (db) => {
     postUserDetails,
     postMerchantDetails,
     logout,
-    postSubmitReceiptOrder
+    postSubmitReceiptOrder,
+    getMerchantOrders
 
   };
 }
