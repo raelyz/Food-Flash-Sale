@@ -107,11 +107,11 @@ module.exports = (dbPoolInstance) => {
   }
 
 
-  let getIndivShopFX  =(values,callback) =>{
-    let query ="select * from listing inner join merchant on listing.merchant_id = merchant.merchant_id and merchant.merchant_id = $1";
-    dbPoolInstance.query(query,values,(err,result)=>{
-        console.log(result,"---from modelsindiv shop")
-        callback(err,result)
+  let getIndivShopFX = (values, callback) => {
+    let query = "select * from listing inner join merchant on listing.merchant_id = merchant.merchant_id and merchant.merchant_id = $1";
+    dbPoolInstance.query(query, values, (err, result) => {
+      console.log(result, "---from modelsindiv shop")
+      callback(err, result)
 
     })
   }
@@ -196,38 +196,38 @@ module.exports = (dbPoolInstance) => {
   }
 
 
- let postSubmitReceiptFX  = (values,callback) => {
+  let postSubmitReceiptFX = (values, callback) => {
     let query = "INSERT INTO receipt (user_id,merchant_id) VALUES($1,$2) RETURNING *"
-    dbPoolInstance.query(query,values,(err,result)=>{
-        console.log(result,"---from models")
-        callback(err,result)
+    dbPoolInstance.query(query, values, (err, result) => {
+      console.log(result, "---from models")
+      callback(err, result)
     })
   }
 
-  let postSubmitOrderFX = (value,callback) => {
+  let postSubmitOrderFX = (value, callback) => {
     let query = "INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES($1,$2,$3,$4,$5) returning *"
-    dbPoolInstance.query(query,value,(err,result)=>{
-        console.log(result,"---from models")
-        callback(err,result)
+    dbPoolInstance.query(query, value, (err, result) => {
+      console.log(result, "---from models")
+      callback(err, result)
 
     })
   }
 
-let checkInventoryFX = (checkValue,callback) => {
+  let checkInventoryFX = (checkValue, callback) => {
     let query = "SELECT quantity from listing where listing_id = $1"
-    dbPoolInstance.query(query,checkValue,(err,result)=>{
-        console.log(result,"---from models")
-        callback(err,result)
+    dbPoolInstance.query(query, checkValue, (err, result) => {
+      console.log(result, "---from models")
+      callback(err, result)
 
     })
   }
 
-  let depleteInventoryFX =(depletedValue, callback) => {
+  let depleteInventoryFX = (depletedValue, callback) => {
 
     let query = "UPDATE listing set quantity = $1 where listing_id =$2 RETURNING *"
-    dbPoolInstance.query(query,depletedValue,(err,result)=>{
-        console.log(result,"---from models")
-        callback(err,result)
+    dbPoolInstance.query(query, depletedValue, (err, result) => {
+      console.log(result, "---from models")
+      callback(err, result)
 
     })
   }
