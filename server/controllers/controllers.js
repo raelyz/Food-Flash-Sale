@@ -1,7 +1,8 @@
 const sha256 = require('js-sha256');
 const path = require("path");
 const clientBuildPath = path.join(__dirname, '../../client/build')
-
+const Stripe = require("stripe");
+const stripe = Stripe("sk_test_51HSOL8BBF6zBM44ruPfaaaUfYvLytW3Kvr3aYbx4aiV637zLiTO21r5Ik1Sew7mxxZqwWMaQjsSIRgq18GnR6gmy00EMJeg4NE")
 let SALT = "debuggod";
 let reference = "";
 
@@ -236,55 +237,79 @@ module.exports = (db) => {
   }
 
 
-let postSubmitReceiptOrder = (request,response)=> {
-    let checked= false;
-    let checkValue =[request.body.listing_id];
-    let values = [1,request.body.merchant_id]
-    console.log(checkValue,"----this is from checkValue");
-    db.poolRoutes.checkInventoryFX(checkValue,(err,result)=>{
-        if(err){
-            console.log("error at controllerCheckInventory----", err.message);
-        } else{
-            (result.rows[0].quantity > checkValue[0]? checked=true: checked=false)
-            let inventoryQuantity = result.rows[0].quantity;
-            console.log(checked)
-            if(checked){
-        db.poolRoutes.postSubmitReceiptFX(values,(err,res)=>{
-        if(err){
-            console.log("error at controllerSubmitReceipt----", err.message);
-        } else{
-            console.log(res.rows)
-            let receipt_id = res.rows[0].receipt_id;
-            let value = [receipt_id, request.body.listing_id,request.body.price,request.body.quantity,request.body.revenue];
-            db.poolRoutes.postSubmitOrderFX(value,(err,ress)=>{
-                if(err){
-                    console.log(err.message,"---error at order")
+  let postSubmitReceiptOrder = (request, response) => {
+    let checked = false;
+    let checkValue = [request.body.order.listing_id];
+    let values = [1, request.body.order.merchant_id]
+    console.log(checkValue, "----this is from checkValue");
+    db.poolRoutes.checkInventoryFX(checkValue, (err, result) => {
+      if (err) {
+        console.log("error at controllerCheckInventory----", err.message);
+      } else {
+        (result.rows[0].quantity > checkValue[0] ? checked = true : checked = false)
+        let inventoryQuantity = result.rows[0].quantity;
+        console.log(checked)
+        if (checked) {
+          db.poolRoutes.postSubmitReceiptFX(values, (err, res) => {
+            if (err) {
+              console.log("error at controllerSubmitReceipt----", err.message);
+            } else {
+              console.log(res.rows)
+              let receipt_id = res.rows[0].receipt_id;
+              let value = [receipt_id, request.body.order.listing_id, request.body.order.price, request.body.order.quantity, request.body.order.revenue];
+              db.poolRoutes.postSubmitOrderFX(value, (err, ress) => {
+                if (err) {
+                  console.log(err.message, "---error at order")
                 } else {
-                    console.log(ress.rows)
-                    let quantity = inventoryQuantity - request.body.quantity
-                    let valuez = [quantity, request.body.listing_id]
-                    db.poolRoutes.depleteInventoryFX(valuez,(err,rez)=>{
-                        if(err){
-                            console.log(err.message, "---error at updateinvenyory")
-                        } else{
-                            console.log(rez.rows)
-                        }
-                    })
+                  console.log(ress.rows)
+                  let quantity = inventoryQuantity - request.body.order.quantity
+                  let valuez = [quantity, request.body.order.listing_id]
+                  db.poolRoutes.depleteInventoryFX(valuez, (err, rez) => {
+                    if (err) {
+                      console.log(err.message, "---error at updateinvenyory")
+                    } else {
+                      let amount = parseInt(request.body.order.revenue) * 100;
+                      let { id } = request.body.card
+                      stripe.paymentIntents.create({
+                        amount: amount, currency: 'USD',
+                        description: request.body.order.name,
+                        payment_method: id,
+                        // confirm: true
+                      }).then(res => stripe.paymentIntents.confirm(res.id))
+                        .then(res => {
+                          if (res.status === "succeeded") {
+                            response.json({ status: "Payment Complete" })
+                          } else {
+                            let quantity = inventoryQuantity
+                            let valuez = [quantity, request.body.order.listing_id]
+                            db.poolRoutes.depleteInventoryFX(valuez, (err, runningoutofrez) => {
+                              if (err) {
+                                console.log(err, `updating value after payment failure err`)
+                              } else {
+                                response.json({ status: "payment failed" })
+                              }
+                            })
+
+                          }
+                        })
+
+                    }
+                  })
                 }
-            })
+              })
 
+
+            }
+          })
 
         }
+      }
     })
 
-    }
-        }
-    })
-
-}
+  }
 
 
-// handle payment failure!!!!!!!!!!! if payment fails, add back into inventory
+  // handle payment failure!!!!!!!!!!! if payment fails, add back into inventory
 
 
   let getReceiptListing = (request, response) => {
