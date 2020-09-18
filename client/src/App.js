@@ -9,6 +9,7 @@ import Footer from './Components/User/Footer/Footer'
 import MercNavbar from './Components/Merchant Home/Navbar/Navbar'
 import MercHome from './Components/Merchant Home/Home'
 import MerchFooter from './Components/Merchant Home/Footer/Footer'
+import GeoLocation from './Components/User/GeoLocation/GeoLocation';
 export default class App extends React.Component {
     constructor() {
         super()
@@ -140,6 +141,7 @@ export default class App extends React.Component {
                         onRegistered={this.onRegistered}
                         onLogin={this.onLogin}
                         />
+                        <GeoLocation />
                         <Footer />
                     </div>
                 );
