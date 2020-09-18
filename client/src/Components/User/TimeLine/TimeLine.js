@@ -1,19 +1,16 @@
 import React, { Component } from 'react'
 import EachMerchant from './EachMerchant/EachMerchant'
-
+import OrderHistory from '../OrderHistory/OrderHistory'
+import {Route, Link, Redirect, Switch} from 'react-router-dom'
+import IndivListing from '../IndivStore/IndivListing'
+import ListingContainer from '../IndivStore/ListingContainer'
 export default class TimeLine extends Component {
-
     constructor() {
         super()
         this.state = {
             timeLine: []
         }
-
     }
-
-
-
-
     componentDidMount() {
         fetch('/timeline')
             .then(res => res.json())
@@ -25,21 +22,45 @@ export default class TimeLine extends Component {
             })
     }
 
+
     render() {
         const merchantCard = this.state.timeLine.map((eachCard, index) => {
             const discount = (eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100
-
-            return <>
-                <EachMerchant key={index} duration={eachCard.time_limit_min} time={eachCard.time}>
+            let path = "/" + eachCard.merchant_id
+            return <Link to={path}>
+            <div className="indMerc" >
+                <EachMerchant key={index} duration={eachCard.time_limit_min} time={eachCard.time} merchant_Id={eachCard.merchant_id}>
                     <div>{eachCard.name}</div>
                     <div>up to{discount}%</div>
                 </EachMerchant>
-            </>
+            </div>
+            </Link>
+        })
+        const routeArray = this.state.timeLine.map((eachCard, index) => {
+            let path = "/" + eachCard.merchant_id
+            return <Route path={path} render={
+                            ()=> <ListingContainer merchant_id={eachCard.merchant_id} />
+                        }/>
         })
         return (
             <div>
-                {merchantCard}
-            </div >
+                <div className="navbar">
+                    <div>Image here</div>
+                    <Link className="login break" to="/Timeline">Timeline</Link>
+                    <Link className="login break" to="/Orderhistory">Order history</Link>
+                </div>
+                <main>
+                    <Switch>
+                        {routeArray}
+                        <Route path="/Orderhistory" render = {
+                            ()=><OrderHistory />
+                        }/>
+                        <Route path="/" render= {
+                            ()=> <div>{merchantCard}</div>
+                        }/>
+                    </Switch>
+                </main>
+            </div>
         )
     }
 }

@@ -14,9 +14,12 @@ import Footer from './Components/User/Footer/Footer'
 import MercNavbar from './Components/Merchant Home/Navbar/Navbar'
 import MercHome from './Components/Merchant Home/Home'
 import MerchFooter from './Components/Merchant Home/Footer/Footer'
-
+import EditForm from './Components/Merchant Home/Edit/EditForm'
+import EditContainer from './Components/Merchant Home/Edit/EditContainer'
+import OrderListContainer from './Components/Merchant Home/AllOrders/OrderListContainer'
 import GeoLocation from './Components/User/GeoLocation/GeoLocation';
 
+import UserSuperContainer from './Components/User/UserSuperContainer'
 
 const stripper = process.env.REACT_APP_PUBLISHABLE_KEY
 
@@ -127,16 +130,17 @@ export default class App extends React.Component {
         if(this.state.merchantId && this.state.merchantUsername) {
             return (
                 <div className="App MainContainerMerchant">
-                    This is the start of the merchant page
+                    <ItemList />
+                    <CreateItem />
+                    <EditForm />
+                    <EditContainer />
+                    <OrderListContainer />
                 </div>
                 )
         } else if(this.state.userId && this.state.userName) {
             // If userId and userName is present, render the timeline page and pass in their respective data
             return (
-                <div className="App MainContainerUser" userId={this.state.userId}>
-                    <TimeLine />
-                    <OrderHistory />
-                </div>
+                <UserSuperContainer className="App MainContainerUser" userId={this.state.userId} />
             );
         } else {
             if(this.state.changePage == 'user') {
@@ -153,7 +157,6 @@ export default class App extends React.Component {
                         onRegistered={this.onRegistered}
                         onLogin={this.onLogin}
                         />
-                        <GeoLocation />
                         <Footer />
                     </div>
                 );
