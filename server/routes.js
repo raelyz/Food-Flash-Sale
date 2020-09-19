@@ -19,6 +19,8 @@ module.exports = (app, allModels) => {
   app.get('/all/listing/:id', controllerCallbacks.getAllListing)
   app.post('/all/listing', controllerCallbacks.getReceiptListing)
   app.post('/togglelisting', controllerCallbacks.getToggleListing)
+  app.get('/deletedlisting', controllerCallbacks.getDeletedListing)
+  app.post('/tidyuplisting', controllerCallbacks.getTidyUpListing)
   app.get('/editlisting', controllerCallbacks.getEditListing)
   app.post('/editlisting', controllerCallbacks.getUpdateListing)
   app.get('/orderhistory', controllerCallbacks.getOrderHistory)
@@ -26,7 +28,7 @@ module.exports = (app, allModels) => {
   app.get('/timeline', controllerCallbacks.getTimeline)
   //get indiv shop for users : all listings in merchant
   app.get('/indivshop/:id', controllerCallbacks.getIndivShop)
-  app.post('/submitOrder',controllerCallbacks.postSubmitReceiptOrder)
-  app.get('/merchantorders/:id',controllerCallbacks.getMerchantOrders)
+  app.post('/submitOrder', controllerCallbacks.postSubmitReceiptOrder)
+  app.get('/merchantorders/:id', controllerCallbacks.getMerchantOrders)
 
 };

@@ -5,22 +5,22 @@ import TimeLine from '../TimeLine/TimeLine';
 
 
 export default class GeoLocation extends React.Component {
-    constructor(){
+    constructor() {
         super()
-        this.state ={
+        this.state = {
             latUser: 0,
-            lonUser:0
+            lonUser: 0
         }
         // go into indiv listing
     }
-//
-componentDidMount() {
-        if('geolocation' in navigator){
+    //
+    componentDidMount() {
+        if ('geolocation' in navigator) {
             console.log('geolocation available');
-            navigator.geolocation.getCurrentPosition(position =>{
-                const lat= position.coords.latitude;
-                const lon= position.coords.longitude;
-                this.setState({latUser: lat, lonUser: lon})
+            navigator.geolocation.getCurrentPosition(position => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                this.setState({ latUser: lat, lonUser: lon })
             })
         } else {
             console.log('geolocation not available');
@@ -28,19 +28,19 @@ componentDidMount() {
     }
 
 
-    render(){
+    render() {
 
 
 
 
-            return (
-    <div>
-    latitude: <span id="latitude">{this.state.latUser}&deg;</span><br/>
+        return (
+            <div>
+                latitude: <span id="latitude">{this.state.latUser}&deg;</span><br />
     longitude: <span id="longitude">{this.state.lonUser}&deg;</span>
-    <TimeLine lon={this.state.lonUser} lat={this.state.latUser} />
-    </div>
+                <TimeLine lon={this.state.lonUser} lat={this.state.latUser} stripper={this.props.stripper} />
+            </div>
 
-            )
+        )
 
-}
+    }
 }
