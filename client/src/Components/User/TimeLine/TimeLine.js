@@ -136,7 +136,7 @@ export default class TimeLine extends Component {
             let path = "/" + eachCard.merchant_id
             return <Link to={path}>
 
-                <EachMerchant key={index} duration={eachCard.time_limit_min} listing={eachCard.listing_id} time={eachCard.time} merchant_Id={eachCard.merchant_id} what={this.testing}>
+                <EachMerchant className="indMerc" key={index} duration={eachCard.time_limit_min} time={eachCard.time} merchant_Id={eachCard.merchant_id} what={this.testing}>
                     <div>{index}{eachCard.name}</div>
                     <div>up to{discount}%</div>
                 </EachMerchant>
