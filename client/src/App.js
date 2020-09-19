@@ -9,13 +9,9 @@ import MercNavbar from './Components/Merchant Home/Navbar/Navbar'
 import MercHome from './Components/Merchant Home/Home'
 import MerchFooter from './Components/Merchant Home/Footer/Footer'
 import GeoLocation from './Components/User/GeoLocation/GeoLocation';
-
 import UserSuperContainer from './Components/User/UserSuperContainer'
 import MerchantSuperContainer from './Components/Merchant Home/MerchantSuperContainer'
-
 const stripper = process.env.REACT_APP_PUBLISHABLE_KEY
-
-
 export default class App extends React.Component {
     constructor() {
         super()
@@ -35,7 +31,6 @@ export default class App extends React.Component {
     static getDerivedStateFromProps(props, state) {
         return null
     }
-
     componentDidMount() {
         fetch('/home')
             .then(res => res.json())
@@ -173,11 +168,8 @@ export default class App extends React.Component {
                         />
                         <MerchFooter />
                     </div>
-
-
                     )
             }
-
         }
     }
 }

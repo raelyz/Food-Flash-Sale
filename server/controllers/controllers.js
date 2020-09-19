@@ -99,7 +99,7 @@ module.exports = (db) => {
   // WHEN REGISTERING A NEW MERCHANT
   let postMerchantDetails = (request, response) => {
     let address = request.body.address + "!!!!" + request.body.postalCode
-    let values = [request.body.name, request.body.email,address,request.body.uen,request.body.cuisine]
+    let values = [request.body.name, request.body.email, address, request.body.uen, request.body.cuisine]
     // Query to check if the login details already exists
     db.poolRoutes.getMerchantDetailsFX(values, (err, results) => {
       // If the merchant username already exists render the same login page
@@ -176,6 +176,7 @@ module.exports = (db) => {
   }
 
   let getToggleListing = (request, response) => {
+    console.log(request.body, `this is important`)
     let { boolean, listing_id } = request.body
     let values = [boolean, listing_id]
     db.poolRoutes.getToggleListingFX(values, (error, result) => {
@@ -341,7 +342,28 @@ module.exports = (db) => {
     response.send("help la")
   }
 
+  let getTidyUpListing = (request, response) => {
+    console.log(request.body, `this is important`)
+    let { toBeDeleted } = request.body
+    let values = toBeDeleted
+    db.poolRoutes.getTidyUpListingFX(values, (error, result) => {
+      if (error) {
+        console.log(error, `error at getActivateListing Controller`)
+      } else {
+        response.send("deletion successful")
+      }
+    })
+  }
 
+  let getDeletedListing = (request, response) => {
+    db.poolRoutes.getDeletedListingFX((error, result) => {
+      if (error) {
+        console.log(error, `error at getActivateListing Controller`)
+      } else {
+        response.json(result)
+      }
+    })
+  }
 
 
   return {
@@ -365,7 +387,9 @@ module.exports = (db) => {
     postMerchantDetails,
     logout,
     postSubmitReceiptOrder,
-    getMerchantOrders
+    getMerchantOrders,
+    getTidyUpListing,
+    getDeletedListing
 
   };
 }

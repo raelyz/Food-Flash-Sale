@@ -6,11 +6,13 @@ import LoggedInNavBar from './Navbar/LoggedInNavBar'
 import LoggedInFooter from './Footer/LoggedInFooter'
 
 export default class UserSuperContainer extends Component {
+
     render() {
         return (
             <>
                 <GeoLocation onLogout={this.props.onLogout}/>
                 <LoggedInFooter />
+
             </>
         )
     }
