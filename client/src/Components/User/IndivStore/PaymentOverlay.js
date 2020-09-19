@@ -1,8 +1,12 @@
+
 import React from "react";
 
-import { Elements } from "@stripe/react-stripe-js";
-import { CardElement } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+
+import React from 'react';
+import { Elements } from '@stripe/react-stripe-js';
+import { CardElement } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
+
 
 export default class PaymentOverlay extends React.Component {
   constructor(props) {

@@ -6,30 +6,13 @@ import LoggedInNavBar from './Navbar/LoggedInNavBar'
 import LoggedInFooter from './Footer/LoggedInFooter'
 
 export default class UserSuperContainer extends Component {
-                // <LoggedInNavBar />
-        // Order history linked from navbar
-    // Timeline/Geolocation by default
-    // Listing when clicked on each shop in time line/Or when clicked on buy again in order history
 
-                    // <OrderHistory />
-                // <ListingContainer />
-    constructor() {
-        super()
-        this.state= {
-        }
-    }
-
-    onClickOrderHistory=()=> {
-
-    }
-    onClickTimeline=()=> {
-
-    }
     render() {
         return (
             <>
-                <GeoLocation />
-                <LoggedInFooter orderHistory={this.onClickOrderHistory} timeline={this.onClickTimeline}/>
+                <GeoLocation onLogout={this.props.onLogout}/>
+                <LoggedInFooter />
+
             </>
         )
     }
