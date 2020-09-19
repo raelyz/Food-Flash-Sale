@@ -25,13 +25,11 @@ export default class TimeLine extends Component {
         const merchantCard = this.state.timeLine.map((eachCard, index) => {
             const discount = (eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100
             let path = "/" + eachCard.merchant_id
-            return <Link to={path}>
-            <div className="indMerc" >
-                <EachMerchant key={index} duration={eachCard.time_limit_min} time={eachCard.time} merchant_Id={eachCard.merchant_id}>
+            return <Link to={path} >
+                <EachMerchant  className="indMerc" key={index} duration={eachCard.time_limit_min} time={eachCard.time} merchant_Id={eachCard.merchant_id}>
                     <div>{eachCard.name}</div>
                     <div>up to{discount}%</div>
                 </EachMerchant>
-            </div>
             </Link>
         })
         const routeArray = this.state.timeLine.map((eachCard, index) => {
