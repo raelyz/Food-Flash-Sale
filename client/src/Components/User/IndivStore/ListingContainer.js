@@ -94,7 +94,7 @@ export default class ListingContainer extends React.Component {
     //when state is changed, FETCH results from aPI
     //side effects ie: HTTP requests are allowed here
     componentDidMount() {
-        fetch(`/indivshop/${this.state.merchant_id}`)
+        fetch(`/indivshop/${this.props.listing_id}`)
             .then(res => res.json())
             .then(res =>
                 this.setState({ result: res, html: this.format(res), merchant_name: res[0].name })

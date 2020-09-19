@@ -148,20 +148,18 @@ export default class TimeLine extends Component {
             const discount = (eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100
             let path = "/" + eachCard.merchant_id
             return <Link to={path}>
-
                 <>
                     <div>{eachCard.Merchant}</div>
                     <div>{index}{eachCard.name}</div>
                     <div>up to{discount}%</div>
                 </>
-
             </Link>
         })
 
         const routeArray = newerArray.map((eachCard, index) => {
             let path = "/" + eachCard.merchant_id
             return <Route path={path} render={
-                () => <ListingContainer merchant_id={eachCard.merchant_id} stripper={this.props.stripper} />
+                () => <ListingContainer listing_id={eachCard.listing_id} merchant_id={eachCard.merchant_id} stripper={this.props.stripper} />
             } />
         })
         return (
@@ -172,7 +170,7 @@ export default class TimeLine extends Component {
                     <Link className="login break" to="/Orderhistory">Order history</Link>
                     <button onClick={this.props.onLogout}>Log out</button>
                 </div>
-                <main>
+                <main className='userMainContainer'>
                     <Switch>
                         {routeArray}
                         <Route path="/Orderhistory" render={
