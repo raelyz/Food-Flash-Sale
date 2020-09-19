@@ -28,4 +28,6 @@ module.exports = (app, allModels) => {
 
   //get ratings by merchant
   app.get("/ratings/:id", controllerCallbacks.getRatings);
+  //post ratings by user
+  app.post("/ratelisting", controllerCallbacks.postUserRatings);
 };

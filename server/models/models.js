@@ -237,6 +237,15 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let postUserRatingsFX = (values, callback) => {
+    let query =
+      "INSERT INTO rating (user_id,merchant_id,listing_id,rating) VALUES($1,$2,$3,$4) returning * ";
+    dbPoolInstance.query(query, values, (err, result) => {
+      console.log(result, "---from models post ratings");
+      callback(err, result);
+    });
+  };
+
   return {
     getDashboardMerchantFX,
     getNewListingFX,
@@ -268,5 +277,6 @@ module.exports = (dbPoolInstance) => {
     getMerchantOrdersFX,
 
     getRatingsFX,
+    postUserRatingsFX,
   };
 };

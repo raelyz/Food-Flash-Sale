@@ -441,6 +441,18 @@ module.exports = (db) => {
     });
   };
 
+  let postUserRatings = (request, response) => {
+    let { user_id, merchant_id, listing_id, rating } = request.body;
+    let values = [user_id, merchant_id, listing_id, rating];
+    db.poolRoutes.postUserRatingsFX(values, (err, result) => {
+      if (err) {
+        console.log(err, `err at postRatings Orderscontroller`);
+      } else {
+        response.json(result.rows);
+      }
+    });
+  };
+
   return {
     getHome,
     getTimeline,
@@ -464,5 +476,6 @@ module.exports = (db) => {
     postSubmitReceiptOrder,
     getMerchantOrders,
     getRatings,
+    postUserRatings,
   };
 };
