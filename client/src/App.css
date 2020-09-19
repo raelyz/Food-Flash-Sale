@@ -67,7 +67,7 @@
 	background-color: cornflowerblue;
 }
 .footer {
-	height: 20vh;
+	height: 15vh;
 	background-color: grey;
 }
 .login-overlay {
@@ -106,4 +106,9 @@
 
 .indMerc:hover {
 	background-color: lightgrey;
+}
+
+.userMainContainer {
+	height: 70vh;
+	overflow-y: scroll;
 }

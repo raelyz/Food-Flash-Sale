@@ -75,9 +75,9 @@ module.exports = (dbPoolInstance) => {
     })
   }
 
-
+ // merchant.merchant_id = $1
   let getIndivShopFX = (values, callback) => {
-    let query = "select * from listing inner join merchant on listing.merchant_id = merchant.merchant_id and merchant.merchant_id = $1";
+    let query = "select * from listing inner join merchant on listing.merchant_id = merchant.merchant_id and listing.listing_id =$1";
     dbPoolInstance.query(query, values, (err, result) => {
       console.log(result, "---from modelsindiv shop")
       callback(err, result)
