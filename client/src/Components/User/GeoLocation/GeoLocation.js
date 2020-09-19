@@ -11,11 +11,10 @@ export default class GeoLocation extends React.Component {
             latUser: 0,
             lonUser: 0
         }
-        // go into indiv listing
     }
-    //
-    componentDidMount() {
-        if ('geolocation' in navigator) {
+
+componentDidMount() {
+        if('geolocation' in navigator){
             console.log('geolocation available');
             navigator.geolocation.getCurrentPosition(position => {
                 const lat = position.coords.latitude;
@@ -28,19 +27,15 @@ export default class GeoLocation extends React.Component {
     }
 
 
-    render() {
 
-
-
-
-        return (
-            <div>
-                latitude: <span id="latitude">{this.state.latUser}&deg;</span><br />
-    longitude: <span id="longitude">{this.state.lonUser}&deg;</span>
-                <TimeLine lon={this.state.lonUser} lat={this.state.latUser} stripper={this.props.stripper} />
-            </div>
-
-        )
+    render(){
+            return (
+                    <div>
+                    latitude: <span id="latitude">{this.state.latUser}&deg;</span><br/>
+                    longitude: <span id="longitude">{this.state.lonUser}&deg;</span>
+                    <TimeLine lon={this.state.lonUser} lat={this.state.latUser} onLogout={this.props.onLogout} stripper={this.props.stripper}  />
+                    </div>
+            )
 
     }
 }

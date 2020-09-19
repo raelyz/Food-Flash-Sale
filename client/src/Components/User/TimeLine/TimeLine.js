@@ -105,8 +105,6 @@ export default class TimeLine extends Component {
             }, 10000)
         }
     }
-
-
     render() {
         let newArray = this.state.timeLine.map((item, index) => {
             const uploadTime = new Date(item.time)
@@ -172,6 +170,7 @@ export default class TimeLine extends Component {
                     <div>Image here</div>
                     <Link className="login break" to="/Timeline">Timeline</Link>
                     <Link className="login break" to="/Orderhistory">Order history</Link>
+                    <button onClick={this.props.onLogout}>Log out</button>
                 </div>
                 <main>
                     <Switch>
