@@ -8,14 +8,14 @@ let SALT = "eugeneourlordandsavior";
 let reference = "";
 module.exports = (db) => {
   let getHome = (request, response) => {
-
-    if (!request.cookies['loggedIn']) {
-      response.send({})
+    if (!request.cookies["loggedIn"]) {
+      response.send({});
     } else {
-      let reference = request.cookies['reference']
-      let cookieValue = request.cookies['loggedIn']
+      let reference = request.cookies["reference"];
+      let cookieValue = request.cookies["loggedIn"];
       if (cookieValue === sha256(`true${SALT}-${reference}`)) {
         // Add conditional statement in App.js, where if App.js received something render the timeline page instead using the cookies
+
         if (request.cookies['UID'] && request.cookies['UUN']) {
           response.send({
             userId: request.cookies['UID'],
@@ -27,8 +27,8 @@ module.exports = (db) => {
             merchantId: request.cookies['MID'],
             merchantUsername: request.cookies['MUN']
           })
-        }
 
+        }
       }
     }
   };
@@ -40,11 +40,13 @@ module.exports = (db) => {
       if (results.rows.length === 0) {
         response.send({});
       } else {
+
         response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].user_id).toString())}`), { maxAge: 600000 })
         response.cookie("reference", (`${sha256((results.rows[0].user_id).toString())}`), { maxAge: 600000 })
         // UID means User ID UUN means User username
         response.cookie("UID", results.rows[0].user_id, { maxAge: 600000 })
         response.cookie("UUN", results.rows[0].username, { maxAge: 600000 })
+
         response.send({
           userId: results.rows[0].user_id,
           userName: results.rows[0].username,
@@ -59,11 +61,13 @@ module.exports = (db) => {
       if (results.rows.length === 0) {
         response.send({});
       } else {
+
         response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].merchant_id).toString())}`), { maxAge: 600000 })
         response.cookie("reference", (`${sha256((results.rows[0].merchant_id).toString())}`), { maxAge: 600000 })
         // UID means Merchant ID UUN means Merchant username
         response.cookie("MID", results.rows[0].merchant_id, { maxAge: 600000 })
         response.cookie("MUN", results.rows[0].name, { maxAge: 600000 })
+
         response.send({
           merchantId: results.rows[0].merchant_id,
           merchantUsername: results.rows[0].name,
@@ -81,16 +85,21 @@ module.exports = (db) => {
       // If query returned nothing || if user registers with an empty username || if user register a password with no length
       // Add @ email check here
 
-      if (results.rows.length !== 0 || request.body.username.length == 0 || request.body.password.length == 0) {
-        response.send({})
-
+      if (
+        results.rows.length !== 0 ||
+        request.body.username.length == 0 ||
+        request.body.password.length == 0
+      ) {
+        response.send({});
       } else {
         values.push(sha256(`${request.body.password}`));
         // If the username does not exists render the email input page and pass in object of user ID and user UN
         db.poolRoutes.insertUserDetailsFX(values, (err, results2) => {
+
           response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.user_id).toString())}`), { maxAge: 600000 })
           response.cookie("reference", (`${sha256((results2.user_id).toString())}`), { maxAge: 600000 })
           response.cookie("UID", results2.user_id, { maxAge: 600000 })
+
           response.send({
             userId: results2.user_id,
             userName: results2.username,
@@ -102,23 +111,29 @@ module.exports = (db) => {
   // WHEN REGISTERING A NEW MERCHANT
   let postMerchantDetails = (request, response) => {
 
+
     let address = request.body.address + "!!!!" + request.body.postalCode
     let values = [request.body.name, request.body.email, address, request.body.uen, request.body.cuisine, request.body.latitude, request.body.longtitude]
+
     // Query to check if the login details already exists
     db.poolRoutes.getMerchantDetailsFX(values, (err, results) => {
       // If the merchant username already exists render the same login page
       // If query returned nothing || if merchant registers with and empty name || if merchant register a password with no length
+
       if (results.rows.length !== 0 || request.body.name.length == 0 || request.body.password.length == 0) {
         response.send({})
+
 
       } else {
         values.push(sha256(`${request.body.password}`));
         // If the username does not exists render the email input page and pass in object of merchant ID and merchant UN
         db.poolRoutes.insertMerchantDetailsFX(values, (err, results2) => {
+
           response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.merchant_id).toString())}`), { maxAge: 600000 })
           response.cookie("reference", (`${sha256((results2.merchant_id).toString())}`), { maxAge: 600000 })
           response.cookie("MID", results2.merchant_id, { maxAge: 600000 })
           response.cookie("MUN", results2.name, { maxAge: 600000 })
+
           response.send({
             merchantId: results2.merchant_id,
             merchantUsername: results2.name,
@@ -129,6 +144,7 @@ module.exports = (db) => {
   };
 
   let logout = (request, response) => {
+
     response.cookie("UID", "", {maxAge: 1})
     response.cookie("loggedIn", "", {maxAge: 1})
     response.cookie("reference", "", {maxAge: 1})
@@ -138,6 +154,7 @@ module.exports = (db) => {
     console.log('inside logout')
     response.redirect({})
   }
+
 
 
   let getTimeline = (request, response) => {
@@ -177,7 +194,9 @@ module.exports = (db) => {
       category_id,
       merchant_id,
       description,
+
       time_limit_min
+
     ];
     db.poolRoutes.getNewListingFX(values, (error, result) => {
       if (error) {
@@ -201,10 +220,9 @@ module.exports = (db) => {
   };
 
   let getToggleListing = (request, response) => {
-
-    console.log(request.body, `this is important`)
-    let { boolean, listing_id } = request.body
-    let values = [boolean, listing_id]
+    console.log(request.body, `this is important`);
+    let { boolean, listing_id } = request.body;
+    let values = [boolean, listing_id];
 
     db.poolRoutes.getToggleListingFX(values, (error, result) => {
       if (error) {
@@ -287,14 +305,19 @@ module.exports = (db) => {
   let postSubmitReceiptOrder = (request, response) => {
     let checked = false;
     let checkValue = [request.body.order.listing_id];
-    let quantity = [request.body.order.quantity]
+
+    let quantity = request.body.order.quantity;
+
     let values = [1, request.body.order.merchant_id];
     console.log(checkValue, "----this is from checkValue");
     db.poolRoutes.checkInventoryFX(checkValue, (err, result) => {
       if (err) {
         console.log("error at controllerCheckInventory----", err.message);
       } else {
-        result.rows[0].quantity > quantity[0]
+
+        console.log(quantity, "---quantity");
+        result.rows[0].quantity >= quantity
+
           ? (checked = true)
           : (checked = false);
         let inventoryQuantity = result.rows[0].quantity;
@@ -398,7 +421,6 @@ module.exports = (db) => {
   }
 
 
-
   let getRatings = (request, response) => {
     let values = [request.params.id];
     db.poolRoutes.getRatingsFX(values, (err, result) => {
@@ -411,28 +433,27 @@ module.exports = (db) => {
   };
 
   let getTidyUpListing = (request, response) => {
-    console.log(request.body, `this is important`)
-    let { toBeDeleted } = request.body
-    let values = toBeDeleted
+    console.log(request.body, `this is important`);
+    let { toBeDeleted } = request.body;
+    let values = toBeDeleted;
     db.poolRoutes.getTidyUpListingFX(values, (error, result) => {
       if (error) {
-        console.log(error, `error at getActivateListing Controller`)
+        console.log(error, `error at getActivateListing Controller`);
       } else {
-        response.send("deletion successful")
+        response.send("deletion successful");
       }
-    })
-  }
+    });
+  };
 
   let getDeletedListing = (request, response) => {
     db.poolRoutes.getDeletedListingFX((error, result) => {
       if (error) {
-        console.log(error, `error at getActivateListing Controller`)
+        console.log(error, `error at getActivateListing Controller`);
       } else {
-        response.json(result)
+        response.json(result);
       }
-    })
-  }
-
+    });
+  };
 
   let postUserRatings = (request, response) => {
     let { user_id, merchant_id, listing_id, rating } = request.body;
@@ -440,6 +461,17 @@ module.exports = (db) => {
     db.poolRoutes.postUserRatingsFX(values, (err, result) => {
       if (err) {
         console.log(err, `err at postRatings Orderscontroller`);
+      } else {
+        response.json(result.rows);
+      }
+    });
+  };
+  let getUserRatings = (request, response) => {
+    let { id } = request.params;
+    let values = [2];
+    db.poolRoutes.getUserRatingsFX(values, (err, result) => {
+      if (err) {
+        console.log(err, `err at gettUserRatings Orderscontroller`);
       } else {
         response.json(result.rows);
       }
@@ -471,10 +503,9 @@ module.exports = (db) => {
 
     getRatings,
     postUserRatings,
+    getUserRatings,
 
     getTidyUpListing,
-    getDeletedListing
-
-
+    getDeletedListing,
   };
 };

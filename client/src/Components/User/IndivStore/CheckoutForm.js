@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 
@@ -74,4 +75,5 @@ export default function Checkout(props) {
             <p style={{ display: notEnuff, color: "red" }} >Insufficient Stock</p>
         </form>
     );
+
 }

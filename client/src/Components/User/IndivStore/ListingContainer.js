@@ -64,15 +64,16 @@ export default class ListingContainer extends React.Component {
       const cart = state.cart;
       let productAlreadyInCart = false;
       cart.forEach((item) => {
-        if (item.name === product.name && item.count / 2 < product.quantity) {
-          productAlreadyInCart = true;
-          item.count++;
+        if (item.name === product.name) {
+          if (item.count / 2 < product.quantity) {
+            productAlreadyInCart = true;
+            item.count++;
+          }
         }
       });
       if (!productAlreadyInCart) {
         cart.push({ ...product, count: 1 });
       }
-
       localStorage.setItem("cart", JSON.stringify(cart));
       console.log(this.state.cart, "----cart");
       return cart;

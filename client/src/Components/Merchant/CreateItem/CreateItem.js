@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
-import { Form, Col, Button } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { Component } from "react";
+import { Form, Col, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default class CreateItem extends Component {
-    constructor() {
-        super()
-    }
+  constructor() {
+    super();
+  }
+
 
     onSubmitHandler(e) {
         e.preventDefault()
@@ -97,4 +98,5 @@ export default class CreateItem extends Component {
 
         )
     }
+
 }
