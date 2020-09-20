@@ -1,3 +1,4 @@
+
 import React from "react";
 
 const IndivListing = (props) => {
@@ -42,3 +43,4 @@ const IndivListing = (props) => {
 };
 
 export default IndivListing;
+

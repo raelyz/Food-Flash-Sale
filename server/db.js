@@ -19,9 +19,10 @@ if (process.env.DATABASE_URL) {
   };
 } else {
   configs = {
-    user: "aurelialim",
-    host: "127.0.0.1",
-    database: "foodflash",
+    user: 'postgres',
+    host: '127.0.0.1',
+    database: 'foodflash',
+    port: 5432
   };
 }
 
