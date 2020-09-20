@@ -201,7 +201,7 @@ module.exports = (db) => {
       if (error) {
         console.log(error, "error at getNewListing Controller");
       } else {
-        response.redirect("/ItemList")
+        response.send({})
       }
     });
   };
