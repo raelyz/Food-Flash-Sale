@@ -18,7 +18,8 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "react-stripe-checkout": "^2.6.3"
+    "react-stripe-checkout": "^2.6.3",
+    "startbootstrap-agency": "^6.0.2"
   },
   "proxy": "http://127.0.0.1:5000/",
   "scripts": {

@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 
 export default function Checkout(props) {
-
-
+    const [notEnuff, setNotEnuff] = useState("none")
+    const [result, setResult] = useState("none")
     const stripe = useStripe();
     const elements = useElements();
 
@@ -42,10 +42,24 @@ export default function Checkout(props) {
                     order: props.data
                 })
             })
-                .then((res) => res.json())
-                .then((res) => {
+                .then(res => res.json())
+                .then(res => {
                     console.log(res)
+                    switch (res.status) {
+                        case "Payment Complete": {
 
+                        }
+                        case "Payment Failed": {
+                            setResult("block");
+                            break;
+                        }
+                        case "Insufficient Inventory": {
+                            setNotEnuff("block")
+                            break;
+                        }
+
+
+                    }
                 })
         }
     };
@@ -56,6 +70,8 @@ export default function Checkout(props) {
             <button type="submit" disabled={!stripe}>
                 Pay
         </button>
+            <p style={{ display: result, color: "red" }} >Payment Failed</p>
+            <p style={{ display: notEnuff, color: "red" }} >Insufficient Stock</p>
         </form>
     );
 }

@@ -20,7 +20,8 @@ export default class ListingContainer extends React.Component {
             result: [],
             cart: [],
             viewCart: false,
-            checkout: false
+            checkout: false,
+            clicked: 0
         }
 
         this.addToCart = this.addToCart.bind(this);
@@ -65,7 +66,9 @@ export default class ListingContainer extends React.Component {
 
     // view cart button
     navigateTo() {
-        this.setState({ viewCart: !this.state.viewCart })
+        if (this.state.cart.length > 0) {
+            this.setState({ viewCart: !this.state.viewCart })
+        }
     }
 
     handleAddToCart(e, product) {
@@ -74,10 +77,12 @@ export default class ListingContainer extends React.Component {
         this.setState(state => {
             const cart = state.cart;
             let productAlreadyInCart = false;
+            console.log(cart)
             cart.forEach(item => {
                 if (item.name === product.name) {
                     productAlreadyInCart = true;
                     item.count++;
+                    console.log(item.count)
                 }
             });
             if (!productAlreadyInCart) {
@@ -96,9 +101,10 @@ export default class ListingContainer extends React.Component {
     componentDidMount() {
         fetch(`/indivshop/${this.props.listing_id}`)
             .then(res => res.json())
-            .then(res =>
+            .then(res => {
+                console.log(res)
                 this.setState({ result: res, html: this.format(res), merchant_name: res[0].name })
-            )
+            })
     }
 
 
@@ -144,11 +150,11 @@ export default class ListingContainer extends React.Component {
         //     )
         // }
 
+        let data = {}
 
 
-
-        if (this.state.viewCart && this.state.cart[0]) {
-            let data = {
+        if (this.state.cart[0]) {
+            data = {
                 merchant_id: this.state.cart[0].merchant_id,
                 //user_id:
                 name: this.state.cart[0].name,
@@ -158,46 +164,45 @@ export default class ListingContainer extends React.Component {
                 quantity: this.state.cart[0].count / 2,
                 revenue: this.state.cart[0].count / 2 * this.state.cart[0].price
             }
-            return (
-                <div>
-
-                    <div>
-                        <h1>You are viewing deals from {this.state.merchant_name}</h1>
-                        <br />
-                        <h1>Order Summary</h1>
-                        <table style={{ maxWidth: "300px", margin: "0 auto" }}>
-                            <tr>
-                                <th>Item Name</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                            </tr>
-                            <tr>
-                                <td>{this.state.cart[0].name}</td>
-                                <td>{this.state.cart[0].count / 2}</td>
-                                <td>Total: ${this.state.cart[0].count / 2 * this.state.cart[0].price}</td>
-                            </tr>
-                        </table>
-                        <Elements stripe={stripePromise}><CheckoutForm data={data}></CheckoutForm></Elements>
-                    </div>
-                    <div className="ListItems" >
-                        {this.state.html}
-                    </div>
-                </div>
-            )
-
-        } else {
-            return (
-                <>
-                    <button onClick={this.navigateTo}>View Cart {this.state.cart.length}</button>
-                    <h1>You are viewing deals from {this.state.merchant_name}</h1>
-                    <br />
-
-                    <div className="ListItems" >
-                        {this.state.html}
-                    </div>
-
-                </>
-            )
         }
+        return (
+            <>
+
+                <h1>You are viewing deals from {this.state.merchant_name}</h1>
+                <br />
+                <div className="ListItems" >
+                    {this.state.html}
+                </div>
+                <button onClick={this.navigateTo}>View Cart {this.state.cart.length}</button>
+
+                {this.state.viewCart ?
+                    <div>
+                        <div>
+                            <h1>Order Summary</h1>
+                            <table style={{ maxWidth: "300px", margin: "0 auto" }}>
+                                <tr>
+                                    <th>Item Name</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                                <tr>
+                                    <td>{this.state.cart[0].name}</td>
+                                    <td>{this.state.cart[0].count / 2}</td>
+                                    <td>Total: ${this.state.cart[0].count / 2 * this.state.cart[0].price}</td>
+                                </tr>
+                            </table>
+                            <Elements stripe={stripePromise}><CheckoutForm data={data}></CheckoutForm></Elements>
+                        </div>
+                    </div> : null}
+            </>
+        )
+
+
+
+
+
     }
 }
+
+
+

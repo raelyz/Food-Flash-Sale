@@ -36,14 +36,14 @@ export default class App extends React.Component {
             .then(res => res.json())
             .then(res => {
                 // If we are receiving userId and userName
-                if(res.userId && res.userName) {
+                if (res.userId && res.userName) {
                     this.setState({
                         userId: res.userId,
                         userName: res.userName
                     })
                 }
-                if(res.merchantId && res.merchantUsername) {
-                // If we are receiving merchantId and merchantName
+                if (res.merchantId && res.merchantUsername) {
+                    // If we are receiving merchantId and merchantName
                     this.setState({
                         merchantId: res.merchantId,
                         merchantUsername: res.merchantUsername
@@ -51,8 +51,8 @@ export default class App extends React.Component {
                 }
             })
     }
-    onClickSignUp=(e)=> {
-        if(this.state.alternate) {
+    onClickSignUp = (e) => {
+        if (this.state.alternate) {
             this.setState({
                 displayOverlaySignUp: "block",
                 displayOverlayLogin: "none",
@@ -66,8 +66,8 @@ export default class App extends React.Component {
             })
         }
     }
-    onClickLogin=(e)=> {
-        if(this.state.alternate2) {
+    onClickLogin = (e) => {
+        if (this.state.alternate2) {
             this.setState({
                 displayOverlayLogin: "block",
                 displayOverlaySignUp: "none",
@@ -81,41 +81,41 @@ export default class App extends React.Component {
             })
         }
     }
-        // PASS THIS 2 THINGS BELOW TO YOUR CHILD COMPONENTS IF YOU NEED THE ID OR USERNAME FOR LOGIN AND REGISTER
-        // userId={this.state.userId} userName={this.state.userName}
-    onRegistered=(id,name)=> {
-            this.setState({
-            userId: id,
-            userName: name
-        })
-    }
-    onLogin=(id,name)=> {
+    // PASS THIS 2 THINGS BELOW TO YOUR CHILD COMPONENTS IF YOU NEED THE ID OR USERNAME FOR LOGIN AND REGISTER
+    // userId={this.state.userId} userName={this.state.userName}
+    onRegistered = (id, name) => {
         this.setState({
             userId: id,
             userName: name
         })
     }
-    MercOnRegistered=(id,name)=> {
-            this.setState({
-            merchantId: id,
-            merchantUsername: name
+    onLogin = (id, name) => {
+        this.setState({
+            userId: id,
+            userName: name
         })
     }
-    MercOnLogin=(id,name)=> {
+    MercOnRegistered = (id, name) => {
         this.setState({
             merchantId: id,
             merchantUsername: name
         })
     }
-    changePage=(e)=> {
+    MercOnLogin = (id, name) => {
+        this.setState({
+            merchantId: id,
+            merchantUsername: name
+        })
+    }
+    changePage = (e) => {
         this.setState({
             changePage: e.target.value
         })
     }
-    onLogout=(e)=> {
+    onLogout = (e) => {
         fetch('/logout')
             .then(res => res.json())
-            .then(res => {})
+            .then(res => { })
         this.setState({
             merchantId: "",
             merchantUsername: "",
@@ -125,29 +125,29 @@ export default class App extends React.Component {
     }
     render() {
         // If merchnatID and merchantUsername is present render the merchant dashboard page and pass in their respective data
-        if(this.state.merchantId && this.state.merchantUsername) {
+        if (this.state.merchantId && this.state.merchantUsername) {
             return (
-                <MerchantSuperContainer className="App MainContainerMerchant" onLogout={this.onLogout}/>
-                )
-        } else if(this.state.userId && this.state.userName) {
+                <MerchantSuperContainer className="App MainContainerMerchant" onLogout={this.onLogout} />
+            )
+        } else if (this.state.userId && this.state.userName) {
             // If userId and userName is present, render the timeline page and pass in their respective data
             return (
-                <UserSuperContainer className="App MainContainerUser" userId={this.state.userId} onLogout={this.onLogout} stripper={stripper}/>
+                <UserSuperContainer className="App MainContainerUser" userId={this.state.userId} onLogout={this.onLogout} stripper={stripper} />
             );
         } else {
-            if(this.state.changePage == 'user') {
+            if (this.state.changePage == 'user') {
                 return (
                     <div className="App">
                         <Navbar
-                        onClickSignUp={this.onClickSignUp}
-                        onClickLogin={this.onClickLogin}
-                        changePage={this.changePage}
+                            onClickSignUp={this.onClickSignUp}
+                            onClickLogin={this.onClickLogin}
+                            changePage={this.changePage}
                         />
                         <Home
-                        displaysignup={this.state.displayOverlaySignUp}
-                        displaylogin={this.state.displayOverlayLogin}
-                        onRegistered={this.onRegistered}
-                        onLogin={this.onLogin}
+                            displaysignup={this.state.displayOverlaySignUp}
+                            displaylogin={this.state.displayOverlayLogin}
+                            onRegistered={this.onRegistered}
+                            onLogin={this.onLogin}
                         />
                         <Footer />
                     </div>
@@ -156,19 +156,19 @@ export default class App extends React.Component {
                 return (
                     <div className="App">
                         <MercNavbar
-                        onClickSignUp={this.onClickSignUp}
-                        onClickLogin={this.onClickLogin}
-                        changePage={this.changePage}
+                            onClickSignUp={this.onClickSignUp}
+                            onClickLogin={this.onClickLogin}
+                            changePage={this.changePage}
                         />
                         <MercHome
-                        displaysignup={this.state.displayOverlaySignUp}
-                        displaylogin={this.state.displayOverlayLogin}
-                        MercOnRegistered={this.MercOnRegistered}
-                        MercOnLogin={this.MercOnLogin}
+                            displaysignup={this.state.displayOverlaySignUp}
+                            displaylogin={this.state.displayOverlayLogin}
+                            MercOnRegistered={this.MercOnRegistered}
+                            MercOnLogin={this.MercOnLogin}
                         />
                         <MerchFooter />
                     </div>
-                    )
+                )
             }
         }
     }
