@@ -4,17 +4,26 @@ import OrderHistory from '../OrderHistory/OrderHistory'
 import { Route, Link, Redirect, Switch } from 'react-router-dom'
 import IndivListing from '../IndivStore/IndivListing'
 import ListingContainer from '../IndivStore/ListingContainer'
-import ByCategory from './ByCategory'
+import ByCategory from './housekeeping switch'
+import ByDiscount from './ByDiscount';
+import ByDistance from './ByDistance';
 var fetching = true
+var newArray = []
 
 
 export default class TimeLine extends Component {
     constructor(props) {
-        super()
+        super(props)
         this.state = {
             timeLine: [],
             deletedArray: [],
-            filter: ""
+            filter: "",
+            sorted: [],
+            lat: props.lat,
+            lon: props.lon,
+            status: 'True',
+            mode: 'default'
+
         }
     }
     componentDidMount() {
@@ -109,7 +118,8 @@ export default class TimeLine extends Component {
         }
     }
     render() {
-        let newArray = this.state.timeLine.map((item, index) => {
+
+        let Array = this.state.timeLine.map((item, index) => {
             const uploadTime = new Date(item.time)
             uploadTime.setMinutes(uploadTime.getMinutes() + item.time_limit_min)
             let difference = +uploadTime - +new Date();
@@ -117,12 +127,12 @@ export default class TimeLine extends Component {
                 return item
             }
         })
-        let newerArray = newArray.filter((item) => {
+        let nArray = Array.filter((item) => {
             return item
         })
 
 
-        newerArray.sort(function (a, b) {
+        nArray.sort(function (a, b) {
             const uploadTimeA = new Date(a.time)
             uploadTimeA.setMinutes(uploadTimeA.getMinutes() + a.time_limit_min)
             const uploadTimeB = new Date(b.time)
@@ -130,12 +140,10 @@ export default class TimeLine extends Component {
             return uploadTimeA - uploadTimeB
         })
         // console.log(newerArray, `before splice`)
-        if (newerArray.length > 20) {
-            newerArray.splice(19, newerArray.length - 20)
+        if (nArray.length > 20) {
+            nArray.splice(19, nArray.length - 20)
         }
-
-        // console.log(newerArray, `After splice`)
-        let merchantCard = newerArray.map((eachCard, index) => {
+        let merchantCard = nArray.map((eachCard, index) => {
             const discount = (eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100
             let path = "/" + eachCard.merchant_id
             return (
@@ -147,7 +155,7 @@ export default class TimeLine extends Component {
                     </EachMerchant>
                 </Link>)
         })
-
+        // console.log(newerArray, `After splice`)
         let deletedMerchantCard = this.state.deletedArray.map((eachCard, index) => {
             const discount = (eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100
             let path = "/" + eachCard.merchant_id
@@ -164,8 +172,7 @@ export default class TimeLine extends Component {
                 </div>
             </Link>
         })
-
-        const routeArray = newerArray.map((eachCard, index) => {
+        const routeArray = nArray.map((eachCard, index) => {
             let path = "/" + eachCard.merchant_id
             return <Route path={path} render={
                 () => <ListingContainer listing_id={eachCard.listing_id} merchant_id={eachCard.merchant_id} stripper={this.props.stripper} />
@@ -187,10 +194,10 @@ export default class TimeLine extends Component {
                                 <Link to="/Orderhistory">Order history</Link>
                             </li>
                             <li class="nav-item">
-                                <Link to="/ByCategory">Category</Link>
+                                <Link to="/ByDistance">Distance</Link>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
+                                <Link to="/ByDiscount">Discount</Link>
                             </li>
                         </ul>
                         <button onClick={this.props.onLogout}>Log out</button>
@@ -216,19 +223,31 @@ export default class TimeLine extends Component {
                         </div>
                     </div>
                 </div>
+                <div>
+                    <select >
+                        <option value="Time">Time Left</option>
+                        <option value="Discount">Discount</option>
+                        <option value="Distance">Distance</option>
+                    </select>
+                </div>
                 <main>
                     <Switch>
                         {routeArray}
                         <Route path="/Orderhistory" render={
                             () => <OrderHistory />
                         } />
-                        <Route path="/ByCategory" render={
+                        {/* <Route path="/ByCategory" render={
                             () => <ByCategory data={this.state.timeLine} lon={this.props.lon} lat={this.props.lat} />
-                        } />
+                        } /> */}
+                        <Route path="/ByDistance" render={() => <ByDistance lon={this.props.lon} lat={this.props.lat} />} />
+                        <Route path="/ByDiscount" render={() => <ByDiscount lon={this.props.lon} lat={this.props.lat} />} />
                         <Route path="/" render={
-                            () => <><h1>Ongoing Deals</h1><div className="row">{merchantCard}</div>
+                            () => <>
+                                <h1>Ongoing Deals</h1>
+                                <div className="row">{(this.state.status) ? merchantCard : <div>sortedCard</div>}</div>
                                 <h1>Expired Deals</h1>
-                                <div className="row">{deletedMerchantCard}</div></>
+                                <div className="row">{deletedMerchantCard}</div>
+                            </>
                         } />
                     </Switch>
                 </main>
