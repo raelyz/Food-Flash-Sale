@@ -256,3 +256,42 @@ export default class TimeLine extends Component {
         )
     }
 }
+
+//
+// First Option
+// 1) Starting Price is our price ceiling
+// 2) When timeleft = time left / 2
+// 3) price will be price ceiling + price floor /2 
+// 4) taking time left split into 4 Segements
+//
+// segement1
+//   price ceiling -  80/100 * price difference = 6.54
+// segment2 
+//   price ceiling - 60/100 * price difference = 6.28
+// segment3 
+//   price ceiling - 40/100 * price difference = 6.02
+// segment4 
+// if 10% or>
+//     price ceiling - 20/100 * price difference =5.76 
+//     else
+//     price floor
+//     else (based on time set to price floor)
+// up 7
+// price ceiling 6.80
+// price floor   5.50         price difference 1.30 0-100%  
+// price c
+// hard code average time on item creation into the database
+//
+//                                                       qty is static in our DB, possibly carry out second fetch on orders to sum qty to     ////////////                                                       calcualte OR write into DB a new column to keep adding to check sale
+// average time taken to sell an item  get current time - upload time = price difference divide by uploaded qty - remaining qty  ( ) <---------------------how?
+// compare it to the "estimated time" to sell 1hr 10
+//
+// if more/ less
+// metric duration = time taken to sell out / tiem set by the user
+// 10 items 0:00
+// 9items   0:06
+// 8         0:12<-------  average time setimt time_limit_min /items 
+//
+//
+// 1 hour 
+//

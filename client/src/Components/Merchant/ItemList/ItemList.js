@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Toggle from './Toggle/Toggle'
 import EditIcon from '@material-ui/icons/Edit';
-import {Route, Link, Redirect, Switch} from 'react-router-dom'
+import { Route, Link, Redirect, Switch } from 'react-router-dom'
 import EditContainer from '../../Merchant Home/Edit/EditContainer'
 export default class ItemList extends Component {
     constructor() {

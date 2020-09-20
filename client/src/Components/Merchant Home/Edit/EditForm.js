@@ -49,7 +49,20 @@ export default class EditForm extends Component {
                 <Form.Row>
                     <Form.Label column lg={2}>Category</Form.Label>
                     <Col>
-                        <Form.Control type="text" placeholder={this.props.category_id} />
+                        <Form.Control name="category_id" as="select" custom>
+                            <option value="1">Snacks</option>
+                            <option value="2">Light Bites</option>
+                            <option value="3">Dim Sum</option>
+                            <option value="4">Noodles</option>
+                            <option value="5">Junk Food</option>
+                            <option value="6">Hearty Meals</option>
+                            <option value="7">Snacks</option>
+                            <option value="8">Light Bites</option>
+                            <option value="9">Dim Sum</option>
+                            <option value="10">Noodles</option>
+                            <option value="11">Junk Food</option>
+                            <option value="12">Hearty Meals</option>
+                        </Form.Control>
                     </Col>
                 </Form.Row>
                 <br />
