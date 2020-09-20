@@ -12,7 +12,9 @@ CREATE TABLE IF NOT EXISTS merchant(
   email TEXT,
   address TEXT,
   uen TEXT,
-  cuisine TEXT
+  cuisine TEXT,
+  latitude TEXT,
+  longitude TEXT  
 );
 
 CREATE TABLE  IF NOT EXISTS category(

@@ -7,17 +7,17 @@
 -- INSERT INTO users (username,password,email) VALUES('vincent','12345','xincent@gmail.com');
 -- INSERT INTO users (username,password,email) VALUES('qundax','51234','qunda@gmail.com');
 
--- INSERT INTO merchant (name,password,email,address,uen,cuisine) VALUES('mcdonalds','12345','macs@gmail.com','10 Anson Road','UEN12345MACS','fast food');
+INSERT INTO merchant (name,password,email,address,uen,cuisine,latitude,longitude) VALUES('mcdonalds','12345','macs@gmail.com','10 Anson Road','UEN12345MACS','fast food','1.275','103.84');
 
--- INSERT INTO merchant (name,password,email,address,uen,cuisine) VALUES('poketheory','12345','poke@gmail.com','12 Anson Road','UEN12345POKE','Poke');
+INSERT INTO merchant (name,password,email,address,uen,cuisine,latitude,longitude) VALUES('poketheory','12345','poke@gmail.com','12 Anson Road','UEN12345POKE','Poke','1.275','103.84');
 
--- INSERT INTO merchant (name,password,email,address,uen,cuisine) VALUES('RyuSushi','12345','ryu@gmail.com','11 Anson Road','UEN12345RYU','japanese');
+INSERT INTO merchant (name,password,email,address,uen,cuisine,latitude,longitude) VALUES('RyuSushi','12345','ryu@gmail.com','11 Anson Road','UEN12345RYU','japanese','1.34','103.5');
 
--- INSERT INTO merchant (name,password,email,address,uen,cuisine) VALUES('Astons','12345','astons@gmail.com','11 Middle Road','UEN12345ASTONS','western');
+INSERT INTO merchant (name,password,email,address,uen,cuisine,latitude,longitude) VALUES('Astons','12345','astons@gmail.com','11 Middle Road','UEN12345ASTONS','western','1.4','103.8');
 
--- INSERT INTO merchant (name,password,email,address,uen,cuisine) VALUES('Paradise Dynasty','12345','paradise@gmail.com','133 Anson Road','UEN12345PS','chinese');
+INSERT INTO merchant (name,password,email,address,uen,cuisine,latitude,longitude) VALUES('Paradise Dynasty','12345','paradise@gmail.com','133 Anson Road','UEN12345PS','chinese','1.4','103.8');
 
--- INSERT INTO merchant (name,password,email,address,uen,cuisine) VALUES('Pizza Hut','12345','pizza@gmail.com','1222 Anson Road','UEN12345PIZZ','fast food');
+INSERT INTO merchant (name,password,email,address,uen,cuisine,latitude,longitude) VALUES('Pizza Hut','12345','pizza@gmail.com','1222 Anson Road','UEN12345PIZZ','fast food','1.4','103.8');
 
 
 
@@ -32,23 +32,25 @@
 
 
 
--- INSERT INTO listing (item_name,unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
---   description,time_limit_min,live,time) VALUES('Hawaiian Pizza',10,10,8,5,1,6,'Either you hate or u love',1,true,current_timestamp);
 
--- INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
---   description,time_limit_min,live,time) VALUES('xiao long bao',20,10,15,10,3,5,'soupy dumplings',1.5,true,current_timestamp);
+INSERT INTO listing (item_name,unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
+  description,time_limit_min,live,time) VALUES('Hawaiian Pizza',10,10,8,2,1,6,'Either you hate or u love',22,true,current_timestamp);
 
--- INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
---   description,time_limit_min,live,time) VALUES('Nuggets',5,10,4,2,5,1,'nuggets r life',2,true,current_timestamp);
+INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
+  description,time_limit_min,live,time) VALUES('xiao long bao',20,10,15,10,3,5,'soupy dumplings',122,true,current_timestamp);
 
--- INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
---   description,time_limit_min,live,time) VALUES('chicken chop',14,10,12,7,6,4,'a hearty chicken chop',2.5,true,current_timestamp);
+INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
+  description,time_limit_min,live,time) VALUES('Nuggets',5,10,4,1,5,1,'nuggets r life',22,true,current_timestamp);
 
--- INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
---   description,time_limit_min,live,time) VALUES('Aburi Don',20,10,15,10,6,5,'feeling torchy',3,true,current_timestamp);
+INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
+  description,time_limit_min,live,time) VALUES('chicken chop',14,10,12,5,6,4,'a hearty chicken chop',222,true,current_timestamp);
 
--- INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
---   description,time_limit_min,live,time) VALUES('Salmon Soba',20,10,17,10,6,2,'for the health fanatic',10,true,current_timestamp);
+INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
+  description,time_limit_min,live,time) VALUES('Aburi Don',20,10,15,8,6,5,'feeling torchy',22,true,current_timestamp);
+
+INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
+  description,time_limit_min,live,time) VALUES('Salmon Soba',20,10,17,10,6,2,'for the health fanatic',122,true,current_timestamp);
+
 
   INSERT INTO listing (item_name, unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,
   description,time_limit_min,live,time) VALUES('McSpicy',22,10,4,2,5,1,'McSpicy Poops are worth it',60,true,current_timestamp);

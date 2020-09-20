@@ -6,15 +6,16 @@ import LoggedInNavBar from "./Navbar/LoggedInNavBar";
 import LoggedInFooter from "./Footer/LoggedInFooter";
 
 export default class UserSuperContainer extends Component {
-  render() {
-    return (
-      <>
-        <GeoLocation
-          onLogout={this.props.onLogout}
-          stripper={this.props.stripper}
-        />
-        <LoggedInFooter />
-      </>
-    );
-  }
+
+
+    render() {
+        return (
+            <>
+                <GeoLocation onLogout={this.props.onLogout} stripper={this.props.stripper}/>
+                <LoggedInFooter />
+
+            </>
+        )
+    }
 }
+

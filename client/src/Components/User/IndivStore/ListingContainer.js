@@ -7,6 +7,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
 export default class ListingContainer extends React.Component {
+
   constructor(props) {
     //mounting
     super(props);
@@ -201,3 +202,4 @@ export default class ListingContainer extends React.Component {
     }
   }
 }
+
