@@ -7,6 +7,32 @@ import OrderListContainer from './AllOrders/OrderListContainer'
 import LogedInNavbar from './Navbar/LogedInNavbar'
 import {Route, Link, Redirect, Switch} from 'react-router-dom'
 export default class UserSuperContainer extends Component {
+    constructor() {
+        super()
+        this.state= {
+            list: []
+        }
+    }
+    componentDidMount() {
+        fetch('/all/listing/1') // change to this.props.merchantId
+            .then(res => res.json())
+            .then(res => {
+                console.log(res, "------ inside fetch request")
+                this.setState({
+                    list: res
+                })
+            })
+    }
+
+                    // <Route path="/EditItem/:listing_id" component={()=> <EditContainer list={this.state.list} />} />
+
+
+                    // <Route path="/EditItem/:listing_id" component={EditContainer} />
+    //
+                    //     <Route path="/EditItem/:listing_id" render= {
+                    //     ()=><EditContainer list={this.state.list[0]} />
+                    // }/>
+
     // When loged in render the dashbard first
     // Navbar
         // create item
@@ -27,7 +53,7 @@ export default class UserSuperContainer extends Component {
                 </div>
                 <Switch>
                     <Route path="/ItemList" render= {
-                        ()=><ItemList />
+                        ()=><ItemList list={this.state.list}/>
                     }/>
                     <Route path="/CreateItem" render= {
                         ()=><CreateItem />
@@ -35,6 +61,9 @@ export default class UserSuperContainer extends Component {
                     <Route path="/AllOrders" render= {
                         ()=><OrderListContainer />
                     }/>
+                    <Route path="/EditItem/:listing_id" render={
+                        (props)=> <EditContainer {...props} list={this.state.list} />
+                        }/>
                     <Route path="/" render= {
                         ()=><div>This here is the merchant dashboard</div>
                     }/>

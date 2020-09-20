@@ -5,7 +5,6 @@ const Stripe = require("stripe");
 const stripe = Stripe("sk_test_51HSOL8BBF6zBM44ruPfaaaUfYvLytW3Kvr3aYbx4aiV637zLiTO21r5Ik1Sew7mxxZqwWMaQjsSIRgq18GnR6gmy00EMJeg4NE")
 let SALT = "debuggod";
 let reference = "";
-
 module.exports = (db) => {
   let getHome = (request, response) => {
     if (!request.cookies['loggedIn']) {
@@ -130,7 +129,8 @@ module.exports = (db) => {
     response.cookie("MID", "", {maxAge: 1})
     response.cookie("UUN", "", {maxAge: 1})
     response.cookie("MUN", "", {maxAge: 1})
-    response.send({})
+    console.log('inside logout')
+    response.redirect({})
   }
 
   let getTimeline = (request, response) => {
@@ -150,7 +150,6 @@ module.exports = (db) => {
   }
 
   let getNewListing = (request, response) => {
-    console.log('im here!')
     console.log(request.body)
     let { item_name, unit_price, quantity, price_ceiling, price_floor, description, time_limit_min, merchant_id } = request.body
     let values = [item_name, unit_price, quantity, price_ceiling, price_floor, description, time_limit_min, merchant_id]
@@ -158,7 +157,7 @@ module.exports = (db) => {
       if (error) {
         console.log(error, 'error at getNewListing Controller')
       } else {
-        response.sendStatus(200)
+        response.redirect("/ItemList")
       }
     })
   }
@@ -189,7 +188,7 @@ module.exports = (db) => {
   }
 
   let getEditListing = (request, response) => {
-    let { listing_id } = request.body
+    let { listing_id } = request.params
     let values = [listing_id]
     db.poolRoutes.getEditListingFX(values, (error, result) => {
       if (error) {
@@ -207,7 +206,7 @@ module.exports = (db) => {
       if (error) {
         console.log(error, `erroratgetupdatelisting controlelr`)
       } else {
-        response.send("update successful!")
+        response.redirect("/ItemList")
       }
     })
   }
@@ -279,6 +278,7 @@ module.exports = (db) => {
                       }).then(res => stripe.paymentIntents.confirm(res.id))
                         .then(res => {
                           if (res.status === "succeeded") {
+                            console.log("Succceedded")
                             response.json({ status: "Payment Complete" })
                           } else {
                             let quantity = inventoryQuantity

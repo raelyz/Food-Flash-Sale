@@ -112,3 +112,22 @@
 	height: 70vh;
 	overflow-y: scroll;
 }
+
+table, th, td {
+  border-collapse: collapse;
+  vertical-align: middle;
+  text-align: center;
+  height: 60px;
+}
+th, td {
+	width: 100px;
+}
+
+.edit {
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.edit:hover {
+	background-color: lightgrey;
+}
