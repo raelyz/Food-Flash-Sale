@@ -4,19 +4,16 @@ module.exports = (dbPoolInstance) => {
   let getUserLoginDetailsFX = (value, callback) => {
     let query = `SELECT * FROM users WHERE username=$1 AND password=$2`;
     dbPoolInstance.query(query, value, (err, result) => {
-
-      callback(err, result)
-    })
-  }
-
+      callback(err, result);
+    });
+  };
 
   let getMerchantLoginDetailsFX = (value, callback) => {
     let query = `SELECT * FROM merchant WHERE name=$1 AND password=$2`;
     dbPoolInstance.query(query, value, (err, result) => {
-
-      callback(err, result)
-    })
-  }
+      callback(err, result);
+    });
+  };
 
   let insertUserDetailsFX = (value, callback) => {
     let query = `INSERT INTO users (username,email,password) VALUES ($1,$2,$3) RETURNING * `;
@@ -49,20 +46,16 @@ module.exports = (dbPoolInstance) => {
   let getUserDetailsFX = (value, callback) => {
     let query = `SELECT * FROM users WHERE username=$1 OR email=$2`;
     dbPoolInstance.query(query, value, (err, result) => {
-
-      callback(err, result)
-    })
-  }
-
+      callback(err, result);
+    });
+  };
 
   let getMerchantDetailsFX = (value, callback) => {
     let query = `SELECT * FROM merchant WHERE name=$1 OR email=$2 OR address=$3 OR uen=$4 AND cuisine=$5`;
     dbPoolInstance.query(query, value, (err, result) => {
-
-      callback(err, result)
-    })
-  }
-
+      callback(err, result);
+    });
+  };
 
   let getLoginDetailsFX = (value, callback) => {
     let queryLoginDetails = `SELECT * FROM users WHERE username=$1,password=$2,email=$3`;
@@ -77,15 +70,14 @@ module.exports = (dbPoolInstance) => {
     dbPoolInstance.query(query, (err, result) => {
       // console.log(result.rows, "---from models")
 
-      callback(err, result)
+      callback(err, result);
+    });
+  };
 
-
-    })
-  }
-
- // merchant.merchant_id = $1
+  // merchant.merchant_id = $1
   let getIndivShopFX = (values, callback) => {
-    let query = "select * from listing inner join merchant on listing.merchant_id = merchant.merchant_id and listing.listing_id =$1";
+    let query =
+      "select * from listing inner join merchant on listing.merchant_id = merchant.merchant_id and listing.listing_id =$1";
 
     dbPoolInstance.query(query, values, (err, result) => {
       console.log(result, "---from modelsindiv shop");
@@ -232,7 +224,6 @@ module.exports = (dbPoolInstance) => {
   };
 
   let getMerchantOrdersFX = (values, callback) => {
-
     let query =
       "SELECT * from orders inner join listing on orders.listing_id =listing.listing_id where listing.merchant_id=$1";
     dbPoolInstance.query(query, values, (err, result) => {
@@ -241,17 +232,7 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
- 
-
-    let query = "SELECT * from orders inner join listing on orders.listing_id =listing.listing_id where listing.merchant_id=$1";
-    dbPoolInstance.query(query, values, (err, result) => {
-      console.log(result, "---from models merchant orders")
-      callback(err, result)
-
-    })
-  }
-  
-   let getRatingsFX = (values, callback) => {
+  let getRatingsFX = (values, callback) => {
     let query =
       "SELECT * from rating inner join listing on rating.listing_id =listing.listing_id where listing.merchant_id=$1";
     dbPoolInstance.query(query, values, (err, result) => {
@@ -262,31 +243,28 @@ module.exports = (dbPoolInstance) => {
 
   let getTidyUpListingFX = (value, callback) => {
     value.forEach((item) => {
-      values = [false, item.listing_id]
-      let query = `update LISTING set live = $1, time = CURRENT_TIMESTAMP where listing_id = $2`
-      dbPoolInstance.query(query, values, (err, result) => {
-      })
-    })
-    callback(null, null)
-
-  }
+      values = [false, item.listing_id];
+      let query = `update LISTING set live = $1, time = CURRENT_TIMESTAMP where listing_id = $2`;
+      dbPoolInstance.query(query, values, (err, result) => {});
+    });
+    callback(null, null);
+  };
 
   let getDeletedListingFX = (callback) => {
-    let query = `select * from merchant inner join listing on merchant.merchant_id = listing.merchant_id where live=false ORDER BY time desc limit 5`
+    let query = `select * from merchant inner join listing on merchant.merchant_id = listing.merchant_id where live=false ORDER BY time desc limit 5`;
     dbPoolInstance.query(query, (err, result) => {
       if (err) {
-        console.log(err, `error in gettogglelistingfx`)
-        callback(err, null)
+        console.log(err, `error in gettogglelistingfx`);
+        callback(err, null);
       } else {
         if (result.rows.length > 0) {
-          callback(null, result.rows)
+          callback(null, result.rows);
         } else {
-          callback(null, null)
+          callback(null, null);
         }
       }
-    })
-  }
-
+    });
+  };
 
   let postUserRatingsFX = (values, callback) => {
     let query =
@@ -327,12 +305,10 @@ module.exports = (dbPoolInstance) => {
     depleteInventoryFX,
     getMerchantOrdersFX,
 
-
     getRatingsFX,
     postUserRatingsFX,
 
     getTidyUpListingFX,
-    getDeletedListingFX
-
+    getDeletedListingFX,
   };
 };

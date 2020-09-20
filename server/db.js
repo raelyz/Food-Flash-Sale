@@ -19,11 +19,9 @@ if (process.env.DATABASE_URL) {
   };
 } else {
   configs = {
-
-    user: 'eugenelim',
-    host: '127.0.0.1',
-    database: 'project3',
-
+    user: "aurelialim",
+    host: "127.0.0.1",
+    database: "foodflash",
   };
 }
 
