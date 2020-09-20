@@ -30,7 +30,7 @@ module.exports = (dbPoolInstance) => {
     });
   };
   let insertMerchantDetailsFX = (value, callback) => {
-    let query = `INSERT INTO merchant (name,email,address,uen,cuisine,password,latitude,longtitude) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING * `
+    let query = `INSERT INTO merchant (name,email,address,uen,cuisine,latitude,longitude,password) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING * `
     dbPoolInstance.query(query, value, (err, result) => {
       if (err) {
         callback(err, null);
@@ -49,9 +49,9 @@ module.exports = (dbPoolInstance) => {
       callback(err, result);
     });
   };
-
   let getMerchantDetailsFX = (value, callback) => {
-    let query = `SELECT * FROM merchant WHERE name=$1 OR email=$2 OR address=$3 OR uen=$4 AND latitude=$6 AND longtitude =$7 AND cuisine=$5`
+    // [request.body.name, request.body.email, address, request.body.uen, request.body.cuisine, request.body.latitude, request.body.longitude]
+    let query = `SELECT * FROM merchant WHERE name=$1 OR email=$2 OR address=$3 OR uen=$4 AND latitude=$6 AND longitude =$7 AND cuisine=$5`
     dbPoolInstance.query(query, value, (err, result) => {
       console.log(err)
       console.log(result)
@@ -251,7 +251,7 @@ module.exports = (dbPoolInstance) => {
     value.forEach((item) => {
       values = [false, item.listing_id];
       let query = `update LISTING set live = $1, time = CURRENT_TIMESTAMP where listing_id = $2`;
-      dbPoolInstance.query(query, values, (err, result) => {});
+      dbPoolInstance.query(query, values, (err, result) => { });
     });
     callback(null, null);
   };
@@ -275,6 +275,15 @@ module.exports = (dbPoolInstance) => {
   let postUserRatingsFX = (values, callback) => {
     let query =
       "INSERT INTO rating (user_id,merchant_id,listing_id,rating) VALUES($1,$2,$3,$4) returning * ";
+    dbPoolInstance.query(query, values, (err, result) => {
+      console.log(result, "---from models post ratings");
+      callback(err, result);
+    });
+  };
+
+  let getUserRatingsFX = (values, callback) => {
+    let query =
+      "SELECT * from (SELECT * from receipt left join (SELECT * FROM rating where rating.user_id =$1) as rated on receipt.receipt_id = rated.rating_receipt_id) as foo where rating_stars is null and receipt_id is not null";
     dbPoolInstance.query(query, values, (err, result) => {
       console.log(result, "---from models post ratings");
       callback(err, result);
@@ -313,6 +322,7 @@ module.exports = (dbPoolInstance) => {
 
     getRatingsFX,
     postUserRatingsFX,
+    getUserRatingsFX,
 
     getTidyUpListingFX,
     getDeletedListingFX,

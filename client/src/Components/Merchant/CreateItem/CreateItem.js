@@ -1,20 +1,42 @@
-import React, { Component } from 'react'
-import { Form, Col, Button } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { Component } from "react";
+import { Form, Col, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default class CreateItem extends Component {
     constructor() {
-        super()
+        super();
     }
+
 
     onSubmitHandler(e) {
         e.preventDefault()
-        console.log(e.target.item_name.value)
-        console.log(e.target.unit_price.value)
-        console.log(e.target.quantity.value)
-        console.log(e.target.category_id.value)
-        console.log(e.target.description.value)
+        let data = {
+            item_name: e.target.item_name.value,
+            unit_price: e.target.unit_price.value,
+            quantity: e.target.quantity.value,
+            price_ceiling: e.target.price_ceiling.value,
+            price_floor: e.target.price_floor.value,
+            description: e.target.description.value,
+            category_id: e.target.category_id.value,
+            time_limit_min: e.target.time_limit_min.value,
+            merchant_id: e.target.merchant_id.value
+        }
+        console.log(data)
+        fetch('/newListing', {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(data),
+        })
+            .then(res =>
+                res.text()
+            ).then(res => {
+                console.log(res)
+            })
     }
+
+
 
     render() {
         return (
@@ -87,14 +109,15 @@ export default class CreateItem extends Component {
                         <Form.Control type="text" placeholder="Time in Minutes" name="time_limit_min" />
                     </Col>
                 </Form.Row>
-                <Button type="submit" className="mb-2">
+                <Button type="submit" onClick={this.props.onClick} className="mb-2">
                     Submit
                 </Button>
                 <Col>
-                    <Form.Control type="hidden" placeholder="Normal text" name="merchant_id" value="1" />
+                    <Form.Control type="hidden" placeholder="Normal text" name="merchant_id" value={this.props.merchant_id} />
                 </Col>
             </Form>
 
         )
     }
+
 }

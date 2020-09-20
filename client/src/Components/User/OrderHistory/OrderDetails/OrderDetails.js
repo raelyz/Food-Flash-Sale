@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import RatingStars from "./RatingStars";
+import RatingStarsContainer from "./RatingStarsContainer";
 
 export default class OrderDetails extends Component {
   constructor(props) {
@@ -42,7 +43,7 @@ export default class OrderDetails extends Component {
     }, 0);
     return (
       <div>
-        <RatingStars />
+        <RatingStarsContainer />
         <div>{total}</div>
       </div>
     );
