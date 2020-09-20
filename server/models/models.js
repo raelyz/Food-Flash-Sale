@@ -275,6 +275,15 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let getUserRatingsFX = (values, callback) => {
+    let query =
+      "SELECT * from (SELECT * from receipt left join (SELECT * FROM rating where rating.user_id =$1) as rated on receipt.receipt_id = rated.rating_receipt_id) as foo where rating_stars is null and receipt_id is not null";
+    dbPoolInstance.query(query, values, (err, result) => {
+      console.log(result, "---from models post ratings");
+      callback(err, result);
+    });
+  };
+
   return {
     getDashboardMerchantFX,
     getNewListingFX,
@@ -307,6 +316,7 @@ module.exports = (dbPoolInstance) => {
 
     getRatingsFX,
     postUserRatingsFX,
+    getUserRatingsFX,
 
     getTidyUpListingFX,
     getDeletedListingFX,

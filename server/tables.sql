@@ -58,7 +58,8 @@ CREATE TABLE IF NOT EXISTS rating(
   user_id INTEGER,
   merchant_id INTEGER,
   listing_id INTEGER,
-  rating INTEGER,
+  rating_stars INTEGER,
+  rating_receipt_id INTEGER,
   date_created TIMESTAMP default now()
 
 );
