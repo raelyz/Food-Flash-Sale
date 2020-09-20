@@ -52,3 +52,13 @@ CREATE TABLE IF NOT EXISTS orders(
   date_created TIMESTAMP default now()
 
 );
+
+CREATE TABLE IF NOT EXISTS rating(
+  rating_id SERIAL PRIMARY KEY,
+  user_id INTEGER,
+  merchant_id INTEGER,
+  listing_id INTEGER,
+  rating INTEGER,
+  date_created TIMESTAMP default now()
+
+);
