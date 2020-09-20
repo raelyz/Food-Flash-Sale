@@ -6,6 +6,7 @@ import EditContainer from './Edit/EditContainer'
 import OrderListContainer from './AllOrders/OrderListContainer'
 import LogedInNavbar from './Navbar/LogedInNavbar'
 import {Route, Link, Redirect, Switch} from 'react-router-dom'
+import DashboardContainer from './Dashboard/DashboardContainer'
 export default class UserSuperContainer extends Component {
     constructor() {
         super()
@@ -65,7 +66,7 @@ export default class UserSuperContainer extends Component {
                         (props)=> <EditContainer {...props} list={this.state.list} />
                         }/>
                     <Route path="/" render= {
-                        ()=><div>This here is the merchant dashboard</div>
+                        ()=><DashboardContainer />
                     }/>
                 </Switch>
             </>
