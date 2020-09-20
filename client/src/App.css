@@ -66,10 +66,8 @@
   background-color: cornflowerblue;
 }
 .footer {
-
-	height: 15vh;
-	background-color: grey;
-
+  height: 15vh;
+  background-color: grey;
 }
 .login-overlay {
   display: flex;
@@ -97,7 +95,6 @@
 }
 
 .indMerc {
-
   display: flex;
   margin: 20px;
   border: 1px solid red;
@@ -141,20 +138,11 @@
   opacity: 0.4;
 }
 
-	color: black;
-	display: flex;
-	margin: 20px;
-	border: 5px solid teal;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
 .indMerc:hover {
-	background-color: lightgrey;
+  background-color: lightgrey;
 }
 
 .userMainContainer {
-	height: 70vh;
-	overflow-y: scroll;
+  height: 70vh;
+  overflow-y: scroll;
 }
-
