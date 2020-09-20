@@ -4,7 +4,7 @@ import OrderHistory from '../OrderHistory/OrderHistory'
 import { Route, Link, Redirect, Switch } from 'react-router-dom'
 import IndivListing from '../IndivStore/IndivListing'
 import ListingContainer from '../IndivStore/ListingContainer'
-
+import ByCategory from './ByCategory'
 var fetching = true
 
 export default class TimeLine extends Component {
@@ -13,6 +13,7 @@ export default class TimeLine extends Component {
         this.state = {
             timeLine: [],
             deletedArray: [],
+            filter: ""
         }
     }
     componentDidMount() {
@@ -42,6 +43,7 @@ export default class TimeLine extends Component {
             })
 
     }
+
 
     testing = (prop) => {
 
@@ -130,6 +132,7 @@ export default class TimeLine extends Component {
         if (newerArray.length > 20) {
             newerArray.splice(19, newerArray.length - 20)
         }
+
         // console.log(newerArray, `After splice`)
         let merchantCard = newerArray.map((eachCard, index) => {
             const discount = (eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100
@@ -184,7 +187,7 @@ export default class TimeLine extends Component {
                                 <Link to="/Orderhistory">Order history</Link>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Services</a>
+                                <Link to="/ByCategory">Category</Link>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Contact</a>
@@ -218,6 +221,9 @@ export default class TimeLine extends Component {
                         {routeArray}
                         <Route path="/Orderhistory" render={
                             () => <OrderHistory />
+                        } />
+                        <Route path="/ByCategory" render={
+                            () => <ByCategory data={this.state.timeLine} lon={this.props.lon} lat={this.props.lat} />
                         } />
                         <Route path="/" render={
                             () => <><h1>Ongoing Deals</h1><div className="row">{merchantCard}</div>

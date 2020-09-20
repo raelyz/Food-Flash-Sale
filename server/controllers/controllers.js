@@ -60,11 +60,11 @@ module.exports = (db) => {
       if (results.rows.length === 0) {
         response.send({});
       } else {
-        response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].merchant_id).toString())}`), {maxAge: 600000})
-        response.cookie("reference", (`${sha256((results.rows[0].merchant_id).toString())}`), {maxAge: 600000})
+        response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].merchant_id).toString())}`), { maxAge: 600000 })
+        response.cookie("reference", (`${sha256((results.rows[0].merchant_id).toString())}`), { maxAge: 600000 })
         // UID means Merchant ID UUN means Merchant username
-        response.cookie("MID", results.rows[0].merchant_id, {maxAge: 600000})
-        response.cookie("MUN", results.rows[0].name, {maxAge: 600000})
+        response.cookie("MID", results.rows[0].merchant_id, { maxAge: 600000 })
+        response.cookie("MUN", results.rows[0].name, { maxAge: 600000 })
         response.send({
           merchantId: results.rows[0].merchant_id,
           merchantUsername: results.rows[0].name,
@@ -89,9 +89,9 @@ module.exports = (db) => {
         values.push(sha256(`${request.body.password}`));
         // If the username does not exists render the email input page and pass in object of user ID and user UN
         db.poolRoutes.insertUserDetailsFX(values, (err, results2) => {
-          response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.user_id).toString())}`), {maxAge: 600000})
-          response.cookie("reference", (`${sha256((results2.user_id).toString())}`), {maxAge: 600000})
-          response.cookie("UID", results2.user_id, {maxAge: 600000})
+          response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.user_id).toString())}`), { maxAge: 600000 })
+          response.cookie("reference", (`${sha256((results2.user_id).toString())}`), { maxAge: 600000 })
+          response.cookie("UID", results2.user_id, { maxAge: 600000 })
           response.send({
             userId: results2.user_id,
             userName: results2.username,
@@ -116,10 +116,10 @@ module.exports = (db) => {
         values.push(sha256(`${request.body.password}`));
         // If the username does not exists render the email input page and pass in object of merchant ID and merchant UN
         db.poolRoutes.insertMerchantDetailsFX(values, (err, results2) => {
-          response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.merchant_id).toString())}`), {maxAge: 600000})
-          response.cookie("reference", (`${sha256((results2.merchant_id).toString())}`), {maxAge: 600000})
-          response.cookie("MID", results2.merchant_id, {maxAge: 600000})
-          response.cookie("MUN", results2.name, {maxAge: 600000})
+          response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.merchant_id).toString())}`), { maxAge: 600000 })
+          response.cookie("reference", (`${sha256((results2.merchant_id).toString())}`), { maxAge: 600000 })
+          response.cookie("MID", results2.merchant_id, { maxAge: 600000 })
+          response.cookie("MUN", results2.name, { maxAge: 600000 })
           response.send({
             merchantId: results2.merchant_id,
             merchantUsername: results2.name,
@@ -130,12 +130,12 @@ module.exports = (db) => {
   };
 
   let logout = (request, response) => {
-    response.cookie("UID", "", {maxAge: 1})
-    response.cookie("loggedIn", "", {maxAge: 1})
-    response.cookie("reference", "", {maxAge: 1})
-    response.cookie("MID", "", {maxAge: 1})
-    response.cookie("UUN", "", {maxAge: 1})
-    response.cookie("MUN", "", {maxAge: 1})
+    response.cookie("UID", "", { maxAge: 1 })
+    response.cookie("loggedIn", "", { maxAge: 1 })
+    response.cookie("reference", "", { maxAge: 1 })
+    response.cookie("MID", "", { maxAge: 1 })
+    response.cookie("UUN", "", { maxAge: 1 })
+    response.cookie("MUN", "", { maxAge: 1 })
     response.send({})
   }
 
@@ -152,7 +152,7 @@ module.exports = (db) => {
     });
   };
 
-  let getDashboardMerchant = (request, response) => {};
+  let getDashboardMerchant = (request, response) => { };
 
   let getNewListing = (request, response) => {
     console.log("im here!");
@@ -163,6 +163,7 @@ module.exports = (db) => {
       quantity,
       price_ceiling,
       price_floor,
+      category_id,
       description,
       time_limit_min,
       merchant_id,
@@ -173,9 +174,10 @@ module.exports = (db) => {
       quantity,
       price_ceiling,
       price_floor,
-      description,
-      time_limit_min,
+      category_id,
       merchant_id,
+      description,
+      time_limit_min
     ];
     db.poolRoutes.getNewListingFX(values, (error, result) => {
       if (error) {
