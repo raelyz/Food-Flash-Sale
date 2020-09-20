@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import Toggle from './Toggle/Toggle'
-
+import EditIcon from '@material-ui/icons/Edit';
+import {Route, Link, Redirect, Switch} from 'react-router-dom'
+import EditContainer from '../../Merchant Home/Edit/EditContainer'
 export default class ItemList extends Component {
     constructor() {
         super()
         this.state = {
-            list: [],
             fetch: false
         }
     }
@@ -25,22 +26,10 @@ export default class ItemList extends Component {
                 })
             })
     }
-
-    componentDidMount() {
-        fetch('/all/listing/1')
-            .then(res => res.json())
-            .then(res => {
-                // console.log(res);
-                this.setState({
-                    list: res
-                })
-            })
-    }
-
     render() {
         // console.log(this.state.list)
-        let itemList = this.state.list.map((item, index) => {
-            return <tr>
+        let itemList = this.props.list.map((item, index) => {
+            return <tr key={item.listing_id}>
                 <td>{item.item_name}</td>
                 <td>{item.unit_price}</td>
                 <td>{item.quantity}</td>
@@ -50,6 +39,7 @@ export default class ItemList extends Component {
                 <td>{item.description}</td>
                 <td>{item.time_limit_min}</td>
                 <td><Toggle onToggle={this.toggleOnclickHandler} id={item.listing_id} boolean={item.live}></Toggle></td>
+                <td><Link to={`/EditItem/${item.listing_id}`} ><EditIcon className="edit" /></Link></td>
             </tr>
         })
 
@@ -65,10 +55,10 @@ export default class ItemList extends Component {
                     <th>Description</th>
                     <th>Duration</th>
                     <th>Status</th>
+                    <th>Edit Item</th>
                 </tr>
                 {itemList}
             </table>
-
 
         )
     }

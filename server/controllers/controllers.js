@@ -6,7 +6,6 @@ const stripe = Stripe("sk_test_51HSOL8BBF6zBM44ruPfaaaUfYvLytW3Kvr3aYbx4aiV637zL
 let SALT = "eugeneourlordandsavior";
 
 let reference = "";
-
 module.exports = (db) => {
   let getHome = (request, response) => {
 
@@ -130,13 +129,14 @@ module.exports = (db) => {
   };
 
   let logout = (request, response) => {
-    response.cookie("UID", "", { maxAge: 1 })
-    response.cookie("loggedIn", "", { maxAge: 1 })
-    response.cookie("reference", "", { maxAge: 1 })
-    response.cookie("MID", "", { maxAge: 1 })
-    response.cookie("UUN", "", { maxAge: 1 })
-    response.cookie("MUN", "", { maxAge: 1 })
-    response.send({})
+    response.cookie("UID", "", {maxAge: 1})
+    response.cookie("loggedIn", "", {maxAge: 1})
+    response.cookie("reference", "", {maxAge: 1})
+    response.cookie("MID", "", {maxAge: 1})
+    response.cookie("UUN", "", {maxAge: 1})
+    response.cookie("MUN", "", {maxAge: 1})
+    console.log('inside logout')
+    response.redirect({})
   }
 
 
@@ -183,7 +183,7 @@ module.exports = (db) => {
       if (error) {
         console.log(error, "error at getNewListing Controller");
       } else {
-        response.sendStatus(200);
+        response.redirect("/ItemList")
       }
     });
   };
@@ -254,7 +254,7 @@ module.exports = (db) => {
       if (error) {
         console.log(error, `erroratgetupdatelisting controlelr`);
       } else {
-        response.send("update successful!");
+        response.redirect("/ItemList")
       }
     });
   };

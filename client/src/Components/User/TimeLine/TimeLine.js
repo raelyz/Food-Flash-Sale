@@ -7,6 +7,7 @@ import ListingContainer from '../IndivStore/ListingContainer'
 import ByCategory from './ByCategory'
 var fetching = true
 
+
 export default class TimeLine extends Component {
     constructor(props) {
         super()
@@ -138,7 +139,6 @@ export default class TimeLine extends Component {
             const discount = (eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100
             let path = "/" + eachCard.merchant_id
             return (
-
                 <Link class="col-lg-4 col-md-6 mb-4" to={path}>
                     <EachMerchant className="card h-100" key={index} duration={eachCard.time_limit_min} time={eachCard.time} merchant_Id={eachCard.merchant_id} what={this.testing}>
                         <img class="card-img-top" src="https://picsum.photos/700/400" alt="" />

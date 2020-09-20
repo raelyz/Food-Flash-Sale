@@ -127,8 +127,8 @@ export default class App extends React.Component {
         // If merchnatID and merchantUsername is present render the merchant dashboard page and pass in their respective data
         if (this.state.merchantId && this.state.merchantUsername) {
             return (
-                <MerchantSuperContainer className="App MainContainerMerchant" onLogout={this.onLogout} />
-            )
+                <MerchantSuperContainer className="App MainContainerMerchant" onLogout={this.onLogout} merchantId={this.state.merchantId}/>
+                )
         } else if (this.state.userId && this.state.userName) {
             // If userId and userName is present, render the timeline page and pass in their respective data
             return (

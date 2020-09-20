@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.9.0",
     "@testing-library/jest-dom": "^4.2.4",
@@ -19,7 +21,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-stripe-checkout": "^2.6.3",
-    "startbootstrap-agency": "^6.0.2"
+    "startbootstrap-agency": "^6.0.2",
+    "stripe": "^8.96.0"
   },
   "proxy": "http://127.0.0.1:5000/",
   "scripts": {
