@@ -7,10 +7,18 @@ export default class CreateItem extends Component {
         super()
     }
 
+    onSubmitHandler(e) {
+        e.preventDefault()
+        console.log(e.target.item_name.value)
+        console.log(e.target.unit_price.value)
+        console.log(e.target.quantity.value)
+        console.log(e.target.category_id.value)
+        console.log(e.target.description.value)
+    }
 
     render() {
         return (
-            <Form action="/newListing" method="post">
+            <Form action="/newListing" onSubmit={(e) => this.onSubmitHandler(e)} method="post">
                 <Form.Row>
                     <Form.Label column lg={2}>Item Name</Form.Label>
                     <Col>
@@ -83,7 +91,7 @@ export default class CreateItem extends Component {
                     Submit
                 </Button>
                 <Col>
-                    <Form.Control type="hidden" placeholder="Normal text" name="merchant_id" />
+                    <Form.Control type="hidden" placeholder="Normal text" name="merchant_id" value="1" />
                 </Col>
             </Form>
 

@@ -12,7 +12,9 @@ CREATE TABLE IF NOT EXISTS merchant(
   email TEXT,
   address TEXT,
   uen TEXT,
-  cuisine TEXT
+  cuisine TEXT,
+  latitude TEXT,
+  longitude TEXT  
 );
 
 CREATE TABLE  IF NOT EXISTS category(
@@ -49,6 +51,16 @@ CREATE TABLE IF NOT EXISTS orders(
   price INTEGER,
   quantity INTEGER,
   revenue INTEGER,
+  date_created TIMESTAMP default now()
+
+);
+
+CREATE TABLE IF NOT EXISTS rating(
+  rating_id SERIAL PRIMARY KEY,
+  user_id INTEGER,
+  merchant_id INTEGER,
+  listing_id INTEGER,
+  rating INTEGER,
   date_created TIMESTAMP default now()
 
 );

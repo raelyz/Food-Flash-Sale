@@ -45,9 +45,9 @@ export default function EachMerchant(props) {
         }
 
         timerComponents.push(
-            <span>
+            <span >
                 {timeLeft[interval]} {interval}{" "}
-            </span>
+            </span >
         );
     });
     // var live = false
@@ -73,7 +73,7 @@ export default function EachMerchant(props) {
         <>
             {
                 timerComponents.length ? <div key={props.index}>
-                    <h1>{props.children}</h1> {timerComponents}</div> : null
+                    {props.children} {timerComponents}</div> : null
             }
         </>
     )
