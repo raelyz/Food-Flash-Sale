@@ -18,10 +18,6 @@ export default class Register extends Component {
             [e.target.name]: e.target.value
         });
     }
-    testing = (e) => {
-        let data = "buona vista"
-
-    }
     onSubmit = (e) => {
         e.preventDefault();
         const { name, password, email, address, uen, postalCode, cuisine } = this.state;
@@ -42,7 +38,7 @@ export default class Register extends Component {
                     uen,
                     cuisine,
                     latitude: res.results[0].LATITUDE,
-                    longtitude: res.results[0].LONGTITUDE
+                    longitude: res.results[0].LONGTITUDE
                 };
                 console.log(data)
                 fetch('/home/register/merchant', {
@@ -87,7 +83,7 @@ export default class Register extends Component {
                         <br />
                         <input type="submit" value="Submit" />
                     </form>
-                    <button onClick={() => { this.testing() }}>testing</button>
+                    <button >testing</button>
                 </div>
             </div>
         )

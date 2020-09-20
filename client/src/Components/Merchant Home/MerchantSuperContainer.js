@@ -5,16 +5,16 @@ import EditForm from './Edit/EditForm'
 import EditContainer from './Edit/EditContainer'
 import OrderListContainer from './AllOrders/OrderListContainer'
 import LogedInNavbar from './Navbar/LogedInNavbar'
-import {Route, Link, Redirect, Switch} from 'react-router-dom'
+import { Route, Link, Redirect, Switch } from 'react-router-dom'
 export default class UserSuperContainer extends Component {
     constructor() {
         super()
-        this.state= {
+        this.state = {
             list: []
         }
     }
     componentDidMount() {
-        fetch('/all/listing/1') // change to this.props.merchantId
+        fetch(`/all/listing/${this.props.merchant_id}`) // change to this.props.merchantId
             .then(res => res.json())
             .then(res => {
                 console.log(res, "------ inside fetch request")
@@ -24,22 +24,33 @@ export default class UserSuperContainer extends Component {
             })
     }
 
-                    // <Route path="/EditItem/:listing_id" component={()=> <EditContainer list={this.state.list} />} />
+    onClickHandler = (e) => {
+        fetch(`/all/listing/${this.props.merchant_id}`) // change to this.props.merchantId
+            .then(res => res.json())
+            .then(res => {
+                console.log(res, "------ inside fetch request")
+                this.setState({
+                    list: res
+                })
+            })
+    }
+
+    // <Route path="/EditItem/:listing_id" component={()=> <EditContainer list={this.state.list} />} />
 
 
-                    // <Route path="/EditItem/:listing_id" component={EditContainer} />
+    // <Route path="/EditItem/:listing_id" component={EditContainer} />
     //
-                    //     <Route path="/EditItem/:listing_id" render= {
-                    //     ()=><EditContainer list={this.state.list[0]} />
-                    // }/>
+    //     <Route path="/EditItem/:listing_id" render= {
+    //     ()=><EditContainer list={this.state.list[0]} />
+    // }/>
 
     // When loged in render the dashbard first
     // Navbar
-        // create item
-        // Item list
-            // Each item(Item List) has one Edit container
-                // inside edit container(EditContainer) is and edit form (EditForm)
-        // Orderlist containers (All orders)
+    // create item
+    // Item list
+    // Each item(Item List) has one Edit container
+    // inside edit container(EditContainer) is and edit form (EditForm)
+    // Orderlist containers (All orders)
     render() {
         return (
             <>
@@ -52,21 +63,21 @@ export default class UserSuperContainer extends Component {
                     <button onClick={this.props.onLogout}>Log out</button>
                 </div>
                 <Switch>
-                    <Route path="/ItemList" render= {
-                        ()=><ItemList list={this.state.list}/>
-                    }/>
-                    <Route path="/CreateItem" render= {
-                        ()=><CreateItem />
-                    }/>
-                    <Route path="/AllOrders" render= {
-                        ()=><OrderListContainer />
-                    }/>
+                    <Route path="/ItemList" render={
+                        () => <ItemList list={this.state.list} />
+                    } />
+                    <Route path="/CreateItem" render={
+                        () => <CreateItem merchant_id={this.props.merchant_id} onClick={this.onClickHandler} />
+                    } />
+                    <Route path="/AllOrders" render={
+                        () => <OrderListContainer />
+                    } />
                     <Route path="/EditItem/:listing_id" render={
-                        (props)=> <EditContainer {...props} list={this.state.list} />
-                        }/>
-                    <Route path="/" render= {
-                        ()=><div>This here is the merchant dashboard</div>
-                    }/>
+                        (props) => <EditContainer {...props} list={this.state.list} />
+                    } />
+                    <Route path="/" render={
+                        () => <div>This here is the merchant dashboard</div>
+                    } />
                 </Switch>
             </>
         )

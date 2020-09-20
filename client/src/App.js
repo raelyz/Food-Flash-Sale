@@ -18,7 +18,7 @@ export default class App extends React.Component {
         this.state = {
             userId: "",
             userName: "",
-            merchantId: "",
+            merchant_id: "",
             merchantUsername: "",
             optionsChoice: "User",
             displayOverlaySignUp: "none",
@@ -42,10 +42,10 @@ export default class App extends React.Component {
                         userName: res.userName
                     })
                 }
-                if (res.merchantId && res.merchantUsername) {
-                    // If we are receiving merchantId and merchantName
+                if (res.merchant_id && res.merchantUsername) {
+                    // If we are receiving merchant_id and merchantName
                     this.setState({
-                        merchantId: res.merchantId,
+                        merchant_id: res.merchant_id,
                         merchantUsername: res.merchantUsername
                     })
                 }
@@ -97,13 +97,13 @@ export default class App extends React.Component {
     }
     MercOnRegistered = (id, name) => {
         this.setState({
-            merchantId: id,
+            merchant_id: id,
             merchantUsername: name
         })
     }
     MercOnLogin = (id, name) => {
         this.setState({
-            merchantId: id,
+            merchant_id: id,
             merchantUsername: name
         })
     }
@@ -117,7 +117,7 @@ export default class App extends React.Component {
             .then(res => res.json())
             .then(res => { })
         this.setState({
-            merchantId: "",
+            merchant_id: "",
             merchantUsername: "",
             userId: "",
             userName: ""
@@ -125,10 +125,10 @@ export default class App extends React.Component {
     }
     render() {
         // If merchnatID and merchantUsername is present render the merchant dashboard page and pass in their respective data
-        if (this.state.merchantId && this.state.merchantUsername) {
+        if (this.state.merchant_id && this.state.merchantUsername) {
             return (
-                <MerchantSuperContainer className="App MainContainerMerchant" onLogout={this.onLogout} merchantId={this.state.merchantId}/>
-                )
+                <MerchantSuperContainer className="App MainContainerMerchant" onLogout={this.onLogout} merchant_id={this.state.merchant_id} />
+            )
         } else if (this.state.userId && this.state.userName) {
             // If userId and userName is present, render the timeline page and pass in their respective data
             return (
