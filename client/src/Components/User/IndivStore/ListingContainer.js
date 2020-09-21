@@ -117,7 +117,7 @@ export default class ListingContainer extends React.Component {
     let cuisine = array[0].cuisine;
     let listing_id = array[0].listing_id;
     let merchant_id = array[0].merchant_id;
-    
+
     return (
       <IndivListing
         item_name={item_name}
@@ -146,7 +146,7 @@ export default class ListingContainer extends React.Component {
 
     let data = {}
     if (this.state.cart[0]) {
-      let data = {
+      data = {
         merchant_id: this.state.cart[0].merchant_id,
         user_id: this.props.user_id,
         name: this.state.cart[0].name,
