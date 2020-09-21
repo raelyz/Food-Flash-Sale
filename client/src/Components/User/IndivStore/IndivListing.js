@@ -16,7 +16,7 @@ const IndivListing = (props) => {
       <h4>{props.item_name}</h4>
       <p>quantity: {props.quantity}</p>
       <p>original price: {props.originalPrice}</p>
-      <p>discount: {props.discount * 100}%</p>
+      <p>discount: {(props.discount * 100).toFixed(0)}%</p>
       <p>Final Price: {props.discPrice}</p>
       <button
         value={props.listing_id}

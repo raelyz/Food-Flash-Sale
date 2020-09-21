@@ -95,7 +95,7 @@ export default class TimeLine extends Component {
                     const uploadTime = new Date(item.time)
                     uploadTime.setMinutes(uploadTime.getMinutes() + item.time_limit_min)
                     let difference = +uploadTime - +new Date();
-                    if (difference < 0) {
+                    if (difference < 0 || item.quantity === 0) {
                         return item
                     }
                 })
@@ -118,7 +118,6 @@ export default class TimeLine extends Component {
         }
     }
     render() {
-        console.log(this.props.user_id, `WTACH OUT FOR MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE`)
         let Array = this.state.timeLine.map((item, index) => {
             const uploadTime = new Date(item.time)
             uploadTime.setMinutes(uploadTime.getMinutes() + item.time_limit_min)
@@ -144,8 +143,8 @@ export default class TimeLine extends Component {
             nArray.splice(19, nArray.length - 20)
         }
         let merchantCard = nArray.map((eachCard, index) => {
-            const discount = (eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100
-            let path = "/" + eachCard.merchant_id
+            const discount = ((eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100).toFixed(0)
+            let path = "/" + eachCard.merchant_id + "/" + eachCard.listing_id
             return (
                 <Link class="col-lg-4 col-md-6 mb-4" to={path}>
                     <EachMerchant className="card h-100" key={index} duration={eachCard.time_limit_min} time={eachCard.time} merchant_Id={eachCard.merchant_id} what={this.testing}>
@@ -157,7 +156,7 @@ export default class TimeLine extends Component {
         })
         // console.log(newerArray, `After splice`)
         let deletedMerchantCard = this.state.deletedArray.map((eachCard, index) => {
-            const discount = (eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100
+            const discount = ((eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100).toFixed(0)
             let path = "/" + eachCard.merchant_id
             return <Link class="col-lg-4 col-md-6 mb-4" to={path}>
                 <div className="card h-100">
@@ -173,7 +172,7 @@ export default class TimeLine extends Component {
             </Link>
         })
         const routeArray = nArray.map((eachCard, index) => {
-            let path = "/" + eachCard.merchant_id
+            let path = "/" + eachCard.merchant_id + "/" + eachCard.listing_id
             return <Route path={path} render={
                 () => <ListingContainer listing_id={eachCard.listing_id} merchant_id={eachCard.merchant_id} stripper={this.props.stripper} />
             } />
@@ -244,7 +243,7 @@ export default class TimeLine extends Component {
                         <Route path="/" render={
                             () => <>
                                 <h1>Ongoing Deals</h1>
-                                <div className="row">{(this.state.status) ? merchantCard : <div>sortedCard</div>}</div>
+                                <div className="row">{merchantCard}</div>
                                 <h1>Expired Deals</h1>
                                 <div className="row">{deletedMerchantCard}</div>
                             </>

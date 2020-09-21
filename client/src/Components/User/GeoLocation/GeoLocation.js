@@ -29,7 +29,6 @@ export default class GeoLocation extends React.Component {
 
 
     render() {
-        console.log(this.props.user_id, `IN GEOLOCATIONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN`)
         return (
             <div>
                 latitude: <span id="latitude">{this.state.latUser}&deg;</span><br />

@@ -110,30 +110,32 @@ module.exports = (db) => {
   };
   // WHEN REGISTERING A NEW MERCHANT
   let postMerchantDetails = (request, response) => {
-
-
-    let address = request.body.address + "!!!!" + request.body.postalCode
-    let values = [request.body.name, request.body.email, address, request.body.uen, request.body.cuisine, request.body.latitude, request.body.longitude]
-
+    let address = request.body.address + '!!!!' + request.body.postalCode;
+    let values = [
+      request.body.name,
+      request.body.email,
+      address,
+      request.body.uen,
+      request.body.cuisine,
+      request.body.latitude,
+      request.body.longitude,
+    ];
     // Query to check if the login details already exists
     db.poolRoutes.getMerchantDetailsFX(values, (err, results) => {
       // If the merchant username already exists render the same login page
       // If query returned nothing || if merchant registers with and empty name || if merchant register a password with no length
-      console.log(results)
+      console.log(results);
       if (results.rows.length !== 0 || request.body.name.length == 0 || request.body.password.length == 0) {
-        response.send({})
-
-
+        response.send({});
       } else {
         values.push(sha256(`${request.body.password}`));
         // If the username does not exists render the email input page and pass in object of merchant ID and merchant UN
         db.poolRoutes.insertMerchantDetailsFX(values, (err, results2) => {
-          console.log(results2)
-          response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.merchant_id).toString())}`), { maxAge: 600000 })
-          response.cookie("reference", (`${sha256((results2.merchant_id).toString())}`), { maxAge: 600000 })
-          response.cookie("MID", results2.merchant_id, { maxAge: 600000 })
-          response.cookie("MUN", results2.name, { maxAge: 600000 })
-
+          console.log(results2);
+          response.cookie('loggedIn', sha256(`true${SALT}-${sha256(results2.merchant_id.toString())}`), { maxAge: 600000 });
+          response.cookie('reference', `${sha256(results2.merchant_id.toString())}`, { maxAge: 600000 });
+          response.cookie('MID', results2.merchant_id, { maxAge: 600000 });
+          response.cookie('MUN', results2.name, { maxAge: 600000 });
           response.send({
             merchantId: results2.merchant_id,
             merchantUsername: results2.name,
@@ -188,6 +190,7 @@ module.exports = (db) => {
     let values = [
       item_name,
       unit_price,
+      quantity,
       quantity,
       price_ceiling,
       price_floor,
@@ -261,12 +264,15 @@ module.exports = (db) => {
       item_name,
       unit_price,
       quantity,
+      quantity,
       price_ceiling,
       price_floor,
       category_id,
       description,
       listing_id,
+      time_limit_min
     ];
+    console.log(values)
     db.poolRoutes.getUpdateListingFX(values, (error, result) => {
       if (error) {
         console.log(error, `erroratgetupdatelisting controlelr`);

@@ -79,7 +79,7 @@ module.exports = (dbPoolInstance) => {
   // merchant.merchant_id = $1
   let getIndivShopFX = (values, callback) => {
     let query =
-      "select * from listing inner join merchant on listing.merchant_id = merchant.merchant_id and listing.listing_id =$1";
+      "select * from listing inner join merchant on listing.merchant_id = merchant.merchant_id where listing.listing_id =$1";
 
     dbPoolInstance.query(query, values, (err, result) => {
       console.log(result, "---from modelsindiv shop");
@@ -95,7 +95,7 @@ module.exports = (dbPoolInstance) => {
   };
 
   let getNewListingFX = (values, callback) => {
-    let query = `INSERT INTO listing (item_name,unit_price,quantity,price_ceiling,price_floor,category_id,merchant_id,description,time_limit_min) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`;
+    let query = `INSERT INTO listing (item_name,unit_price,original_quantity,quantity,price_ceiling,price_floor,category_id,merchant_id,description,time_limit_min) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`;
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) {
         console.log(err, `error in getNewListing Models`);
@@ -155,7 +155,7 @@ module.exports = (dbPoolInstance) => {
   };
 
   let getUpdateListingFX = (values, callback) => {
-    let query = `update listing set item_name = $1, unit_price = $2, quantity = $3, price_ceiling =$4, price_floor = $5, category_id = $6, description = $7 where listing_id = $8`;
+    let query = `update listing set item_name = $1, unit_price = $2, original_quantity =$3, quantity = $4, price_ceiling =$5, price_floor = $6, category_id = $7, description = $8, time_limit_min=$10 where listing_id = $9`;
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) {
         console.log(err, `error in getUpdatListingFX`);

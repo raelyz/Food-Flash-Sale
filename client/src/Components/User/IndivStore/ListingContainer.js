@@ -7,7 +7,6 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
 export default class ListingContainer extends React.Component {
-
   constructor(props) {
     //mounting
     super(props);
@@ -22,6 +21,7 @@ export default class ListingContainer extends React.Component {
       cart: [],
       viewCart: false,
       checkout: false,
+      listing_id: props.listing_id,
     };
 
     // this.addToCart = this.addToCart.bind(this);
@@ -39,11 +39,22 @@ export default class ListingContainer extends React.Component {
 
   //delete from cart
   handleRemoveFromCart(e, item) {
-    this.setState((state) => {
-      const cart = state.cart.filter((element) => element.name != item.name);
-      localStorage.setItem("cart", cart);
-      return { cart };
-    });
+    if (this.state.cart[0]) {
+
+      this.setState((state) => {
+        if (state.cart[0].count > 2) {
+          const cart = state.cart.filter((element) => element.count = element.count - 1);
+          // localStorage.setItem("cart", cart);
+          return { cart };
+        } else {
+          console.log(`hello`)
+          const cart = state.cart.filter((element) => element.count = 0);
+          // localStorage.setItem('cart', cart);
+          return { cart };
+        }
+
+      });
+    }
   }
 
   //   //add to cart button
@@ -54,7 +65,9 @@ export default class ListingContainer extends React.Component {
 
   // view cart button
   navigateTo() {
-    this.setState({ viewCart: !this.state.viewCart });
+    if (this.state.cart[0]) {
+      this.setState({ viewCart: !this.state.viewCart });
+    }
   }
   //add to cart button
   handleAddToCart(e, product) {
@@ -62,17 +75,24 @@ export default class ListingContainer extends React.Component {
 
     this.setState((state) => {
       const cart = state.cart;
+      console.log(state.cart, `statecart`)
+      console.log(cart, `cart`)
       let productAlreadyInCart = false;
       cart.forEach((item) => {
         if (item.name === product.name) {
           if (item.count / 2 < product.quantity) {
             productAlreadyInCart = true;
+            console.log(`you're adding`)
             item.count++;
+          } else {
+            productAlreadyInCart = true;
           }
         }
       });
       if (!productAlreadyInCart) {
-        cart.push({ ...product, count: 1 });
+        if (product.quantity > 0) {
+          cart.push({ ...product, count: 1 });
+        }
       }
       localStorage.setItem("cart", JSON.stringify(cart));
       console.log(this.state.cart, "----cart");
@@ -83,7 +103,7 @@ export default class ListingContainer extends React.Component {
   //when state is changed, FETCH results from aPI
   //side effects ie: HTTP requests are allowed here
   componentDidMount() {
-    fetch(`/indivshop/${this.props.listing_id}`)
+    fetch(`/indivshop/${this.state.listing_id}`)
       .then((res) => res.json())
       .then((res) =>
         this.setState({
@@ -96,58 +116,55 @@ export default class ListingContainer extends React.Component {
 
   //update and re-render once checkout is clicked and this.state.checkout=true;
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.checkout !== this.state.checkout) {
-      return <PaymentOverlay />;
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.checkout !== this.state.checkout) {
+  //     return <PaymentOverlay />;
+  //   }
+  // }
 
   //helper functions
 
   //take the res.json and convert into nice HTML
   format(array) {
-    return array.map((item, index) => {
-      let item_name = item.item_name;
-      let quantity = item.quantity;
-      let discPrice = item.price_ceiling;
-      let originalPrice = item.unit_price;
-      let discount = (originalPrice - discPrice) / originalPrice;
-      let merchant_name = item.name;
-      let cuisine = item.cuisine;
-      let listing_id = item.listing_id;
-      let merchant_id = item.merchant_id;
+    let item_name = array[0].item_name;
+    let quantity = array[0].quantity;
+    let discPrice = array[0].price_ceiling;
+    let originalPrice = array[0].unit_price;
+    let discount = ((originalPrice - discPrice) / originalPrice);
+    let merchant_name = array[0].name;
+    let cuisine = array[0].cuisine;
+    let listing_id = array[0].listing_id;
+    let merchant_id = array[0].merchant_id;
 
-      return (
-        <div key={index}>
-          <IndivListing
-            item_name={item_name}
-            quantity={quantity}
-            discPrice={discPrice}
-            originalPrice={originalPrice}
-            discPrice={discPrice}
-            discount={discount}
-            merchant_name={merchant_name}
-            cuisine={cuisine}
-            onClick={this.handleAddToCart}
-            onDel={this.handleRemoveFromCart}
-            listing_id={listing_id}
-            merchant_id={merchant_id}
-          />
-        </div>
-      );
-    });
+    return (
+      <IndivListing
+        item_name={item_name}
+        quantity={quantity}
+        discPrice={discPrice}
+        originalPrice={originalPrice}
+        discPrice={discPrice}
+        discount={discount}
+        merchant_name={merchant_name}
+        cuisine={cuisine}
+        onClick={this.handleAddToCart}
+        onDel={this.handleRemoveFromCart}
+        listing_id={listing_id}
+        merchant_id={merchant_id}
+      />
+    );
   }
 
   render() {
     const stripePromise = loadStripe(this.props.stripper);
+    console.log(this.state.html)
     // if (this.state.checkout) {
     //     return (
     //         <div><PaymentOverlay cart={this.state.cart} stripper={this.props.stripper} /></div>
 
     //     )
     // }
-
-    if (this.state.viewCart && this.state.cart[0]) {
+    let data = {}
+    if (this.state.cart[0]) {
       let data = {
         merchant_id: this.state.cart[0].merchant_id,
         //user_id:
@@ -158,48 +175,45 @@ export default class ListingContainer extends React.Component {
         quantity: this.state.cart[0].count / 2,
         revenue: (this.state.cart[0].count / 2) * this.state.cart[0].price,
       };
-      return (
+    }
+    return (
+      <div>
         <div>
-          <div>
-            <h1>You are viewing deals from {this.state.merchant_name}</h1>
-            <br />
-            <h1>Order Summary</h1>
-            <table style={{ maxWidth: "300px", margin: "0 auto" }}>
-              <tr>
-                <th>Item Name</th>
-                <th>Quantity</th>
-                <th>Total</th>
-              </tr>
-              <tr>
-                <td>{this.state.cart[0].name}</td>
-                <td>{this.state.cart[0].count / 2}</td>
-                <td>
-                  Total: $
-                  {(this.state.cart[0].count / 2) * this.state.cart[0].price}
-                </td>
-              </tr>
-            </table>
-
-            <Elements stripe={stripePromise}>
-              <CheckoutForm data={data}></CheckoutForm>
-            </Elements>
-          </div>
+          <h1>You are viewing deals from {this.state.merchant_name}</h1>
+          <br />
           <div className="ListItems">{this.state.html}</div>
-        </div>
-      );
-    } else {
-      return (
-        <>
           <button onClick={this.navigateTo}>
             View Cart {this.state.cart.length}
           </button>
-          <h1>You are viewing deals from {this.state.merchant_name}</h1>
-          <br />
+          {(this.state.viewCart && this.state.cart[0]) ?
+            <>
+              <h1>Order Summary</h1>
+              <table style={{ maxWidth: "300px", margin: "0 auto" }}>
+                <tr>
+                  <th>Item Name</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                </tr>
+                <tr>
+                  <td>{this.state.cart[0].name}</td>
+                  <td>{this.state.cart[0].count / 2}</td>
+                  <td>
+                    Total: $
+                  {(this.state.cart[0].count / 2) * this.state.cart[0].price}
+                  </td>
+                </tr>
+              </table>
+              <Elements stripe={stripePromise}>
+                <CheckoutForm data={data}></CheckoutForm>
+              </Elements>
+            </> : null}
+        </div>
 
-          <div className="ListItems">{this.state.html}</div>
-        </>
-      );
-    }
+      </div>
+    );
+
   }
 }
+
+
 

@@ -83,7 +83,7 @@ export default class EditForm extends Component {
                     Submit
                 </Button>
                 <Col>
-                    <Form.Control type="hidden" placeholder="Normal text" name="{this.props.merchant_id}" />
+                    <Form.Control type="hidden" placeholder="Normal text" name={this.props.listing_id} />
                 </Col>
             </Form>
 
