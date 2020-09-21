@@ -130,7 +130,6 @@ export default class TimeLine extends Component {
             return item
         })
 
-
         nArray.sort(function (a, b) {
             const uploadTimeA = new Date(a.time)
             uploadTimeA.setMinutes(uploadTimeA.getMinutes() + a.time_limit_min)
@@ -290,7 +289,7 @@ export default class TimeLine extends Component {
 // 10 items 0:00
 // 9items   0:06
 // 8         0:12<-------  average time setimt time_limit_min /items 
-//
+
 //
 // 1 hour 
 //
