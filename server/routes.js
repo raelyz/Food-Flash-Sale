@@ -20,7 +20,7 @@ module.exports = (app, allModels) => {
   app.post("/tidyuplisting", controllerCallbacks.getTidyUpListing);
   app.get("/editlisting", controllerCallbacks.getEditListing);
   app.post("/editlisting", controllerCallbacks.getUpdateListing);
-  app.get("/orderhistory", controllerCallbacks.getOrderHistory);
+  app.get("/orderhistory/:id", controllerCallbacks.getOrderHistory);
 
   //get timeline for users to see all merchants
   app.get("/timeline", controllerCallbacks.getTimeline);
@@ -34,5 +34,6 @@ module.exports = (app, allModels) => {
   //post ratings by user
   app.post("/ratelisting", controllerCallbacks.postUserRatings);
   //get ratings for user that user did not rate before
-  app.get("/getrateingsuser", controllerCallbacks.getUserRatings);
+  app.get("/getratingsuser/:userid/:receiptid", controllerCallbacks.getUserRatings);
+  
 };

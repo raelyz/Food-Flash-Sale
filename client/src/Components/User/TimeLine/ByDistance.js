@@ -178,7 +178,6 @@ export default class TimeLine extends Component {
             distA = distA * 60 * 1.1515;
             distA = distA * 1.609344;
             let distance = distA * 1.609344;
-
             return < Link className="col-lg-4 col-md-6 mb-4" to={path} >
                 <EachMerchant className="card h-100" key={index} duration={eachCard.time_limit_min} time={eachCard.time} merchant_Id={eachCard.merchant_id} what={this.testing}>
                     <img class="card-img-top" src="https://picsum.photos/700/400" alt="" />
@@ -190,7 +189,7 @@ export default class TimeLine extends Component {
         })
         // console.log(newerArray, `After splice`)
         let deletedMerchantCard = this.state.deletedArray.map((eachCard, index) => {
-            const discount = (eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100
+            const discount = ((eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100).toFixed(0)
             let path = "/" + eachCard.merchant_id
             return <Link class="col-lg-4 col-md-6 mb-4" to={path}>
                 <div className="card h-100">
@@ -227,7 +226,7 @@ export default class TimeLine extends Component {
                         <Route path="/" render={
                             () => <>
                                 <h1>By Distance</h1>
-                                <div className="row">{(this.state.status) ? merchantCard : <div>sortedCard</div>}</div>
+                                <div className="row">{merchantCard}</div>
                                 <h1>Expired Deals</h1>
                                 <div className="row">{deletedMerchantCard}</div>
                             </>

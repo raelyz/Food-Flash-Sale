@@ -2,8 +2,10 @@ const sha256 = require("js-sha256");
 const path = require("path");
 const clientBuildPath = path.join(__dirname, "../../client/build");
 const Stripe = require("stripe");
-const stripe = Stripe("sk_test_51HSOL8BBF6zBM44ruPfaaaUfYvLytW3Kvr3aYbx4aiV637zLiTO21r5Ik1Sew7mxxZqwWMaQjsSIRgq18GnR6gmy00EMJeg4NE")
-let SALT = "eugeneourlordandsavior";
+const stripe = Stripe(
+  "sk_test_51HSOL8BBF6zBM44ruPfaaaUfYvLytW3Kvr3aYbx4aiV637zLiTO21r5Ik1Sew7mxxZqwWMaQjsSIRgq18GnR6gmy00EMJeg4NE"
+);
+let SALT = "debuggod";
 
 let reference = "";
 module.exports = (db) => {
@@ -16,18 +18,17 @@ module.exports = (db) => {
       if (cookieValue === sha256(`true${SALT}-${reference}`)) {
         // Add conditional statement in App.js, where if App.js received something render the timeline page instead using the cookies
 
-        if (request.cookies['UID'] && request.cookies['UUN']) {
+        if (request.cookies["UID"] && request.cookies["UUN"]) {
           response.send({
             "userId": request.cookies['UID'],
             "userName": request.cookies['UUN']
           })
         }
-        if (request.cookies['MID'] && request.cookies['MUN']) {
+        if (request.cookies["MID"] && request.cookies["MUN"]) {
           response.send({
             "merchantId": request.cookies['MID'],
             "merchantUsername": request.cookies['MUN']
           })
-
         }
       }
     }
@@ -40,12 +41,19 @@ module.exports = (db) => {
       if (results.rows.length === 0) {
         response.send({});
       } else {
-
-        response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].user_id).toString())}`), { maxAge: 600000 })
-        response.cookie("reference", (`${sha256((results.rows[0].user_id).toString())}`), { maxAge: 600000 })
+        response.cookie(
+          "loggedIn",
+          sha256(`true${SALT}-${sha256(results.rows[0].user_id.toString())}`),
+          { maxAge: 600000 }
+        );
+        response.cookie(
+          "reference",
+          `${sha256(results.rows[0].user_id.toString())}`,
+          { maxAge: 600000 }
+        );
         // UID means User ID UUN means User username
-        response.cookie("UID", results.rows[0].user_id, { maxAge: 600000 })
-        response.cookie("UUN", results.rows[0].username, { maxAge: 600000 })
+        response.cookie("UID", results.rows[0].user_id, { maxAge: 600000 });
+        response.cookie("UUN", results.rows[0].username, { maxAge: 600000 });
 
         response.send({
           "userId": results.rows[0].user_id,
@@ -61,12 +69,21 @@ module.exports = (db) => {
       if (results.rows.length === 0) {
         response.send({});
       } else {
-
-        response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].merchant_id).toString())}`), { maxAge: 600000 })
-        response.cookie("reference", (`${sha256((results.rows[0].merchant_id).toString())}`), { maxAge: 600000 })
+        response.cookie(
+          "loggedIn",
+          sha256(
+            `true${SALT}-${sha256(results.rows[0].merchant_id.toString())}`
+          ),
+          { maxAge: 600000 }
+        );
+        response.cookie(
+          "reference",
+          `${sha256(results.rows[0].merchant_id.toString())}`,
+          { maxAge: 600000 }
+        );
         // UID means Merchant ID UUN means Merchant username
-        response.cookie("MID", results.rows[0].merchant_id, { maxAge: 600000 })
-        response.cookie("MUN", results.rows[0].name, { maxAge: 600000 })
+        response.cookie("MID", results.rows[0].merchant_id, { maxAge: 600000 });
+        response.cookie("MUN", results.rows[0].name, { maxAge: 600000 });
 
         response.send({
           "merchantId": results.rows[0].merchant_id,
@@ -95,10 +112,17 @@ module.exports = (db) => {
         values.push(sha256(`${request.body.password}`));
         // If the username does not exists render the email input page and pass in object of user ID and user UN
         db.poolRoutes.insertUserDetailsFX(values, (err, results2) => {
-
-          response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.user_id).toString())}`), { maxAge: 600000 })
-          response.cookie("reference", (`${sha256((results2.user_id).toString())}`), { maxAge: 600000 })
-          response.cookie("UID", results2.user_id, { maxAge: 600000 })
+          response.cookie(
+            "loggedIn",
+            sha256(`true${SALT}-${sha256(results2.user_id.toString())}`),
+            { maxAge: 600000 }
+          );
+          response.cookie(
+            "reference",
+            `${sha256(results2.user_id.toString())}`,
+            { maxAge: 600000 }
+          );
+          response.cookie("UID", results2.user_id, { maxAge: 600000 });
 
           response.send({
             "userId": results2.user_id,
@@ -116,7 +140,7 @@ module.exports = (db) => {
     db.poolRoutes.getMerchantDetailsFX(values, (err, results) => {
       // If the merchant username already exists render the same login page
       // If query returned nothing || if merchant registers with and empty name || if merchant register a password with no length
-      console.log(results)
+      console.log(results);
       if (results.rows.length !== 0 || request.body.name.length == 0 || request.body.password.length == 0) {
         response.send({})
       } else {
@@ -126,12 +150,11 @@ module.exports = (db) => {
         values.push(sha256(`${request.body.password}`));
         // If the username does not exists render the email input page and pass in object of merchant ID and merchant UN
         db.poolRoutes.insertMerchantDetailsFX(values, (err, results2) => {
-          console.log(results2)
-          response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.merchant_id).toString())}`), { maxAge: 600000 })
-          response.cookie("reference", (`${sha256((results2.merchant_id).toString())}`), { maxAge: 600000 })
-          response.cookie("MID", results2.merchant_id, { maxAge: 600000 })
-          response.cookie("MUN", results2.name, { maxAge: 600000 })
-
+          console.log(results2);
+          response.cookie('loggedIn', sha256(`true${SALT}-${sha256(results2.merchant_id.toString())}`), { maxAge: 600000 });
+          response.cookie('reference', `${sha256(results2.merchant_id.toString())}`, { maxAge: 600000 });
+          response.cookie('MID', results2.merchant_id, { maxAge: 600000 });
+          response.cookie('MUN', results2.name, { maxAge: 600000 });
           response.send({
             "merchantId": results2.merchant_id,
             "merchantUsername": results2.name,
@@ -142,7 +165,6 @@ module.exports = (db) => {
   };
 
   let logout = (request, response) => {
-
     response.cookie("UID", "", { maxAge: 1 })
     response.cookie("loggedIn", "", { maxAge: 1 })
     response.cookie("reference", "", { maxAge: 1 })
@@ -151,9 +173,7 @@ module.exports = (db) => {
     response.cookie("MUN", "", { maxAge: 1 })
     response.send({})
   }
-
-
-
+  
   let getTimeline = (request, response) => {
     db.poolRoutes.getTimelineFX((err, result) => {
       if (err) {
@@ -166,7 +186,7 @@ module.exports = (db) => {
     });
   };
 
-  let getDashboardMerchant = (request, response) => { };
+  let getDashboardMerchant = (request, response) => {};
 
   let getNewListing = (request, response) => {
     console.log(request.body);
@@ -185,6 +205,7 @@ module.exports = (db) => {
       item_name,
       unit_price,
       quantity,
+      quantity,
       price_ceiling,
       price_floor,
       category_id,
@@ -196,7 +217,6 @@ module.exports = (db) => {
       if (error) {
         console.log(error, "error at getNewListing Controller");
       } else {
-        console.log("-----------------------INSERTED")
         response.send({})
       }
     });
@@ -265,6 +285,7 @@ module.exports = (db) => {
       listing_id,
       time_limit_min
     ];
+//     console.log(values)
     db.poolRoutes.getUpdateListingFX(values, (error, result) => {
       if (error) {
         console.log(error, `erroratgetupdatelisting controlelr`);
@@ -275,8 +296,8 @@ module.exports = (db) => {
   };
 
   let getOrderHistory = (request, response) => {
-    let { UID } = request.cookies;
-    let values = [2];
+//     console.log(request.params.id, `checking if its here`);
+    let values = [request.params.id];
     db.poolRoutes.getOrderHistoryFX(values, (err, result) => {
       if (err) {
         console.log(err, "error at getorderhistory controller");
@@ -293,7 +314,7 @@ module.exports = (db) => {
         console.log("error at controllerindivshop----", err.message);
       } else {
         let data = result.rows;
-        console.log(data, "--- hello from controllerindivShop");
+//         console.log(data, "--- hello from controllerindivShop");
         response.send(data);
       }
     });
@@ -305,26 +326,24 @@ module.exports = (db) => {
 
     let quantity = request.body.order.quantity;
 
-    let values = [1, request.body.order.merchant_id];
-    console.log(checkValue, "----this is from checkValue");
+    let values = [request.body.order.user_id, request.body.order.merchant_id];
+//     console.log(checkValue, "----this is from checkValue");
     db.poolRoutes.checkInventoryFX(checkValue, (err, result) => {
       if (err) {
         console.log("error at controllerCheckInventory----", err.message);
       } else {
-
-        console.log(quantity, "---quantity");
+//         console.log(quantity, "---quantity");
         result.rows[0].quantity >= quantity
-
           ? (checked = true)
           : (checked = false);
         let inventoryQuantity = result.rows[0].quantity;
-        console.log(checked);
+//         console.log(checked);
         if (checked) {
           db.poolRoutes.postSubmitReceiptFX(values, (err, res) => {
             if (err) {
               console.log("error at controllerSubmitReceipt----", err.message);
             } else {
-              console.log(res.rows);
+//               console.log(res.rows);
               let receipt_id = res.rows[0].receipt_id;
               let value = [
                 receipt_id,
@@ -337,7 +356,7 @@ module.exports = (db) => {
                 if (err) {
                   console.log(err.message, "---error at order");
                 } else {
-                  console.log(ress.rows);
+//                   console.log(ress.rows);
                   let quantity =
                     inventoryQuantity - request.body.order.quantity;
                   let valuez = [quantity, request.body.order.listing_id];
@@ -346,47 +365,56 @@ module.exports = (db) => {
                       console.log(err.message, "---error at updateinvenyory");
                     } else {
                       let amount = parseInt(request.body.order.revenue) * 100;
-                      let { id } = request.body.card
-                      console.log(`authenticating`)
-                      stripe.paymentIntents.create({
-                        amount: amount, currency: 'USD',
-                        description: request.body.order.name,
-                        payment_method: id,
-                        // confirm: true
-                      }).then(res => stripe.paymentIntents.confirm(res.id))
-                        .then(res => {
-                          if (res.status === "succeeded") {
-                            response.json({ status: "Payment Complete" })
-                          } else {
-                            console.log(`after authenticating`)
-                            let quantity = inventoryQuantity
-                            let valuez = [quantity, request.body.order.listing_id]
-                            db.poolRoutes.depleteInventoryFX(valuez, (err, runningoutofrez) => {
-                              if (err) {
-                                console.log(err, `updating value after payment failure err`)
-                              } else {
-                                console.log('payment failed')
-                                response.json({ status: "Payment Failed" })
-                              }
-                            })
-
-                          }
+                      let { id } = request.body.card;
+//                       console.log(`authenticating`);
+                      stripe.paymentIntents
+                        .create({
+                          amount: amount,
+                          currency: "USD",
+                          description: request.body.order.name,
+                          payment_method: id,
+                          // confirm: true
                         })
+                        .then((res) => stripe.paymentIntents.confirm(res.id))
+                        .then((res) => {
+                          if (res.status === "succeeded") {
+                            response.json({ status: "Payment Complete" });
+                          } else {
+//                             console.log(`after authenticating`);
+                            let quantity = inventoryQuantity;
+                            let valuez = [
+                              quantity,
+                              request.body.order.listing_id,
+                            ];
+                            db.poolRoutes.depleteInventoryFX(
+                              valuez,
+                              (err, runningoutofrez) => {
+                                if (err) {
+                                  console.log(
+                                    err,
+                                    `updating value after payment failure err`
+                                  );
+                                } else {
+                                  console.log("payment failed");
+                                  response.json({ status: "Payment Failed" });
+                                }
+                              }
+                            );
+                          }
+                        });
                     }
                   });
                 }
               });
             }
-          })
+          });
         } else {
-          response.json({ status: 'Insufficient Inventory' })
+          response.json({ status: "Insufficient Inventory" });
         }
       }
-    })
-
-  }
+    });
+  };
   // .then(res => stripe.paymentIntents.confirm(res.id))
-
 
   // handle payment failure!!!!!!!!!!! if payment fails, add back into inventory
 
@@ -414,10 +442,9 @@ module.exports = (db) => {
   };
 
   let helpme = (request, response) => {
-    geoCoder.geocode('161056')
-    response.send("help la")
-  }
-
+    geoCoder.geocode("161056");
+    response.send("help la");
+  };
 
   let getRatings = (request, response) => {
     let values = [request.params.id];
@@ -454,19 +481,33 @@ module.exports = (db) => {
   };
 
   let postUserRatings = (request, response) => {
-    let { user_id, merchant_id, listing_id, rating } = request.body;
-    let values = [user_id, merchant_id, listing_id, rating];
+    let {
+      user_id,
+      merchant_id,
+      listing_id,
+      rating_stars,
+      rating_receipt_id,
+    } = request.body;
+
+    let values = [
+      user_id,
+      merchant_id,
+      listing_id,
+      rating_stars,
+      rating_receipt_id,
+    ];
     db.poolRoutes.postUserRatingsFX(values, (err, result) => {
       if (err) {
         console.log(err, `err at postRatings Orderscontroller`);
       } else {
+        console.log("success!");
         response.json(result.rows);
       }
     });
   };
   let getUserRatings = (request, response) => {
-    let { id } = request.params;
-    let values = [2];
+    let { userid, receiptid } = request.params;
+    let values = [userid, receiptid];
     db.poolRoutes.getUserRatingsFX(values, (err, result) => {
       if (err) {
         console.log(err, `err at gettUserRatings Orderscontroller`);

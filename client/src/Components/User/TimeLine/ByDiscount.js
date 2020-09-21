@@ -153,7 +153,7 @@ export default class TimeLine extends Component {
         })
         // console.log(newerArray, `After splice`)
         let deletedMerchantCard = this.state.deletedArray.map((eachCard, index) => {
-            const discount = (eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100
+            const discount = ((eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100).toFixed(0)
             let path = "/" + eachCard.merchant_id
             return <Link class="col-lg-4 col-md-6 mb-4" to={path}>
                 <div className="card h-100">
@@ -189,7 +189,7 @@ export default class TimeLine extends Component {
                         <Route path="/" render={
                             () => <>
                                 <h1>By Discount</h1>
-                                <div className="row">{(this.state.status) ? merchantCard : <div>sortedCard</div>}</div>
+                                <div className="row">{merchantCard}</div>
                                 <h1>Expired Deals</h1>
                                 <div className="row">{deletedMerchantCard}</div>
                             </>

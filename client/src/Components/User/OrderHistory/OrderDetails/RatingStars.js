@@ -4,62 +4,98 @@ class RatingStars extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      listing_id: 1,
-      merchant_id: 1,
-      user_id: 1,
       rated: false,
+      displayStar: props.displayStar,
+      receipt_id: props.receipt_id,
+      user_id: props.user_id,
+      merchant_id: props.merchant_id,
     };
   }
-  onSubmitHandler(e) {
-    e.preventDefault();
-    this.setState({ rated: true });
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("outside the conditional");
+    if (prevProps.submitted !== this.props.submitted) {
+      console.log("inside conditional");
+      fetch("/ratelisting", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          rating_receipt_id: this.state.receipt_id,
+          listing_id: this.props.listing_id,
+          merchant_id: this.state.merchant_id,
+          rating_stars: this.props.rating,
+          user_id: this.props.user_id,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log("done with fetch");
+          this.setState({
+            displayStar: false,
+            rated: true,
+          });
+        });
+    }
   }
+
   render() {
-    if (!this.state.rated) {
-      return (
-        <div>
-          <form
-            action="/ratelisting"
-            method="post"
-            onSubmit={(e) => this.onSubmitHandler(e)}
-          >
-            <div className="rating">
-              <p>Leave a review!</p>
-              <input
-                type="hidden"
-                name="listing_id"
-                value={this.state.listing_id}
-                readOnly
-              />
-              <input
-                type="hidden"
-                name="merchant_id"
-                value={this.state.merchant_id}
-                readOnly
-              />
-              <input
-                type="hidden"
-                name="user_id"
-                value={this.state.user_id}
-                readOnly
-              />
-              <input type="text" placeholder="Tell us what you think" />
-              <input type="submit" name="rating" value="5" id="5" />
-              <label for="5">☆</label>
-              <input type="submit" name="rating" value="4" id="4" />
-              <label for="4">☆</label>
-              <input type="submit" name="rating" value="3" id="3" />
-              <label for="3">☆</label>
-              <input type="submit" name="rating" value="2" id="2" />
-              <label for="2">☆</label>
-              <input type="submit" name="rating" value="1" id="1" />
-              <label for="1">☆</label>
+    if (this.state.displayStar) {
+      if (!this.state.rated) {
+        return (
+          <div>
+            <div>
+              <button
+
+                onClick={(e) => this.props.onClick(e)}
+                value="5"
+                id="5"
+              >
+                ☆
+              </button>
+              <button
+
+                onClick={(e) => this.props.onClick(e)}
+                value="4"
+                id="4"
+              >
+                ☆
+              </button>
+              <button
+
+                onClick={(e) => this.props.onClick(e)}
+                value="3"
+                id="3"
+              >
+                ☆
+              </button>
+              <button
+
+                onClick={(e) => this.props.onClick(e)}
+                value="2"
+                id="2"
+              >
+                ☆
+              </button>
+              <button
+
+                onClick={(e) => this.props.onClick(e)}
+                value="1"
+                id="1"
+              >
+                ☆
+              </button>
             </div>
-          </form>
-        </div>
-      );
+          </div>
+        );
+      }
+    } else if (!this.props.display && !this.state.rated) {
+      return <div>You have already rated this!</div>;
+    } else if (this.props.display && this.state.rated) {
+      return <div>Thanks for your feedback</div>;
     } else {
-      return <div>Thanks for your feedback!</div>;
+      return <div>You have already rated this!</div>;
     }
   }
 }

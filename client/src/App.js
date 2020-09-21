@@ -141,7 +141,7 @@ class App extends React.Component {
         } else if (this.state.userId && this.state.userName) {
             // If userId and userName is present, render the timeline page and pass in their respective data
             return (
-                <UserSuperContainer className="App MainContainerUser" user_Id={this.state.userId} onLogout={this.onLogout} stripper={stripper} />
+                <UserSuperContainer className="App MainContainerUser" user_id={this.state.userId} onLogout={this.onLogout} stripper={stripper} />
             );
         } else {
             if (this.state.changePage == 'user') {

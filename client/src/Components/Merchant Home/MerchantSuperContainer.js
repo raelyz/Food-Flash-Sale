@@ -83,9 +83,8 @@ class MerchantSuperContainer extends Component {
                     } />
 
                     <Route path="/" render= {
-                        ()=><DashboardContainer />
+                        ()=><DashboardContainer merchant_id={this.props.merchant_id} />
                     } />
-
                 </Switch>
             </>
         )
