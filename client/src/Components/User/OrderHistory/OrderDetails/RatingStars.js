@@ -44,48 +44,48 @@ class RatingStars extends Component {
     if (this.state.displayStar) {
       if (!this.state.rated) {
         return (
-          <div class="rating">
+          <div>
             <div>
-              <p
-                className="rating"
+              <button
+
                 onClick={(e) => this.props.onClick(e)}
                 value="5"
                 id="5"
               >
                 ☆
-              </p>
-              <p
-                className="rating"
+              </button>
+              <button
+
                 onClick={(e) => this.props.onClick(e)}
                 value="4"
                 id="4"
               >
                 ☆
-              </p>
-              <p
-                className="rating"
+              </button>
+              <button
+
                 onClick={(e) => this.props.onClick(e)}
                 value="3"
                 id="3"
               >
                 ☆
-              </p>
-              <p
-                className="rating"
+              </button>
+              <button
+
                 onClick={(e) => this.props.onClick(e)}
                 value="2"
                 id="2"
               >
                 ☆
-              </p>
-              <p
-                className="rating"
+              </button>
+              <button
+
                 onClick={(e) => this.props.onClick(e)}
                 value="1"
                 id="1"
               >
                 ☆
-              </p>
+              </button>
             </div>
           </div>
         );
