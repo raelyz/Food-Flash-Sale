@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS merchant(
   uen TEXT,
   cuisine TEXT,
   latitude TEXT,
-  longitude TEXT  
+  longitude TEXT
 );
 
 CREATE TABLE  IF NOT EXISTS category(

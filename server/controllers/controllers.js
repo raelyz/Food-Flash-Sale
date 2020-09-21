@@ -5,7 +5,7 @@ const Stripe = require("stripe");
 const stripe = Stripe(
   "sk_test_51HSOL8BBF6zBM44ruPfaaaUfYvLytW3Kvr3aYbx4aiV637zLiTO21r5Ik1Sew7mxxZqwWMaQjsSIRgq18GnR6gmy00EMJeg4NE"
 );
-let SALT = "eugeneourlordandsavior";
+let SALT = "debuggod";
 
 let reference = "";
 module.exports = (db) => {
@@ -20,15 +20,15 @@ module.exports = (db) => {
 
         if (request.cookies["UID"] && request.cookies["UUN"]) {
           response.send({
-            userId: request.cookies["UID"],
-            userName: request.cookies["UUN"],
-          });
+            "userId": request.cookies['UID'],
+            "userName": request.cookies['UUN']
+          })
         }
         if (request.cookies["MID"] && request.cookies["MUN"]) {
           response.send({
-            merchantId: request.cookies["MID"],
-            merchantUsername: request.cookies["MUN"],
-          });
+            "merchantId": request.cookies['MID'],
+            "merchantUsername": request.cookies['MUN']
+          })
         }
       }
     }
@@ -56,8 +56,8 @@ module.exports = (db) => {
         response.cookie("UUN", results.rows[0].username, { maxAge: 600000 });
 
         response.send({
-          userId: results.rows[0].user_id,
-          userName: results.rows[0].username,
+          "userId": results.rows[0].user_id,
+          "userName": results.rows[0].username,
         });
       }
     });
@@ -86,8 +86,8 @@ module.exports = (db) => {
         response.cookie("MUN", results.rows[0].name, { maxAge: 600000 });
 
         response.send({
-          merchantId: results.rows[0].merchant_id,
-          merchantUsername: results.rows[0].name,
+          "merchantId": results.rows[0].merchant_id,
+          "merchantUsername": results.rows[0].name,
         });
       }
     });
@@ -125,8 +125,8 @@ module.exports = (db) => {
           response.cookie("UID", results2.user_id, { maxAge: 600000 });
 
           response.send({
-            userId: results2.user_id,
-            userName: results2.username,
+            "userId": results2.user_id,
+            "userName": results2.username,
           });
         });
       }
@@ -134,24 +134,19 @@ module.exports = (db) => {
   };
   // WHEN REGISTERING A NEW MERCHANT
   let postMerchantDetails = (request, response) => {
-    let address = request.body.address + '!!!!' + request.body.postalCode;
-    let values = [
-      request.body.name,
-      request.body.email,
-      address,
-      request.body.uen,
-      request.body.cuisine,
-      request.body.latitude,
-      request.body.longitude,
-    ];
+    let address = request.body.address + "!!!!" + request.body.postalCode
+    let values = [request.body.name, request.body.email, address, request.body.uen]
     // Query to check if the login details already exists
     db.poolRoutes.getMerchantDetailsFX(values, (err, results) => {
       // If the merchant username already exists render the same login page
       // If query returned nothing || if merchant registers with and empty name || if merchant register a password with no length
       console.log(results);
       if (results.rows.length !== 0 || request.body.name.length == 0 || request.body.password.length == 0) {
-        response.send({});
+        response.send({})
       } else {
+        values.push(request.body.cuisine);
+        values.push(request.body.latitude);
+        values.push(request.body.longitude);
         values.push(sha256(`${request.body.password}`));
         // If the username does not exists render the email input page and pass in object of merchant ID and merchant UN
         db.poolRoutes.insertMerchantDetailsFX(values, (err, results2) => {
@@ -161,8 +156,8 @@ module.exports = (db) => {
           response.cookie('MID', results2.merchant_id, { maxAge: 600000 });
           response.cookie('MUN', results2.name, { maxAge: 600000 });
           response.send({
-            merchantId: results2.merchant_id,
-            merchantUsername: results2.name,
+            "merchantId": results2.merchant_id,
+            "merchantUsername": results2.name,
           });
         });
       }
@@ -170,16 +165,15 @@ module.exports = (db) => {
   };
 
   let logout = (request, response) => {
-    response.cookie("UID", "", { maxAge: 1 });
-    response.cookie("loggedIn", "", { maxAge: 1 });
-    response.cookie("reference", "", { maxAge: 1 });
-    response.cookie("MID", "", { maxAge: 1 });
-    response.cookie("UUN", "", { maxAge: 1 });
-    response.cookie("MUN", "", { maxAge: 1 });
-    console.log("inside logout");
-    response.redirect({});
-  };
-
+    response.cookie("UID", "", { maxAge: 1 })
+    response.cookie("loggedIn", "", { maxAge: 1 })
+    response.cookie("reference", "", { maxAge: 1 })
+    response.cookie("MID", "", { maxAge: 1 })
+    response.cookie("UUN", "", { maxAge: 1 })
+    response.cookie("MUN", "", { maxAge: 1 })
+    response.send({})
+  }
+  
   let getTimeline = (request, response) => {
     db.poolRoutes.getTimelineFX((err, result) => {
       if (err) {
@@ -195,7 +189,6 @@ module.exports = (db) => {
   let getDashboardMerchant = (request, response) => {};
 
   let getNewListing = (request, response) => {
-    console.log("im here!");
     console.log(request.body);
     let {
       item_name,
@@ -218,13 +211,13 @@ module.exports = (db) => {
       category_id,
       merchant_id,
       description,
-      time_limit_min,
+      time_limit_min
     ];
     db.poolRoutes.getNewListingFX(values, (error, result) => {
       if (error) {
         console.log(error, "error at getNewListing Controller");
       } else {
-        response.send({});
+        response.send({})
       }
     });
   };
@@ -267,7 +260,7 @@ module.exports = (db) => {
     });
   };
 
-  let getUpdateListing = (request, response) => {
+   let getUpdateListing = (request, response) => {
     let {
       item_name,
       unit_price,
@@ -292,18 +285,18 @@ module.exports = (db) => {
       listing_id,
       time_limit_min
     ];
-    console.log(values)
+//     console.log(values)
     db.poolRoutes.getUpdateListingFX(values, (error, result) => {
       if (error) {
         console.log(error, `erroratgetupdatelisting controlelr`);
       } else {
-        response.redirect("/ItemList");
+        response.send({})
       }
     });
   };
 
   let getOrderHistory = (request, response) => {
-    console.log(request.params.id, `checking if its here`);
+//     console.log(request.params.id, `checking if its here`);
     let values = [request.params.id];
     db.poolRoutes.getOrderHistoryFX(values, (err, result) => {
       if (err) {
@@ -321,7 +314,7 @@ module.exports = (db) => {
         console.log("error at controllerindivshop----", err.message);
       } else {
         let data = result.rows;
-        console.log(data, "--- hello from controllerindivShop");
+//         console.log(data, "--- hello from controllerindivShop");
         response.send(data);
       }
     });
@@ -334,23 +327,23 @@ module.exports = (db) => {
     let quantity = request.body.order.quantity;
 
     let values = [request.body.order.user_id, request.body.order.merchant_id];
-    console.log(checkValue, "----this is from checkValue");
+//     console.log(checkValue, "----this is from checkValue");
     db.poolRoutes.checkInventoryFX(checkValue, (err, result) => {
       if (err) {
         console.log("error at controllerCheckInventory----", err.message);
       } else {
-        console.log(quantity, "---quantity");
+//         console.log(quantity, "---quantity");
         result.rows[0].quantity >= quantity
           ? (checked = true)
           : (checked = false);
         let inventoryQuantity = result.rows[0].quantity;
-        console.log(checked);
+//         console.log(checked);
         if (checked) {
           db.poolRoutes.postSubmitReceiptFX(values, (err, res) => {
             if (err) {
               console.log("error at controllerSubmitReceipt----", err.message);
             } else {
-              console.log(res.rows);
+//               console.log(res.rows);
               let receipt_id = res.rows[0].receipt_id;
               let value = [
                 receipt_id,
@@ -363,7 +356,7 @@ module.exports = (db) => {
                 if (err) {
                   console.log(err.message, "---error at order");
                 } else {
-                  console.log(ress.rows);
+//                   console.log(ress.rows);
                   let quantity =
                     inventoryQuantity - request.body.order.quantity;
                   let valuez = [quantity, request.body.order.listing_id];
@@ -373,7 +366,7 @@ module.exports = (db) => {
                     } else {
                       let amount = parseInt(request.body.order.revenue) * 100;
                       let { id } = request.body.card;
-                      console.log(`authenticating`);
+//                       console.log(`authenticating`);
                       stripe.paymentIntents
                         .create({
                           amount: amount,
@@ -387,7 +380,7 @@ module.exports = (db) => {
                           if (res.status === "succeeded") {
                             response.json({ status: "Payment Complete" });
                           } else {
-                            console.log(`after authenticating`);
+//                             console.log(`after authenticating`);
                             let quantity = inventoryQuantity;
                             let valuez = [
                               quantity,

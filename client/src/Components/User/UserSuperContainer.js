@@ -13,9 +13,7 @@ export default class UserSuperContainer extends Component {
             <>
                 <GeoLocation user_id={this.props.user_id} onLogout={this.props.onLogout} stripper={this.props.stripper} />
                 <LoggedInFooter />
-
             </>
         )
     }
 }
-
