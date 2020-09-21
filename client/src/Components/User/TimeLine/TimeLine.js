@@ -22,7 +22,8 @@ class TimeLine extends Component {
             lat: props.lat,
             lon: props.lon,
             status: 'True',
-            mode: 'default'
+            mode: 'default',
+            sortDisplay: "block"
 
         }
     }
@@ -53,16 +54,24 @@ class TimeLine extends Component {
             })
     }
     changePage=(e)=> {
-        if(e.target.value == "Discount") {
+        if(e.target.value === "Discount") {
             this.props.history.push("/ByDiscount")
-        } else if(e.target.value == "Distance") {
+        } else if(e.target.value === "Distance") {
             this.props.history.push("/ByDistance")
         } else {
             this.props.history.push("/")
         }
     }
-
-
+    hideSort=()=> {
+        this.setState({
+            sortDisplay: "none"
+        })
+    }
+    unhideSort=()=> {
+        this.setState({
+            sortDisplay: "block"
+        })
+    }
     testing = (prop) => {
 
         if (fetching === true) {
@@ -155,9 +164,9 @@ class TimeLine extends Component {
             return (
                 <Link class="col-lg-4 col-md-6 mb-4" to={path}>
                     <EachMerchant className="card h-100" key={index} duration={eachCard.time_limit_min} time={eachCard.time} merchant_Id={eachCard.merchant_id} what={this.testing}>
-                        <img class="card-img-top" src="https://picsum.photos/700/400" alt="" />
+                        <img class="card-img-top" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
                         <h4>{eachCard.name} {discount}%</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet</p>
+                        <p class="card-text">{eachCard.description}</p>
                     </EachMerchant>
                 </Link>)
         })
@@ -167,7 +176,7 @@ class TimeLine extends Component {
             let path = "/" + eachCard.merchant_id
             return <Link class="col-lg-4 col-md-6 mb-4" to={path}>
                 <div className="card h-100">
-                    <img class="card-img-top" src="https://picsum.photos/700/400" alt="" />
+                    <img class="card-img-top" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
                     <div className="card-body">
                         <h4 class="card-title">
                             {eachCard.Merchant}
@@ -194,10 +203,10 @@ class TimeLine extends Component {
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item active">
-                                <Link to="/Timeline">Timeline<span class="sr-only">(current)</span></Link>
+                                <Link to="/Timeline" onClick={this.unhideSort}>Timeline<span class="sr-only">(current)</span></Link>
                             </li>
                             <li class="nav-item">
-                                <Link to="/Orderhistory">Order history</Link>
+                                <Link to="/Orderhistory" onClick={this.hideSort}>Order history</Link>
                             </li>
                         </ul>
                         <button onClick={this.props.onLogout}>Log out</button>
@@ -224,14 +233,14 @@ class TimeLine extends Component {
                     </div>
                 </div>
                 <div>
-                    <label>Sort by:</label>
-                    <select onChange={this.changePage} >
+                    <label style={{display: this.state.sortDisplay}}>Sort by:</label>
+                    <select onChange={this.changePage} style={{display: this.state.sortDisplay}}>
                         <option value="Time">Time Left</option>
                         <option value="Discount">Discount</option>
                         <option value="Distance">Distance</option>
                     </select>
                 </div>
-                <main>
+                <main className="mainDisplay">
                     <Switch>
                         {routeArray}
                         <Route path="/Orderhistory" render={
