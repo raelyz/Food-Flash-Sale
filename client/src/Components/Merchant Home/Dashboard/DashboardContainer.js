@@ -24,7 +24,7 @@ class DashboardContainer extends Component {
   componentDidMount() {
     //mounting
     if (this.state.display) {
-      fetch("/merchantorders/1")
+      fetch(`/merchantorders/${this.state.merchant_id}`)
         .then((res) => res.json())
         .then((res) => {
           if (res.length < 1) {

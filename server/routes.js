@@ -20,7 +20,7 @@ module.exports = (app, allModels) => {
   app.post("/tidyuplisting", controllerCallbacks.getTidyUpListing);
   app.get("/editlisting", controllerCallbacks.getEditListing);
   app.post("/editlisting", controllerCallbacks.getUpdateListing);
-  app.get("/orderhistory", controllerCallbacks.getOrderHistory);
+  app.get("/orderhistory/:id", controllerCallbacks.getOrderHistory);
 
   //get timeline for users to see all merchants
   app.get("/timeline", controllerCallbacks.getTimeline);

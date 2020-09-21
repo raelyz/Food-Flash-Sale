@@ -118,7 +118,7 @@ export default class TimeLine extends Component {
         }
     }
     render() {
-
+        console.log(this.props.user_id, `WTACH OUT FOR MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE`)
         let Array = this.state.timeLine.map((item, index) => {
             const uploadTime = new Date(item.time)
             uploadTime.setMinutes(uploadTime.getMinutes() + item.time_limit_min)
@@ -234,7 +234,7 @@ export default class TimeLine extends Component {
                     <Switch>
                         {routeArray}
                         <Route path="/Orderhistory" render={
-                            () => <OrderHistory />
+                            () => <OrderHistory user_id={this.props.user_id} />
                         } />
                         {/* <Route path="/ByCategory" render={
                             () => <ByCategory data={this.state.timeLine} lon={this.props.lon} lat={this.props.lat} />

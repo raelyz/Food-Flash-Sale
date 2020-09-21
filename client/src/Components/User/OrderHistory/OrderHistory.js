@@ -12,7 +12,7 @@ class OrderHistory extends Component {
   }
 
   componentDidMount() {
-    fetch("/orderhistory")
+    fetch(`/orderhistory/${this.props.user_id}`)
       .then((res) => res.json())
       .then((res) =>
         this.setState({

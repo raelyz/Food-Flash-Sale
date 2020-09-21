@@ -277,8 +277,8 @@ module.exports = (db) => {
   };
 
   let getOrderHistory = (request, response) => {
-    let { UID } = request.cookies;
-    let values = [2];
+    console.log(request.params.id, `checking if its here`)
+    let values = [request.params.id];
     db.poolRoutes.getOrderHistoryFX(values, (err, result) => {
       if (err) {
         console.log(err, "error at getorderhistory controller");
