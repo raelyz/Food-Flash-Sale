@@ -1,8 +1,5 @@
-import React from 'react';
-import TimeLine from '../TimeLine/TimeLine';
-
-
-
+import React from "react";
+import TimeLine from "../TimeLine/TimeLine";
 
 export default class GeoLocation extends React.Component {
     constructor() {
@@ -37,5 +34,22 @@ export default class GeoLocation extends React.Component {
             </div>
         )
 
-    }
+
+
+  render() {
+    return (
+      <div>
+        latitude: <span id="latitude">{this.state.latUser}&deg;</span>
+        <br />
+        longitude: <span id="longitude">{this.state.lonUser}&deg;</span>
+        <TimeLine
+          lon={this.state.lonUser}
+          lat={this.state.latUser}
+          onLogout={this.props.onLogout}
+          stripper={this.props.stripper}
+          user_id={this.props.user_id}
+        />
+      </div>
+    );
+  }
 }
