@@ -21,6 +21,7 @@
     "js-sha256": "^0.9.0",
     "node-geocoder": "^3.27.0",
     "pg": "^8.0.3",
+    "popper.js": "^1.16.1",
     "sha256": "^0.2.0",
     "startbootstrap-shop-homepage": "^4.2.2",
     "stripe": "^8.96.0"
