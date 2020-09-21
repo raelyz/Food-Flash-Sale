@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import OrderDetails from "./OrderDetails/OrderDetails";
 import { withRouter } from "react-router-dom";
+import RatingStarsContainer from "./OrderDetails/RatingStarsContainer";
 
 class OrderHistory extends Component {
   constructor() {
@@ -35,7 +36,11 @@ class OrderHistory extends Component {
             {orderHistory.receipt_id}
             {orderHistory.name} {orderHistory.cuisine}
           </div>
-          <OrderDetails receipt_id={orderHistory.receipt_id} />
+          <OrderDetails
+            user_id={orderHistory.user_id}
+            receipt_id={orderHistory.receipt_id}
+            merchant_id={orderHistory.merchant_id}
+          />
           <button
             onClick={(e) => {
               e.persist();
