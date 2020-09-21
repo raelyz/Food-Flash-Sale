@@ -12,12 +12,13 @@ app.use(express.urlencoded({
   extended: true
 }))
 
+app.use(express.static(clientBuildPath))
 //is we in production?
-if (process.env.NODE_ENV === "production") {
-  //serve static content
-  app.use(express.static(clientBuildPath))
+// if (process.env.NODE_ENV === "production") {
+//   //serve static content
+//   app.use(express.static(clientBuildPath))
 
-}
+// }
 
 
 

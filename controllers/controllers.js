@@ -36,8 +36,10 @@ module.exports = (db) => {
   // WHEN AN EXISTING USER IS LOGGING IN
   let getUserLoginDetails = (request, response) => {
     let values = [request.body.username, sha256(`${request.body.password}`)];
+    console.log(values)
     db.poolRoutes.getUserLoginDetailsFX(values, (err, results) => {
       // If username/password does not match with the DB
+      console.log(results)
       if (results.rows.length === 0) {
         response.send({});
       } else {
