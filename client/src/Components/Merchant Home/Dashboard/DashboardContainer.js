@@ -105,7 +105,7 @@ class DashboardContainer extends Component {
           times={this.state.times}
         />
         <Revenue names={this.state.names} revenues={this.state.revenues} />
-        <RatingContainer />
+        <RatingContainer merchant_id={this.props.merchant_id} />
       </div>
     );
   }
