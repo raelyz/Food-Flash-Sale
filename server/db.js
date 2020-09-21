@@ -19,9 +19,9 @@ if (process.env.DATABASE_URL) {
   };
 } else {
   configs = {
-    user: 'postgres',
+    user: 'eugenelim',
     host: '127.0.0.1',
-    database: 'foodflash',
+    database: 'project3',
     port: 5432
   };
 }

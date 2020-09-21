@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import EachMerchant from './EachMerchant/EachMerchant'
 import OrderHistory from '../OrderHistory/OrderHistory'
-import { Route, Link, Redirect, Switch } from 'react-router-dom'
+import { Route, Link, Redirect, Switch, withRouter } from 'react-router-dom'
 import IndivListing from '../IndivStore/IndivListing'
 import ListingContainer from '../IndivStore/ListingContainer'
 import ByCategory from './housekeeping switch'
@@ -11,7 +11,7 @@ var fetching = true
 var newArray = []
 
 
-export default class TimeLine extends Component {
+class TimeLine extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -51,7 +51,15 @@ export default class TimeLine extends Component {
                     })
                 }
             })
-
+    }
+    changePage=(e)=> {
+        if(e.target.value == "Discount") {
+            this.props.history.push("/ByDiscount")
+        } else if(e.target.value == "Distance") {
+            this.props.history.push("/ByDistance")
+        } else {
+            this.props.history.push("/")
+        }
     }
 
 
@@ -191,12 +199,6 @@ export default class TimeLine extends Component {
                             <li class="nav-item">
                                 <Link to="/Orderhistory">Order history</Link>
                             </li>
-                            <li class="nav-item">
-                                <Link to="/ByDistance">Distance</Link>
-                            </li>
-                            <li class="nav-item">
-                                <Link to="/ByDiscount">Discount</Link>
-                            </li>
                         </ul>
                         <button onClick={this.props.onLogout}>Log out</button>
                     </div>
@@ -222,7 +224,8 @@ export default class TimeLine extends Component {
                     </div>
                 </div>
                 <div>
-                    <select >
+                    <label>Sort by:</label>
+                    <select onChange={this.changePage} >
                         <option value="Time">Time Left</option>
                         <option value="Discount">Discount</option>
                         <option value="Distance">Distance</option>
@@ -255,6 +258,7 @@ export default class TimeLine extends Component {
     }
 }
 
+export default withRouter(TimeLine)
 //
 // First Option
 // 1) Starting Price is our price ceiling
@@ -288,8 +292,8 @@ export default class TimeLine extends Component {
 // metric duration = time taken to sell out / tiem set by the user
 // 10 items 0:00
 // 9items   0:06
-// 8         0:12<-------  average time setimt time_limit_min /items 
+// 8         0:12<-------  average time setimt time_limit_min /items
 
 //
-// 1 hour 
+// 1 hour
 //
