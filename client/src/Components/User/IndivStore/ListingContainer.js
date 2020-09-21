@@ -195,4 +195,3 @@ export default class ListingContainer extends React.Component {
 
   }
 }
-

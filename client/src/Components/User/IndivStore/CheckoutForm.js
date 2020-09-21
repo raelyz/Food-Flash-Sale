@@ -45,9 +45,10 @@ export default function Checkout(props) {
             })
                 .then(res => res.json())
                 .then(res => {
-                    console.log(res)
                     switch (res.status) {
                         case "Payment Complete": {
+                            setResult("none");
+                            setNotEnuff("none")
                             break;
                         }
                         case "Payment Failed": {
@@ -58,8 +59,6 @@ export default function Checkout(props) {
                             setNotEnuff("block")
                             break;
                         }
-
-
                     }
                 })
         }

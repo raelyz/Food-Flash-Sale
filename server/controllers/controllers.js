@@ -325,8 +325,7 @@ module.exports = (db) => {
     let checkValue = [request.body.order.listing_id];
     let quantity = request.body.order.quantity;
     let values = [request.body.order.user_id, request.body.order.merchant_id];
-    console.log(values, `this is values`)
-    console.log(checkValue, "----this is from checkValue");
+    //     console.log(checkValue, "----this is from checkValue");
     db.poolRoutes.checkInventoryFX(checkValue, (err, result) => {
       if (err) {
         console.log("error at controllerCheckInventory----", err.message);
