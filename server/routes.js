@@ -34,5 +34,8 @@ module.exports = (app, allModels) => {
   //post ratings by user
   app.post("/ratelisting", controllerCallbacks.postUserRatings);
   //get ratings for user that user did not rate before
-  app.get("/getrateingsuser", controllerCallbacks.getUserRatings);
+  app.get(
+    "/getratingsuser/:userid/:receiptid",
+    controllerCallbacks.getUserRatings
+  );
 };
