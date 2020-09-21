@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import { withRouter } from 'react-router'
 import { Form, Col, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default class CreateItem extends Component {
+class CreateItem extends Component {
     constructor() {
         super();
     }
@@ -21,18 +22,17 @@ export default class CreateItem extends Component {
             time_limit_min: e.target.time_limit_min.value,
             merchant_id: e.target.merchant_id.value
         }
-        console.log(data)
         fetch('/newListing', {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
             },
             body: JSON.stringify(data),
-        })
-            .then(res =>
-                res.text()
+        }).then(res =>
+                res.json()
             ).then(res => {
                 console.log(res)
+                this.props.onClick();
             })
     }
 
@@ -121,3 +121,5 @@ export default class CreateItem extends Component {
     }
 
 }
+
+export default withRouter(CreateItem)

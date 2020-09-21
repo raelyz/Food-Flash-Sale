@@ -51,10 +51,10 @@ module.exports = (dbPoolInstance) => {
   };
   let getMerchantDetailsFX = (value, callback) => {
     // [request.body.name, request.body.email, address, request.body.uen, request.body.cuisine, request.body.latitude, request.body.longitude]
-    let query = `SELECT * FROM merchant WHERE name=$1 OR email=$2 OR address=$3 OR uen=$4 AND latitude=$6 AND longitude =$7 AND cuisine=$5`
+    let query = `SELECT * FROM merchant WHERE name=$1 OR email=$2 OR address=$3 OR uen=$4`
     dbPoolInstance.query(query, value, (err, result) => {
-      console.log(err)
-      console.log(result)
+      console.log(err, "------inside models")
+      console.log(result, "---------- result in models")
       callback(err, result)
     })
   }
@@ -101,6 +101,7 @@ module.exports = (dbPoolInstance) => {
         console.log(err, `error in getNewListing Models`);
         callback(err, null);
       } else {
+        console.log("----successful in ")
         callback(null, null);
       }
     });
@@ -155,7 +156,7 @@ module.exports = (dbPoolInstance) => {
   };
 
   let getUpdateListingFX = (values, callback) => {
-    let query = `update listing set item_name = $1, unit_price = $2, quantity = $3, price_ceiling =$4, price_floor = $5, category_id = $6, description = $7 where listing_id = $8`;
+    let query = `update listing set item_name = $1, unit_price = $2, original_quantity =$3, quantity = $4, price_ceiling =$5, price_floor = $6, category_id = $7, description = $8, time_limit_min=$10 where listing_id = $9`;
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) {
         console.log(err, `error in getUpdatListingFX`);

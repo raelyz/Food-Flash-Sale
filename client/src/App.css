@@ -84,7 +84,7 @@
 	width: 100%;*/
 }
 .forms {
-  z-index: 3;
+  /*z-index: 3;*/
 }
 .formsParent {
   position: relative;
@@ -166,4 +166,3 @@ th, td {
 .edit:hover {
 	background-color: lightgrey;
 }
-

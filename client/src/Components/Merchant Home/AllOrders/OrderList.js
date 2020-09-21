@@ -10,7 +10,7 @@ class OrderList extends React.Component {
         this.state ={
             searchResult:[], //result from API
             ordersResult:[],
-            merchant_id: 1,
+            merchant_id: this.props.merchant_id,
             html:""
         }
         this.format = this.format.bind(this);

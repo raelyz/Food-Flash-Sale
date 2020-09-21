@@ -1,16 +1,42 @@
-import React, { Component } from 'react'
+import React, { Component, useParams } from 'react'
+import { withRouter } from 'react-router'
 import { Form, Col, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default class EditForm extends Component {
+class EditForm extends Component {
     constructor(props) {
         super(props)
     }
-
+    onSubmitHandler(e) {
+        e.preventDefault()
+        let data = {
+            item_name: e.target.item_name.value,
+            unit_price: e.target.unit_price.value,
+            quantity: e.target.quantity.value,
+            price_ceiling: e.target.price_ceiling.value,
+            price_floor: e.target.price_floor.value,
+            description: e.target.description.value,
+            category_id: e.target.category_id.value,
+            time_limit_min: e.target.time_limit_min.value,
+            listing_id: e.target.listing_id.value
+        }
+        fetch('/editlisting', {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(data),
+        }).then(res =>
+                res.json()
+            ).then(res => {
+                console.log(res)
+                this.props.onClick();
+            })
+    }
 
     render() {
         return (
-            <Form action="/editlisting" method="post">
+            <Form action="/editlisting" method="post" onSubmit={(e) => this.onSubmitHandler(e)}>
                 <Form.Row>
                     <Form.Label column lg={2}>Item Name</Form.Label>
                     <Col>
@@ -83,10 +109,11 @@ export default class EditForm extends Component {
                     Submit
                 </Button>
                 <Col>
-                    <Form.Control type="hidden" placeholder="Normal text" name="{this.props.merchant_id}" />
+                    <Form.Control type="hidden" placeholder="Normal text" name="listing_id" value={this.props.listing_id}/>
                 </Col>
             </Form>
-
         )
     }
 }
+
+export default withRouter(EditForm)

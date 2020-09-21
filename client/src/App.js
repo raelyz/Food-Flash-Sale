@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from 'react-router'
 import logo from "./logo.svg";
 import "./App.css";
 import PaymentOverlay from "./Components/User/IndivStore/PaymentOverlay";
@@ -12,9 +13,10 @@ import GeoLocation from "./Components/User/GeoLocation/GeoLocation";
 import UserSuperContainer from "./Components/User/UserSuperContainer";
 import MerchantSuperContainer from "./Components/Merchant Home/MerchantSuperContainer";
 const stripper = process.env.REACT_APP_PUBLISHABLE_KEY;
-export default class App extends React.Component {
-    constructor() {
-        super()
+
+class App extends React.Component {
+    constructor(props) {
+        super(props)
         this.state = {
             userId: "",
             userName: "",
@@ -28,9 +30,6 @@ export default class App extends React.Component {
             changePage: "user"
         }
     }
-    static getDerivedStateFromProps(props, state) {
-        return null
-    }
     componentDidMount() {
         fetch('/home')
             .then(res => res.json())
@@ -41,14 +40,22 @@ export default class App extends React.Component {
                         userId: res.userId,
                         userName: res.userName
                     })
-                }
-                if (res.merchant_id && res.merchantUsername) {
+                } else if (res.merchant_id && res.merchantUsername) {
                     // If we are receiving merchant_id and merchantName
                     this.setState({
-                        merchant_id: res.merchant_id,
+                        merchant_id: res.merchantId,
                         merchantUsername: res.merchantUsername
                     })
+                } else {
+                    this.setState({
+                        merchant_id: "",
+                        merchantUsername: "",
+                        userId: "",
+                        userName: ""
+                    })
                 }
+            }).catch(err => {
+                console.log(err)
             })
     }
     onClickSignUp = (e) => {
@@ -116,13 +123,15 @@ export default class App extends React.Component {
         fetch('/logout')
             .then(res => res.json())
             .then(res => { })
-        this.setState({
-            merchant_id: "",
-            merchantUsername: "",
-            userId: "",
-            userName: ""
-        })
+            this.setState({
+                    merchant_id: "",
+                    merchantUsername: "",
+                    userId: "",
+                    userName: ""
+                })
+            this.props.history.push("/")
     }
+
     render() {
         // If merchnatID and merchantUsername is present render the merchant dashboard page and pass in their respective data
         if (this.state.merchant_id && this.state.merchantUsername) {
@@ -132,17 +141,18 @@ export default class App extends React.Component {
         } else if (this.state.userId && this.state.userName) {
             // If userId and userName is present, render the timeline page and pass in their respective data
             return (
-                <UserSuperContainer className="App MainContainerUser" userId={this.state.userId} onLogout={this.onLogout} stripper={stripper} />
+                <UserSuperContainer className="App MainContainerUser" user_Id={this.state.userId} onLogout={this.onLogout} stripper={stripper} />
             );
         } else {
             if (this.state.changePage == 'user') {
                 return (
                     <div className="App">
-                        <Navbar
+                    <Navbar
                             onClickSignUp={this.onClickSignUp}
                             onClickLogin={this.onClickLogin}
                             changePage={this.changePage}
                         />
+
                         <Home
                             displaysignup={this.state.displayOverlaySignUp}
                             displaylogin={this.state.displayOverlayLogin}
@@ -173,3 +183,5 @@ export default class App extends React.Component {
         }
     }
 }
+
+export default withRouter(App);
