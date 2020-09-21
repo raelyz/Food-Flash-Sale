@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS listing(
   listing_id SERIAL PRIMARY KEY,
   item_name TEXT,
   unit_price INTEGER,
+  original_quantity INTEGER,
   quantity INTEGER,
   price_ceiling INTEGER,
   price_floor INTEGER,
