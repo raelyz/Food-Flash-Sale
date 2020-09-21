@@ -173,7 +173,7 @@ module.exports = (db) => {
     response.cookie("MUN", "", { maxAge: 1 })
     response.send({})
   }
-  
+
   let getTimeline = (request, response) => {
     db.poolRoutes.getTimelineFX((err, result) => {
       if (err) {
@@ -186,7 +186,7 @@ module.exports = (db) => {
     });
   };
 
-  let getDashboardMerchant = (request, response) => {};
+  let getDashboardMerchant = (request, response) => { };
 
   let getNewListing = (request, response) => {
     console.log(request.body);
@@ -260,7 +260,7 @@ module.exports = (db) => {
     });
   };
 
-   let getUpdateListing = (request, response) => {
+  let getUpdateListing = (request, response) => {
     let {
       item_name,
       unit_price,
@@ -285,7 +285,7 @@ module.exports = (db) => {
       listing_id,
       time_limit_min
     ];
-//     console.log(values)
+    //     console.log(values)
     db.poolRoutes.getUpdateListingFX(values, (error, result) => {
       if (error) {
         console.log(error, `erroratgetupdatelisting controlelr`);
@@ -296,7 +296,7 @@ module.exports = (db) => {
   };
 
   let getOrderHistory = (request, response) => {
-//     console.log(request.params.id, `checking if its here`);
+    //     console.log(request.params.id, `checking if its here`);
     let values = [request.params.id];
     db.poolRoutes.getOrderHistoryFX(values, (err, result) => {
       if (err) {
@@ -314,7 +314,7 @@ module.exports = (db) => {
         console.log("error at controllerindivshop----", err.message);
       } else {
         let data = result.rows;
-//         console.log(data, "--- hello from controllerindivShop");
+        //         console.log(data, "--- hello from controllerindivShop");
         response.send(data);
       }
     });
@@ -323,27 +323,26 @@ module.exports = (db) => {
   let postSubmitReceiptOrder = (request, response) => {
     let checked = false;
     let checkValue = [request.body.order.listing_id];
-
     let quantity = request.body.order.quantity;
-
     let values = [request.body.order.user_id, request.body.order.merchant_id];
-//     console.log(checkValue, "----this is from checkValue");
+    console.log(values, `this is values`)
+    console.log(checkValue, "----this is from checkValue");
     db.poolRoutes.checkInventoryFX(checkValue, (err, result) => {
       if (err) {
         console.log("error at controllerCheckInventory----", err.message);
       } else {
-//         console.log(quantity, "---quantity");
+        //         console.log(quantity, "---quantity");
         result.rows[0].quantity >= quantity
           ? (checked = true)
           : (checked = false);
         let inventoryQuantity = result.rows[0].quantity;
-//         console.log(checked);
+        //         console.log(checked);
         if (checked) {
           db.poolRoutes.postSubmitReceiptFX(values, (err, res) => {
             if (err) {
               console.log("error at controllerSubmitReceipt----", err.message);
             } else {
-//               console.log(res.rows);
+              //               console.log(res.rows);
               let receipt_id = res.rows[0].receipt_id;
               let value = [
                 receipt_id,
@@ -356,7 +355,7 @@ module.exports = (db) => {
                 if (err) {
                   console.log(err.message, "---error at order");
                 } else {
-//                   console.log(ress.rows);
+                  //                   console.log(ress.rows);
                   let quantity =
                     inventoryQuantity - request.body.order.quantity;
                   let valuez = [quantity, request.body.order.listing_id];
@@ -366,7 +365,7 @@ module.exports = (db) => {
                     } else {
                       let amount = parseInt(request.body.order.revenue) * 100;
                       let { id } = request.body.card;
-//                       console.log(`authenticating`);
+                      //                       console.log(`authenticating`);
                       stripe.paymentIntents
                         .create({
                           amount: amount,
@@ -380,7 +379,7 @@ module.exports = (db) => {
                           if (res.status === "succeeded") {
                             response.json({ status: "Payment Complete" });
                           } else {
-//                             console.log(`after authenticating`);
+                            //                             console.log(`after authenticating`);
                             let quantity = inventoryQuantity;
                             let valuez = [
                               quantity,

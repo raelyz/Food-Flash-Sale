@@ -1,11 +1,11 @@
--- INSERT INTO users (username,password,email) VALUES('aurelialim','12345','aurelia@gmail.com');
--- INSERT INTO users (username,password,email) VALUES('rlyz','12345','ray@gmail.com');
--- INSERT INTO users (username,password,email) VALUES('exhlim','12345','eugene@gmail.com');
--- INSERT INTO users (username,password,email) VALUES('alvischew','22222','alvis@gmail.com');
--- INSERT INTO users (username,password,email) VALUES('clairetay','12345','claire@gmail.com');
--- INSERT INTO users (username,password,email) VALUES('joey','12345','joey@gmail.com');
--- INSERT INTO users (username,password,email) VALUES('vincent','12345','xincent@gmail.com');
--- INSERT INTO users (username,password,email) VALUES('qundax','51234','qunda@gmail.com');
+INSERT INTO users (username,password,email) VALUES('aurelialim','12345','aurelia@gmail.com');
+INSERT INTO users (username,password,email) VALUES('rlyz','12345','ray@gmail.com');
+INSERT INTO users (username,password,email) VALUES('exhlim','12345','eugene@gmail.com');
+INSERT INTO users (username,password,email) VALUES('alvischew','22222','alvis@gmail.com');
+INSERT INTO users (username,password,email) VALUES('clairetay','12345','claire@gmail.com');
+INSERT INTO users (username,password,email) VALUES('joey','12345','joey@gmail.com');
+INSERT INTO users (username,password,email) VALUES('vincent','12345','xincent@gmail.com');
+INSERT INTO users (username,password,email) VALUES('qundax','51234','qunda@gmail.com');
 
 INSERT INTO merchant (name,password,email,address,uen,cuisine,latitude,longitude) VALUES('mcdonalds','12345','macs@gmail.com','10 Anson Road','UEN12345MACS','fast food','1.275','103.84');
 
@@ -21,12 +21,12 @@ INSERT INTO merchant (name,password,email,address,uen,cuisine,latitude,longitude
 
 
 
--- INSERT INTO category (category_name) VALUES('snacks');
--- INSERT INTO category (category_name) VALUES('light bites');
--- INSERT INTO category (category_name) VALUES('dim sum');
--- INSERT INTO category (category_name) VALUES('noodles');
--- INSERT INTO category (category_name) VALUES('junk food');
--- INSERT INTO category (category_name) VALUES('hearty meals');
+INSERT INTO category (category_name) VALUES('snacks');
+INSERT INTO category (category_name) VALUES('light bites');
+INSERT INTO category (category_name) VALUES('dim sum');
+INSERT INTO category (category_name) VALUES('noodles');
+INSERT INTO category (category_name) VALUES('junk food');
+INSERT INTO category (category_name) VALUES('hearty meals');
 
 
 
@@ -64,46 +64,40 @@ INSERT INTO listing (item_name, unit_price,original_quantity,quantity,price_ceil
 
 
 
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(1,1,5,5,5);
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(1,1,5,5,5);
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(1,1,5,5,5);
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(1,1,5,5,5);
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(1,1,5,5,5);
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(1,1,5,5,5);
 
 
--- INSERT INTO receipt (user_id,merchant_id) VALUES(2,6);
--- INSERT INTO receipt (user_id,merchant_id) VALUES(2,6);
--- INSERT INTO receipt (user_id,merchant_id) VALUES(2,6);
+INSERT INTO receipt (user_id,merchant_id) VALUES(2,6);
+INSERT INTO receipt (user_id,merchant_id) VALUES(2,6);
+INSERT INTO receipt (user_id,merchant_id) VALUES(2,6);
 
 
 
--- INSERT INTO receipt (user_id,merchant_id) VALUES(2,1);
--- INSERT INTO receipt (user_id,merchant_id) VALUES(2,1);
--- INSERT INTO receipt (user_id,merchant_id) VALUES(2,1); 
--- INSERT INTO receipt (user_id,merchant_id) VALUES(2,1); 
--- INSERT INTO receipt (user_id,merchant_id) VALUES(2,1);
--- INSERT INTO receipt (user_id,merchant_id) VALUES(2,1);
--- INSERT INTO receipt (user_id,merchant_id) VALUES(2,1);
--- INSERT INTO receipt (user_id,merchant_id) VALUES(2,1);
--- INSERT INTO receipt (user_id,merchant_id) VALUES(2,1); 
--- INSERT INTO receipt (user_id,merchant_id) VALUES(2,1);
+INSERT INTO receipt (user_id,merchant_id) VALUES(2,1);
+INSERT INTO receipt (user_id,merchant_id) VALUES(2,1);
+INSERT INTO receipt (user_id,merchant_id) VALUES(2,1); 
+INSERT INTO receipt (user_id,merchant_id) VALUES(2,1); 
+INSERT INTO receipt (user_id,merchant_id) VALUES(2,1);
+INSERT INTO receipt (user_id,merchant_id) VALUES(2,1);
+INSERT INTO receipt (user_id,merchant_id) VALUES(2,1);
+INSERT INTO receipt (user_id,merchant_id) VALUES(2,1);
+INSERT INTO receipt (user_id,merchant_id) VALUES(2,1); 
+INSERT INTO receipt (user_id,merchant_id) VALUES(2,1);
 
 
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(1,13,4,2,12);
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(2,14,4,4,16);
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(3,13,4,1,4);
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(4,13,4,1,4);
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(5,15,4,1,4);
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(6,16,4,2,4);
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(1,14,4,2,4);
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(2,13,4,2,4);
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(3,16,4,2,4);
--- INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(4,13,4,2,4);
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(1,13,4,2,12);
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(2,14,4,4,16);
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(3,13,4,1,4);
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(4,13,4,1,4);
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(5,15,4,1,4);
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(6,16,4,2,4);
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(1,14,4,2,4);
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(2,13,4,2,4);
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(3,16,4,2,4);
+INSERT INTO orders (receipt_id, listing_id,price,quantity,revenue) VALUES(4,13,4,2,4);
 
 
--- INSERT INTO rating (user_id,merchant_id,listing_id,rating_stars,rating_receipt_id) VALUES(2,1,14,5,1);
--- INSERT INTO rating (user_id,merchant_id,listing_id,rating_stars,rating_receipt_id) VALUES(2,1,13,4,2);
--- INSERT INTO rating (user_id,merchant_id,listing_id,rating) VALUES(1,1,15,5);
--- INSERT INTO rating (user_id,merchant_id,listing_id,rating) VALUES(1,1,16,5);
--- INSERT INTO rating (user_id,merchant_id,listing_id,rating) VALUES(2,1,13,4);
--- INSERT INTO rating (user_id,merchant_id,listing_id,rating) VALUES(2,1,14,3);
--- INSERT INTO rating (user_id,merchant_id,listing_id,rating) VALUES(2,1,15,2);
--- INSERT INTO rating (user_id,merchant_id,listing_id,rating) VALUES(2,1,16,1);
+INSERT INTO rating (user_id,merchant_id,listing_id,rating_stars,rating_receipt_id) VALUES(2,1,14,5,1);
+INSERT INTO rating (user_id,merchant_id,listing_id,rating_stars,rating_receipt_id) VALUES(2,1,13,4,2);

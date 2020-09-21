@@ -18,7 +18,7 @@ class RatingContainer extends Component {
   componentDidMount() {
     //mounting
     if (this.state.display) {
-      fetch("/ratings/1")
+      fetch(`/ratings/${this.props.merchant_id}`)
         .then((res) => res.json())
         .then((res) => {
           if (res.length < 1) {
@@ -26,7 +26,7 @@ class RatingContainer extends Component {
           } else {
             console.log(res);
             let ratingTotal = res.reduce(function (prev, cur) {
-              return prev + cur.rating;
+              return prev + cur.rating_stars;
             }, 0);
             let merchantAve = ratingTotal / res.length;
             let listingRates = this.getTotalRatingListing(res);
@@ -63,9 +63,9 @@ class RatingContainer extends Component {
     for (let i = 0; i < arr.length; i++) {
       let listing = arr[i].item_name;
       if (!listingRating[listing]) {
-        listingRating[listing] = arr[i].rating;
+        listingRating[listing] = arr[i].rating_stars;
       } else {
-        listingRating[listing] += arr[i].rating;
+        listingRating[listing] += arr[i].rating_stars;
       }
     }
     console.log(listingRating);

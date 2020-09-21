@@ -53,7 +53,6 @@ CREATE TABLE IF NOT EXISTS orders(
   quantity INTEGER,
   revenue INTEGER,
   date_created TIMESTAMP default now()
-
 );
 
 CREATE TABLE IF NOT EXISTS rating(
@@ -64,5 +63,4 @@ CREATE TABLE IF NOT EXISTS rating(
   rating_stars INTEGER,
   rating_receipt_id INTEGER,
   date_created TIMESTAMP default now()
-
 );

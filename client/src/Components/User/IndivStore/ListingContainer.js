@@ -117,7 +117,7 @@ export default class ListingContainer extends React.Component {
     let cuisine = array[0].cuisine;
     let listing_id = array[0].listing_id;
     let merchant_id = array[0].merchant_id;
-    
+
     return (
       <IndivListing
         item_name={item_name}
@@ -137,7 +137,6 @@ export default class ListingContainer extends React.Component {
   }
   render() {
     const stripePromise = loadStripe(this.props.stripper);
-    console.log(this.state.html)
     // if (this.state.checkout) {
     //     return (
     //         <div><PaymentOverlay cart={this.state.cart} stripper={this.props.stripper} /></div>
@@ -146,7 +145,7 @@ export default class ListingContainer extends React.Component {
 
     let data = {}
     if (this.state.cart[0]) {
-      let data = {
+      data = {
         merchant_id: this.state.cart[0].merchant_id,
         user_id: this.props.user_id,
         name: this.state.cart[0].name,
@@ -156,6 +155,7 @@ export default class ListingContainer extends React.Component {
         revenue: (this.state.cart[0].count / 2) * this.state.cart[0].price,
       };
     }
+    console.log(data)
     return (
       <div>
         <div>

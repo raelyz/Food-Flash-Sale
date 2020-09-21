@@ -173,7 +173,7 @@ export default class TimeLine extends Component {
         const routeArray = nArray.map((eachCard, index) => {
             let path = "/" + eachCard.merchant_id + "/" + eachCard.listing_id
             return <Route path={path} render={
-                () => <ListingContainer listing_id={eachCard.listing_id} merchant_id={eachCard.merchant_id} stripper={this.props.stripper} />
+                () => <ListingContainer user_id={this.props.user_id} listing_id={eachCard.listing_id} merchant_id={eachCard.merchant_id} stripper={this.props.stripper} />
             } />
         })
         return (<>
