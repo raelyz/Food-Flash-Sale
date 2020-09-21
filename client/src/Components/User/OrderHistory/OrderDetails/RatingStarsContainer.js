@@ -39,7 +39,7 @@ class RatingStarsContainer extends Component {
   //helper function
   decide(array) {
     let displayStar;
-    if (array.rating_stars === null) {
+    if (array[0].rating_stars === null) {
       displayStar = true;
     } else {
       displayStar = false;

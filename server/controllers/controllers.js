@@ -523,8 +523,8 @@ module.exports = (db) => {
     });
   };
   let getUserRatings = (request, response) => {
-    let { user_id, receipt_id } = request.params;
-    let values = [user_id, receipt_id];
+    let { userid, receiptid } = request.params;
+    let values = [userid, receiptid];
     db.poolRoutes.getUserRatingsFX(values, (err, result) => {
       if (err) {
         console.log(err, `err at gettUserRatings Orderscontroller`);
