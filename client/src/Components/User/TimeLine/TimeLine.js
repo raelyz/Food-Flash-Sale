@@ -1,72 +1,76 @@
-import React, { Component } from "react";
-import EachMerchant from "./EachMerchant/EachMerchant";
-import OrderHistory from "../OrderHistory/OrderHistory";
-import { Route, Link, Redirect, Switch } from "react-router-dom";
-import IndivListing from "../IndivStore/IndivListing";
-import ListingContainer from "../IndivStore/ListingContainer";
-import ByCategory from "./housekeeping switch";
-import ByDiscount from "./ByDiscount";
-import ByDistance from "./ByDistance";
-var fetching = true;
-var newArray = [];
+import React, { Component } from 'react'
+import EachMerchant from './EachMerchant/EachMerchant'
+import OrderHistory from '../OrderHistory/OrderHistory'
+import { Route, Link, Redirect, Switch } from 'react-router-dom'
+import IndivListing from '../IndivStore/IndivListing'
+import ListingContainer from '../IndivStore/ListingContainer'
+import ByCategory from './housekeeping switch'
+import ByDiscount from './ByDiscount';
+import ByDistance from './ByDistance';
+var fetching = true
+var newArray = []
+
 
 export default class TimeLine extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      timeLine: [],
-      deletedArray: [],
-      filter: "",
-      sorted: [],
-      lat: props.lat,
-      lon: props.lon,
-      status: "True",
-      mode: "default",
-    };
-  }
-  componentDidMount() {
-    fetch("/timeline")
-      .then((res) => res.json())
-      .then((res) => {
-        // console.log(res);
-        this.setState({
-          timeLine: res,
-        });
-      });
+    constructor(props) {
+        super(props)
+        this.state = {
+            timeLine: [],
+            deletedArray: [],
+            filter: "",
+            sorted: [],
+            lat: props.lat,
+            lon: props.lon,
+            status: 'True',
+            mode: 'default'
 
-    fetch("/deletedlisting")
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        if (res && res.length > 0) {
-          res.sort(function (a, b) {
-            const uploadTimeA = new Date(a.time);
-            const uploadTimeB = new Date(b.time);
-            return uploadTimeB - uploadTimeA;
-          });
-          this.setState({
-            deletedArray: res,
-          });
         }
-      });
-  }
+    }
+    componentDidMount() {
+        fetch('/timeline')
+            .then(res => res.json())
+            .then(res => {
+                // console.log(res);
+                this.setState({
+                    timeLine: res,
+                })
+            })
 
-  testing = (prop) => {
-    if (fetching === true) {
-      fetching = false;
-      setTimeout(() => {
-        console.log(`fetching new list soon`);
-        fetch("/timeline")
-          .then((res) => res.json())
-          .then((res) => {
-            console.log(res, `fetched`);
-            fetching = true;
-            this.setState({
-              timeLine: res,
-            });
-          });
-      }, 5000);
+        fetch('/deletedlisting')
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res)
+                if (res && res.length > 0) {
+                    res.sort(function (a, b) {
+                        const uploadTimeA = new Date(a.time)
+                        const uploadTimeB = new Date(b.time)
+                        return uploadTimeB - uploadTimeA
+                    })
+                    this.setState({
+                        deletedArray: res
+                    })
+                }
+            })
 
+    }
+
+
+    testing = (prop) => {
+
+        if (fetching === true) {
+            fetching = false
+            setTimeout(() => {
+                console.log(`fetching new list soon`)
+                fetch('/timeline')
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log(res, `fetched`)
+                        fetching = true
+                        this.setState({
+                            timeLine: res,
+                        })
+                    })
+            }, 5000)
 
             setTimeout(() => {
                 console.log(`fetching deleted list soon`)
@@ -121,28 +125,18 @@ export default class TimeLine extends Component {
             if (difference > 0) {
                 return item
             }
-          });
-      }, 5000);
+        })
+        let nArray = Array.filter((item) => {
+            return item
+        })
 
-      setTimeout(() => {
-        let defunctArray = this.state.timeLine.map((item, index) => {
-          const uploadTime = new Date(item.time);
-          uploadTime.setMinutes(uploadTime.getMinutes() + item.time_limit_min);
-          let difference = +uploadTime - +new Date();
-          if (difference < 0) {
-            return item;
-          }
-        });
-        let newArray = defunctArray.filter((item) => {
-          return item;
-        });
-        console.log(`deleting soon`);
-        fetch("/tidyuplisting", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ toBeDeleted: newArray }),
+
+        nArray.sort(function (a, b) {
+            const uploadTimeA = new Date(a.time)
+            uploadTimeA.setMinutes(uploadTimeA.getMinutes() + a.time_limit_min)
+            const uploadTimeB = new Date(b.time)
+            uploadTimeB.setMinutes(uploadTimeB.getMinutes() + b.time_limit_min)
+            return uploadTimeA - uploadTimeB
         })
         // console.log(newerArray, `before splice`)
         if (nArray.length > 20) {
@@ -266,24 +260,24 @@ export default class TimeLine extends Component {
 // First Option
 // 1) Starting Price is our price ceiling
 // 2) When timeleft = time left / 2
-// 3) price will be price ceiling + price floor /2
+// 3) price will be price ceiling + price floor /2 
 // 4) taking time left split into 4 Segements
 //
 // segement1
 //   price ceiling -  80/100 * price difference = 6.54
-// segment2
+// segment2 
 //   price ceiling - 60/100 * price difference = 6.28
-// segment3
+// segment3 
 //   price ceiling - 40/100 * price difference = 6.02
-// segment4
+// segment4 
 // if 10% or>
-//     price ceiling - 20/100 * price difference =5.76
+//     price ceiling - 20/100 * price difference =5.76 
 //     else
 //     price floor
 //     else (based on time set to price floor)
 // up 7
 // price ceiling 6.80
-// price floor   5.50         price difference 1.30 0-100%
+// price floor   5.50         price difference 1.30 0-100%  
 // price c
 // hard code average time on item creation into the database
 //
@@ -295,8 +289,8 @@ export default class TimeLine extends Component {
 // metric duration = time taken to sell out / tiem set by the user
 // 10 items 0:00
 // 9items   0:06
-// 8         0:12<-------  average time setimt time_limit_min /items
+// 8         0:12<-------  average time setimt time_limit_min /items 
 //
 //
-// 1 hour
+// 1 hour 
 //
