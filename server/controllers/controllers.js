@@ -323,9 +323,7 @@ module.exports = (db) => {
   let postSubmitReceiptOrder = (request, response) => {
     let checked = false;
     let checkValue = [request.body.order.listing_id];
-
     let quantity = request.body.order.quantity;
-
     let values = [request.body.order.user_id, request.body.order.merchant_id];
     //     console.log(checkValue, "----this is from checkValue");
     db.poolRoutes.checkInventoryFX(checkValue, (err, result) => {

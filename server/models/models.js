@@ -58,7 +58,7 @@ module.exports = (dbPoolInstance) => {
       callback(err, result)
     })
   }
-  
+
   // SELECT * FROM merchant WHERE name='3' OR email='3' OR address='3' OR uen='4' AND cuisine='5' AND lattitude=6 AND longtitude =7;
   let getLoginDetailsFX = (value, callback) => {
     let queryLoginDetails = `SELECT * FROM users WHERE username=$1,password=$2,email=$3`;
@@ -249,7 +249,7 @@ module.exports = (dbPoolInstance) => {
     value.forEach((item) => {
       values = [false, item.listing_id];
       let query = `update LISTING set live = $1, time = CURRENT_TIMESTAMP where listing_id = $2`;
-      dbPoolInstance.query(query, values, (err, result) => {});
+      dbPoolInstance.query(query, values, (err, result) => { });
     });
     callback(null, null);
   };

@@ -137,7 +137,6 @@ export default class ListingContainer extends React.Component {
   }
   render() {
     const stripePromise = loadStripe(this.props.stripper);
-    console.log(this.state.html)
     // if (this.state.checkout) {
     //     return (
     //         <div><PaymentOverlay cart={this.state.cart} stripper={this.props.stripper} /></div>
@@ -156,6 +155,7 @@ export default class ListingContainer extends React.Component {
         revenue: (this.state.cart[0].count / 2) * this.state.cart[0].price,
       };
     }
+    console.log(data)
     return (
       <div>
         <div>
