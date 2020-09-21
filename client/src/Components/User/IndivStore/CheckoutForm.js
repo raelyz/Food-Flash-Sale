@@ -48,7 +48,7 @@ export default function Checkout(props) {
                     console.log(res)
                     switch (res.status) {
                         case "Payment Complete": {
-
+                            break;
                         }
                         case "Payment Failed": {
                             setResult("block");
