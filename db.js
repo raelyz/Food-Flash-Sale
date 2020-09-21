@@ -1,4 +1,5 @@
 const pg = require("pg");
+const Pool = require("pg").Pool;
 const url = require("url");
 require("dotenv").config();
 var configs;
