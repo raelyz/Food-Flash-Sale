@@ -47,11 +47,9 @@
   height: 10vh;
   align-items: center;
 }
-/*.login {
-	position: relative;
-	left: 75%;
+.login {
 	cursor: pointer;
-}*/
+}
 .break {
   margin-right: 20px;
   cursor: pointer;
@@ -169,4 +167,7 @@ td {
 .edit:hover {
 	background-color: lightgrey;
 }
-
+.mainDisplay {
+	height: 80vh;
+  overflow-y: scroll;
+}
