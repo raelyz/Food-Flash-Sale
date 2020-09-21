@@ -111,7 +111,7 @@
   display: none;
 }
 
-.rating > label {
+.rating > p {
   position: relative;
   width: 1em;
   font-size: 6vw;
@@ -119,22 +119,22 @@
   cursor: pointer;
 }
 
-.rating > label::before {
+.rating > p::before {
   content: "\2605";
   position: absolute;
   opacity: 0;
 }
 
-.rating > label:hover:before,
-.rating > label:hover ~ label:before {
+.rating > p:hover:before,
+.rating > p:hover ~ p:before {
   opacity: 1 !important;
 }
 
-.rating > input:checked ~ label:before {
+.rating > p:checked ~ p:before {
   opacity: 1;
 }
 
-.rating:hover > input:checked ~ label:before {
+.rating:hover > p:checked ~ p:before {
   opacity: 0.4;
 }
 
@@ -143,27 +143,29 @@
 }
 
 .userMainContainer {
-	height: 70vh;
-	overflow-y: scroll;
+  height: 70vh;
+  overflow-y: scroll;
 }
 
-table, th, td {
+table,
+th,
+td {
   border-collapse: collapse;
   vertical-align: middle;
   text-align: center;
   height: 60px;
 }
 
-th, td {
-	width: 100px;
+th,
+td {
+  width: 100px;
 }
 
 .edit {
-	cursor: pointer;
-	border-radius: 5px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .edit:hover {
-	background-color: lightgrey;
+  background-color: lightgrey;
 }
-

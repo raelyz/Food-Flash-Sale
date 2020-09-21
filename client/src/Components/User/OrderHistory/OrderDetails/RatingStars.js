@@ -26,10 +26,12 @@ class RatingStars extends Component {
           listing_id: this.props.listing_id,
           merchant_id: this.state.merchant_id,
           rating_stars: this.props.rating,
+          user_id: this.props.user_id,
         }),
       })
         .then((res) => res.json())
         .then((res) => {
+          console.log("done with fetch");
           this.setState({
             displayStar: false,
             rated: true,
@@ -43,21 +45,48 @@ class RatingStars extends Component {
       if (!this.state.rated) {
         return (
           <div>
-            <button onClick={(e) => this.props.onClick(e)} value="5" id="5">
-              ☆
-            </button>
-            <button onClick={(e) => this.props.onClick(e)} value="4" id="4">
-              ☆
-            </button>
-            <button onClick={(e) => this.props.onClick(e)} value="3" id="3">
-              ☆
-            </button>
-            <button onClick={(e) => this.props.onClick(e)} value="2" id="2">
-              ☆
-            </button>
-            <button onClick={(e) => this.props.onClick(e)} value="1" id="1">
-              ☆
-            </button>
+            <div>
+              <button
+
+                onClick={(e) => this.props.onClick(e)}
+                value="5"
+                id="5"
+              >
+                ☆
+              </button>
+              <button
+
+                onClick={(e) => this.props.onClick(e)}
+                value="4"
+                id="4"
+              >
+                ☆
+              </button>
+              <button
+
+                onClick={(e) => this.props.onClick(e)}
+                value="3"
+                id="3"
+              >
+                ☆
+              </button>
+              <button
+
+                onClick={(e) => this.props.onClick(e)}
+                value="2"
+                id="2"
+              >
+                ☆
+              </button>
+              <button
+
+                onClick={(e) => this.props.onClick(e)}
+                value="1"
+                id="1"
+              >
+                ☆
+              </button>
+            </div>
           </div>
         );
       }
