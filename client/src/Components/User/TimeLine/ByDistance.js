@@ -164,7 +164,7 @@ export default class TimeLine extends Component {
         }
         let merchantCard = nArray.map((eachCard, index) => {
             const discount = (eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100
-            let path = "/" + eachCard.merchant_id
+            let path = "/" + eachCard.merchant_id + "/" + eachCard.listing_id
             var radlatUser = Math.PI * lat / 180;
             var radlatA = Math.PI * eachCard.latitude / 180;
             var theta = lon - eachCard.longitude;
@@ -180,10 +180,10 @@ export default class TimeLine extends Component {
             let distance = distA * 1.609344;
             return < Link className="col-lg-4 col-md-6 mb-4" to={path} >
                 <EachMerchant className="card h-100" key={index} duration={eachCard.time_limit_min} time={eachCard.time} merchant_Id={eachCard.merchant_id} what={this.testing}>
-                    <img class="card-img-top" src="https://picsum.photos/700/400" alt="" />
-                    <h4>{eachCard.name} {discount}%</h4>
-                    <p>{distance}km</p>
-                    <p class="card-text">Lorem ipsum dolor sit amet</p>
+                    <img class="card-img-top" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
+                    <h4>{eachCard.name} {discount.toFixed(0)}% off !</h4>
+                    <p>About {distance.toFixed(0)} km away.</p>
+                    <p class="card-text">{eachCard.description}</p>
                 </EachMerchant>
             </Link >
         })
@@ -193,30 +193,21 @@ export default class TimeLine extends Component {
             let path = "/" + eachCard.merchant_id
             return <Link class="col-lg-4 col-md-6 mb-4" to={path}>
                 <div className="card h-100">
-                    <img class="card-img-top" src="https://picsum.photos/700/400" alt="" />
+                    <img class="card-img-top" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
                     <div className="card-body">
                         <h4 class="card-title">
                             {eachCard.Merchant}
                         </h4>
                         <div>{eachCard.name}</div>
-                        <div>up to{discount}%</div>
+                        <div>Up to{discount}%</div>
                     </div>
                 </div>
             </Link>
         })
-        console.log(this.state.status)
-        const routeArray = nArray.map((eachCard, index) => {
-            let path = "/" + eachCard.merchant_id
-            return <Route path={path} render={
-                () => <ListingContainer listing_id={eachCard.listing_id} merchant_id={eachCard.merchant_id} stripper={this.props.stripper} />
-            } />
-        })
         return (<>
-
             <div className='container'>
-                <main>
+                <main className="mainDisplay">
                     <Switch>
-                        {routeArray}
                         <Route path="/Orderhistory" render={
                             () => <OrderHistory />
                         } />
