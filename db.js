@@ -1,30 +1,32 @@
 const pg = require("pg");
-// const Pool = require("pg").Pool;
 const url = require("url");
-require("dotenv").config();
+
 var configs;
 
-const devConfig = {
-  user: "aurelialim",
-  host: "localhost",
-  database: "foodflash",
-  port: 5432,
-};
+if (process.env.DATABASE_URL) {
+  const params = url.parse(process.env.DATABASE_URL);
+  const auth = params.auth.split(":");
 
-
-const proConfig = process.env.DATABASE_URL; //heroku addons
-
-const pool = new pg.Pool(devConfig)
-
-if (process.env.NODE_ENV === "production") {
-  const pool = new pg.Pool(devConfig)
+  configs = {
+    user: auth[0],
+    password: auth[1],
+    host: params.hostname,
+    port: params.port,
+    database: params.pathname.split("/")[1],
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  };
 } else {
-  const pool = new pg.Pool({ connectionString: proConfig })
+  configs = {
+    user: 'aurelialim',
+    host: '127.0.0.1',
+    database: 'foodflash',
+    port: 5432
+  };
 }
 
-//   connectionString:
-//     (process.env.NODE_ENV === "production" ? proConfig : devConfig)
-// });
+const pool = new pg.Pool(configs);
 
 pool.on("error", function (err) {
   console.log("idle client error", err.message, err.stack);
