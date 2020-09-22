@@ -13,14 +13,16 @@ class OrderHistory extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.user_id)
     fetch(`/orderhistory/${this.props.user_id}`)
       .then((res) => res.json())
-      .then((res) =>
+      .then((res) => {
+        console.log(res);
         this.setState({
           orderHistory: res,
           fetch: true,
         })
-      );
+      });
   }
 
   // componentWillUnmount() {

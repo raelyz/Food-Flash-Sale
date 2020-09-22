@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
@@ -55,8 +56,7 @@ function Checkout(props) {
             })
                 .then(res => {
                     setLoading("Loading. . .")
-                    return res.json()
-                })
+                    return res.json()})
                 .then(res => {
                     switch (res.status) {
                         case "Payment Complete": {

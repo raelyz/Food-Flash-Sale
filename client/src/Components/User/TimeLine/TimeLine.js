@@ -53,21 +53,21 @@ class TimeLine extends Component {
                 }
             })
     }
-    changePage = (e) => {
-        if (e.target.value === "Discount") {
+    changePage=(e)=> {
+        if(e.target.value === "Discount") {
             this.props.history.push("/ByDiscount")
-        } else if (e.target.value === "Distance") {
+        } else if(e.target.value === "Distance") {
             this.props.history.push("/ByDistance")
         } else {
             this.props.history.push("/")
         }
     }
-    hideSort = () => {
+    hideSort=()=> {
         this.setState({
             sortDisplay: "none"
         })
     }
-    unhideSort = () => {
+    unhideSort=()=> {
         this.setState({
             sortDisplay: "block"
         })
@@ -233,8 +233,8 @@ class TimeLine extends Component {
                     </div>
                 </div>
                 <div>
-                    <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
-                    <select onChange={this.changePage} style={{ display: this.state.sortDisplay }}>
+                    <label style={{display: this.state.sortDisplay}}>Sort by:</label>
+                    <select onChange={this.changePage} style={{display: this.state.sortDisplay}}>
                         <option value="Time">Time Left</option>
                         <option value="Discount">Discount</option>
                         <option value="Distance">Distance</option>
