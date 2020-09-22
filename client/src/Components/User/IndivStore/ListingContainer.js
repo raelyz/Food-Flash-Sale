@@ -146,7 +146,8 @@ export default class ListingContainer extends React.Component {
     }
     console.log(data)
     return (
-      <div>
+      <div id="wrapper">
+
         <div>
 
           <h1>You are viewing deals from {this.state.merchant_name}</h1>

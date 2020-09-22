@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from 'react-router'
 import logo from "./logo.svg";
 import "./App.css";
+import "./styles.css";
 import PaymentOverlay from "./Components/User/IndivStore/PaymentOverlay";
 import Home from "./Components/User/Home";
 import Navbar from "./Components/User/Navbar/Navbar";
@@ -123,13 +124,13 @@ class App extends React.Component {
         fetch('/logout')
             .then(res => res.json())
             .then(res => { })
-            this.setState({
-                    merchant_id: "",
-                    merchantUsername: "",
-                    userId: "",
-                    userName: ""
-                })
-            this.props.history.push("/")
+        this.setState({
+            merchant_id: "",
+            merchantUsername: "",
+            userId: "",
+            userName: ""
+        })
+        this.props.history.push("/")
     }
 
     render() {
@@ -147,7 +148,7 @@ class App extends React.Component {
             if (this.state.changePage == 'user') {
                 return (
                     <div className="App">
-                    <Navbar
+                        <Navbar
                             onClickSignUp={this.onClickSignUp}
                             onClickLogin={this.onClickLogin}
                             changePage={this.changePage}
@@ -170,6 +171,7 @@ class App extends React.Component {
                             onClickLogin={this.onClickLogin}
                             changePage={this.changePage}
                         />
+
                         <MercHome
                             displaysignup={this.state.displayOverlaySignUp}
                             displaylogin={this.state.displayOverlayLogin}

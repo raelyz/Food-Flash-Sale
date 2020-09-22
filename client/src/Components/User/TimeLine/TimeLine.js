@@ -53,21 +53,21 @@ class TimeLine extends Component {
                 }
             })
     }
-    changePage=(e)=> {
-        if(e.target.value === "Discount") {
+    changePage = (e) => {
+        if (e.target.value === "Discount") {
             this.props.history.push("/ByDiscount")
-        } else if(e.target.value === "Distance") {
+        } else if (e.target.value === "Distance") {
             this.props.history.push("/ByDistance")
         } else {
             this.props.history.push("/")
         }
     }
-    hideSort=()=> {
+    hideSort = () => {
         this.setState({
             sortDisplay: "none"
         })
     }
-    unhideSort=()=> {
+    unhideSort = () => {
         this.setState({
             sortDisplay: "block"
         })
@@ -174,17 +174,23 @@ class TimeLine extends Component {
         let deletedMerchantCard = this.state.deletedArray.map((eachCard, index) => {
             const discount = ((eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100).toFixed(0)
             let path = "/" + eachCard.merchant_id
-            return <Link class="col-lg-4 col-md-6 mb-4" to={path}>
-                <div className="card h-100">
-                    <img class="card-img-top" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
-                    <div className="card-body">
-                        <h4 class="card-title">
-                            {eachCard.Merchant}
-                        </h4>
-                        <div>{eachCard.name}</div>
-                        <div>up to{discount}%</div>
+            return <Link className="col-lg-4 col-sm-6 mb-4" to={path}>
+                <div className="col-lg-4 col-sm-6 mb-4">
+                    <div className="portfolio-item">
+                        <div className="portfolio-hover">
+                            <div className="portfolio-hover-content"><i className="fas fa-plus fa-3x">
+                            </i></div>
+                        </div>
+                        <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2"></a>
+                        <img class="img-fluid" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
+                        <div className="portfolio-caption">
+                            <div className="portfolio-caption-heading">{eachCard.Merchant}</div>
+                            <div className="portfolio-caption-subheading text-muted"> {eachCard.name}  up to{discount}%</div>
+                        </div>
                     </div>
                 </div>
+
+
             </Link>
         })
         const routeArray = nArray.map((eachCard, index) => {
@@ -194,6 +200,7 @@ class TimeLine extends Component {
             } />
         })
         return (<>
+            <div id="background"></div>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                 <div class="container">
                     <a class="navbar-brand" href="#">Start Bootstrap</a>
@@ -233,8 +240,8 @@ class TimeLine extends Component {
                     </div>
                 </div>
                 <div>
-                    <label style={{display: this.state.sortDisplay}}>Sort by:</label>
-                    <select onChange={this.changePage} style={{display: this.state.sortDisplay}}>
+                    <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
+                    <select onChange={this.changePage} style={{ display: this.state.sortDisplay }}>
                         <option value="Time">Time Left</option>
                         <option value="Discount">Discount</option>
                         <option value="Distance">Distance</option>
@@ -253,10 +260,27 @@ class TimeLine extends Component {
                         <Route path="/ByDiscount" render={() => <ByDiscount lon={this.props.lon} lat={this.props.lat} />} />
                         <Route path="/" render={
                             () => <>
-                                <h1>Ongoing Deals</h1>
-                                <div className="row">{merchantCard}</div>
-                                <h1>Expired Deals</h1>
-                                <div className="row">{deletedMerchantCard}</div>
+
+                                <section className="page-section  bg-trans portfolio wrapper" >
+                                    <div class="container">
+                                        <div class="text-center">
+                                            <h2 class="section-heading text-uppercase">Ongoing Deals</h2>
+
+                                            <h3 class="section-subheading text-muted">Catch them while you can!</h3>
+                                        </div>
+                                        <div>{merchantCard}</div>
+                                    </div>
+                                </section>
+                                <section className="page-section  bg-trans portfolio wrapper">
+                                    <div class="container">
+                                        <div class="text-center">
+                                            <h2 class="section-heading text-uppercase">They are gone..</h2>
+
+                                            <h3 class="section-subheading text-muted">You were too late!</h3>
+                                        </div>
+                                        {deletedMerchantCard}
+                                    </div>
+                                </section>
                             </>
                         } />
                     </Switch>
@@ -268,41 +292,3 @@ class TimeLine extends Component {
 }
 
 export default withRouter(TimeLine)
-//
-// First Option
-// 1) Starting Price is our price ceiling
-// 2) When timeleft = time left / 2
-// 3) price will be price ceiling + price floor /2
-// 4) taking time left split into 4 Segements
-//
-// segement1
-//   price ceiling -  80/100 * price difference = 6.54
-// segment2
-//   price ceiling - 60/100 * price difference = 6.28
-// segment3
-//   price ceiling - 40/100 * price difference = 6.02
-// segment4
-// if 10% or>
-//     price ceiling - 20/100 * price difference =5.76
-//     else
-//     price floor
-//     else (based on time set to price floor)
-// up 7
-// price ceiling 6.80
-// price floor   5.50         price difference 1.30 0-100%
-// price c
-// hard code average time on item creation into the database
-//
-//                                                       qty is static in our DB, possibly carry out second fetch on orders to sum qty to     ////////////                                                       calcualte OR write into DB a new column to keep adding to check sale
-// average time taken to sell an item  get current time - upload time = price difference divide by uploaded qty - remaining qty  ( ) <---------------------how?
-// compare it to the "estimated time" to sell 1hr 10
-//
-// if more/ less
-// metric duration = time taken to sell out / tiem set by the user
-// 10 items 0:00
-// 9items   0:06
-// 8         0:12<-------  average time setimt time_limit_min /items
-
-//
-// 1 hour
-//

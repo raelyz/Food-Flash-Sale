@@ -63,29 +63,50 @@ export default class Register extends Component {
     }
     render() {
         return (
-            <div className="login-overlay" style={{ display: this.props.displaysignup }}>
-                <div className="formsParent" style={{ height: "250px" }}>
-                    <div>Sign Up as a New Merchant</div>
-                    <form onSubmit={this.onSubmit} className="forms" >
-                        <input type="text" name="name" placeholder="username" onChange={this.onChange} />
-                        <br />
-                        <input type="text" name="email" placeholder="Email" onChange={this.onChange} />
-                        <br />
-                        <textarea style={{ width: "145px", resize: "none" }} type="text" name="address" placeholder="Address" onChange={this.onChange} />
-                        <br />
-                        <input type="text" name="postalCode" placeholder="Postal Code" onChange={this.onChange} />
-                        <br />
-                        <input type="text" name="uen" placeholder="UEN" onChange={this.onChange} />
-                        <br />
-                        <input type="text" name="cuisine" placeholder="Cuisine" onChange={this.onChange} />
-                        <br />
-                        <input type="password" name="password" placeholder="Password" onChange={this.onChange} />
-                        <br />
-                        <input type="submit" value="Submit" />
-                    </form>
-                    <button >testing</button>
+            <div className="row login-overlay">
+                <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                    <div className="card card-signin my-5">
+                        <div className="card-body">
+                            <h5 className="card-title text-center">Sign In</h5>
+                            <form className="form-signin forms" onSubmit={this.onSubmit} >
+                                <div className="form-label-group">
+                                    <div>Merchant Register</div>
+                                    <input className="form-control" required autofocus
+                                        type="text" name="name" placeholder="Username" onChange={this.onChange} />
+                                    <label for="name">Name</label>
+                                </div>
+
+                                <div className="form-label-group">
+                                    <input type="text" name="address" placeholder="Address" onChange={this.onChange
+                                    } className="form-control" required />
+                                    <label for="addresss">Address</label>
+                                </div>
+
+                                <div className="form-label-group">
+                                    <input name="postalCode" placeholder="Postal Code" onChange={this.onChange} className="form-control" required />
+                                    <label for="postalCode">Postal Code</label>
+                                </div>
+                                <div className="form-label-group">
+                                    <input type="text" name="uen" placeholder="UEN" onChange={this.onChange} className="form-control" required />
+                                    <label for="uen">UEN</label>
+                                </div>
+                                <div className="form-label-group">
+                                    <input type="text" name="cuisine" placeholder="Cuisine" onChange={this.onChange} className="form-control" required />
+                                    <label for="Cuisine">Cuisine</label>
+                                </div>
+                                <div className="form-label-group">
+                                    <input id="inputPassword" type="password" name="password" placeholder="password" onChange={this.onChange} className="form-control" placeholder="Password" required />
+                                    <label for="inputPassword">Password</label>
+
+                                    <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
     }
 }
+
+

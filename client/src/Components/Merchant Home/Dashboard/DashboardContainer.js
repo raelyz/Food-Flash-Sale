@@ -96,7 +96,7 @@ class DashboardContainer extends Component {
   render() {
     return (
       <div>
-        Hello from Dashboard DashboardContainer
+        <div id="backgroundMerc"></div>
         <Bestselling
           res={this.state.res}
           totalRev={this.state.totalRev}

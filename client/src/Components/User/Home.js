@@ -2,16 +2,17 @@ import React from 'react'
 import Register from './HomeLogin/Register'
 import Login from './HomeLogin/Login'
 
-const Home =({displaysignup, displaylogin, onRegistered, onLogin}) => {
+const Home = ({ displaysignup, displaylogin, onRegistered, onLogin }) => {
     return (
         <div className="hero">
+            <div id="background"></div>
             <Register
                 displaysignup={displaysignup}
                 onRegistered={onRegistered}
-                />
+            />
             <Login
-            displaylogin={displaylogin}
-            onLogin={onLogin}
+                displaylogin={displaylogin}
+                onLogin={onLogin}
             />
         </div>
     )

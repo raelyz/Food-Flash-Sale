@@ -44,21 +44,23 @@ export default class ItemList extends Component {
         })
 
         return (
-            <table>
-                <tr>
-                    <th>Item Name</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Maximum Price</th>
-                    <th>Minimum Price</th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th>Duration</th>
-                    <th>Status</th>
-                    <th>Edit Item</th>
-                </tr>
-                {itemList}
-            </table>
+            <section className="page-section  bg-trans" >
+                <table>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Maximum Price</th>
+                        <th>Minimum Price</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Duration</th>
+                        <th>Status</th>
+                        <th>Edit Item</th>
+                    </tr>
+                    {itemList}
+                </table>
+            </section>
 
         )
     }

@@ -72,9 +72,21 @@ export default function EachMerchant(props) {
     return (
         <>
             {
-                timerComponents.length ? <div key={props.index}>
-                    {props.children} {timerComponents}</div> : null
+                timerComponents.length ? <div key={props.index}><div className="col-lg-4 col-sm-6 mb-4">
+                    <div className="portfolio-item">
+                        <div className="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="assets/img/portfolio/02-thumbnail.jpg" alt="" />
+                        <div className="portfolio-caption">
+                            <div className="portfolio-caption-heading">{props.children}</div>
+                            <div className="portfolio-caption-subheading text-muted"> {timerComponents} </div>
+                        </div>
+                    </div>
+                </div></div> : null
             }
         </>
     )
 }
+
+

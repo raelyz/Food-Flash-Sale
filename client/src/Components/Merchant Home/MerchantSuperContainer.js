@@ -5,7 +5,7 @@ import EditForm from './Edit/EditForm'
 import EditContainer from './Edit/EditContainer'
 import OrderListContainer from './AllOrders/OrderListContainer'
 import LogedInNavbar from './Navbar/LogedInNavbar'
-import {Route, Link, Redirect, Switch, withRouter} from 'react-router-dom'
+import { Route, Link, Redirect, Switch, withRouter } from 'react-router-dom'
 import DashboardContainer from './Dashboard/DashboardContainer'
 
 class MerchantSuperContainer extends Component {
@@ -34,7 +34,7 @@ class MerchantSuperContainer extends Component {
                 this.setState({
                     list: res
                 })
-            }).then(res=> {
+            }).then(res => {
                 this.props.history.push("/ItemList")
             })
     }
@@ -79,11 +79,11 @@ class MerchantSuperContainer extends Component {
                     } />
 
                     <Route path="/EditItem/:listing_id" render={
-                        (props)=> <EditContainer {...props} list={this.state.list} onClick={this.onClickHandler} />
+                        (props) => <EditContainer {...props} list={this.state.list} onClick={this.onClickHandler} />
                     } />
 
-                    <Route path="/" render= {
-                        ()=><DashboardContainer merchant_id={this.props.merchant_id} />
+                    <Route path="/" render={
+                        () => <DashboardContainer merchant_id={this.props.merchant_id} />
                     } />
                 </Switch>
             </>

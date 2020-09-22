@@ -14,6 +14,7 @@ const IndivOrder = (props) => {
             <td>{d}</td>
             <td>{props.revenue}</td>
         </tr>
+
     )
 }
 
