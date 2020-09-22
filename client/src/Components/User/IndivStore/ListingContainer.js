@@ -37,7 +37,7 @@ export default class ListingContainer extends React.Component {
     if (this.state.cart[0]) {
 
       this.setState((state) => {
-        if (state.cart[0].count > 2) {
+        if (state.cart[0].count > 1) {
           const cart = state.cart.filter((element) => element.count = element.count - 1);
           // localStorage.setItem("cart", cart);
           return { cart };
@@ -72,10 +72,10 @@ export default class ListingContainer extends React.Component {
       let productAlreadyInCart = false;
       cart.forEach((item) => {
         if (item.name === product.name) {
-          if (item.count / 2 < product.quantity) {
+          if (item.count / 1 < product.quantity) {
             productAlreadyInCart = true;
             console.log(`you're adding`)
-            item.count++;
+            item.count += 1
           } else {
             productAlreadyInCart = true;
           }
@@ -151,8 +151,8 @@ export default class ListingContainer extends React.Component {
         name: this.state.cart[0].name,
         listing_id: this.state.cart[0].listing_id,
         price: this.state.cart[0].price,
-        quantity: this.state.cart[0].count / 2,
-        revenue: (this.state.cart[0].count / 2) * this.state.cart[0].price,
+        quantity: this.state.cart[0].count,
+        revenue: (this.state.cart[0].count) * this.state.cart[0].price,
       };
     }
     console.log(data)
@@ -177,10 +177,10 @@ export default class ListingContainer extends React.Component {
                 </tr>
                 <tr>
                   <td>{this.state.cart[0].name}</td>
-                  <td>{this.state.cart[0].count / 2}</td>
+                  <td>{this.state.cart[0].count}</td>
                   <td>
                     Total: $
-                  {(this.state.cart[0].count / 2) * this.state.cart[0].price}
+                  {(this.state.cart[0].count) * this.state.cart[0].price}
                   </td>
                 </tr>
               </table>
