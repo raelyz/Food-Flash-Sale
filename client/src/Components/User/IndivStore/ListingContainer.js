@@ -34,22 +34,13 @@ export default class ListingContainer extends React.Component {
   }
   //delete from cart
   handleRemoveFromCart(e, item) {
+    let cart = this.state.cart;
     if (this.state.cart[0]) {
-
-      this.setState((state) => {
-        if (state.cart[0].count > 1) {
-          const cart = state.cart.filter((element) => element.count = element.count - 1);
-          // localStorage.setItem("cart", cart);
-          return { cart };
-        } else {
-          console.log(`hello`)
-          const cart = state.cart.filter((element) => element.count = 0);
-          // localStorage.setItem('cart', cart);
-          return { cart };
-        }
-
-      });
+      if (item.quantity > 1 && cart[0].count > 0) {
+        cart[0].count--
+      }
     }
+    this.setState({ cart: cart })
   }
   //   //add to cart button
   //   addToCart(e, addToCart) {
@@ -65,31 +56,29 @@ export default class ListingContainer extends React.Component {
   //add to cart button
   handleAddToCart(e, product) {
     console.log(product);
-    this.setState((state) => {
-      const cart = state.cart;
-      console.log(state.cart, `statecart`)
-      console.log(cart, `cart`)
-      let productAlreadyInCart = false;
-      cart.forEach((item) => {
-        if (item.name === product.name) {
-          if (item.count / 1 < product.quantity) {
-            productAlreadyInCart = true;
-            console.log(`you're adding`)
-            item.count += 1
-          } else {
-            productAlreadyInCart = true;
-          }
-        }
-      });
-      if (!productAlreadyInCart) {
-        if (product.quantity > 0) {
-          cart.push({ ...product, count: 1 });
+    let cart = this.state.cart;
+    console.log(this.state.cart, `statecart`)
+    console.log(cart, `cart`)
+    let productAlreadyInCart = false;
+    cart.forEach((item) => {
+      if (item.name === product.name) {
+        if (item.count < product.quantity) {
+          console.log(item.count, "---hello from before increment")
+          productAlreadyInCart = true;
+          console.log(`you're adding`)
+          item.count += 1
+          console.log(item.count, "---hello from count after increment")
         }
       }
-      localStorage.setItem("cart", JSON.stringify(cart));
-      console.log(this.state.cart, "----cart");
-      return cart;
     });
+
+    if (!productAlreadyInCart) {
+      if (product.quantity > 0) {
+        cart.push({ ...product, count: 1 });
+        console.log("---hello from first add")
+      }
+    }
+    this.setState({ cart: cart })
   }
   //when state is changed, FETCH results from aPI
   //side effects ie: HTTP requests are allowed here
@@ -164,7 +153,7 @@ export default class ListingContainer extends React.Component {
           <br />
           <div className="ListItems">{this.state.html}</div>
           <button onClick={this.navigateTo}>
-            View Cart {this.state.cart.length}
+            View Cart {(this.state.cart[0] ? this.state.cart[0].count : 0)}
           </button>
           {(this.state.viewCart && this.state.cart[0]) ?
             <>
