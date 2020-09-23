@@ -10,10 +10,10 @@ const Home = ({ displaysignup, displaylogin, onRegistered, onLogin }) => {
                 <div class="container">
                     <div class="masthead-subheading">Food Flash Sale</div>
                     <div class="masthead-heading text-uppercase">Waste not, Want alot!</div>
-                    <button className="buttons btn-hover color-1" ><a id="whitebutton" class=" js-scroll-trigger" href="#us">Tell Me More</a></button>
+                    <button className="buttons btn-hover color-1" ><a id="whitebutton" class=" js-scroll-trigger" href="#about">Tell Me More</a></button>
                 </div>
             </header>
-            <section class="page-section" id="us">
+            <section class="page-section" id="about">
                 <div class="container">
                     <div class="text-center">
                         <h2 class="section-heading text-uppercase">What do we do?</h2>
@@ -58,7 +58,7 @@ const Home = ({ displaysignup, displaylogin, onRegistered, onLogin }) => {
             </svg>
 
             <section class="page-section bg-light" id="team">
-                <div class="container">
+                <div class="container" id="contact">
                     <div class="text-center">
                         <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
                         <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
