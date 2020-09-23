@@ -1,4 +1,5 @@
 import React from "react";
+import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 
 export default class RegisterModal extends React.Component {
 constructor(props) {
@@ -64,28 +65,23 @@ constructor(props) {
     render() {
     if(!this.props.open) return null
     return (
-            <div className="overlayBackground">
-                <div className="overlay">
-                    <div className="formsParent" >
-                        <div>Sign Up as a New Merchant</div>
-                        <form onSubmit={this.onSubmit} className="forms" >
-                        <input type="text" name="name" placeholder="username" onChange={this.onChange} />
-                        <br />
-                        <input type="text" name="email" placeholder="Email" onChange={this.onChange} />
-                        <br />
-                        <textarea style={{ width: "145px", resize: "none" }} type="text" name="address" placeholder="Address" onChange={this.onChange} />
-                        <br />
-                        <input type="text" name="postalCode" placeholder="Postal Code" onChange={this.onChange} />
-                        <br />
-                        <input type="text" name="uen" placeholder="UEN" onChange={this.onChange} />
-                        <br />
-                        <input type="text" name="cuisine" placeholder="Cuisine" onChange={this.onChange} />
-                        <br />
-                        <input type="password" name="password" placeholder="Password" onChange={this.onChange} />
-                        <br />
-                        <input type="submit" value="Submit" />
-                        </form>
-                        <button onClick={this.props.onClose}>Close</button>
+            <div className="overlayBackgroundMerc">
+                <div className="overlayMerc">
+                    <div class="wrapperMerc">
+                            <div class="container2">
+                                <div className="mercRegisterX" onClick={this.props.onClose} ><HighlightOffRoundedIcon /></div>
+                                <h1>Sign Up as a New Merchant</h1>
+                                <form onSubmit={this.onSubmit} className="forms" >
+                                <input type="text" name="name" placeholder="Username" onChange={this.onChange} />
+                                <input type="email" name="email" placeholder="Email" onChange={this.onChange} />
+                                <textarea style={{ width: "250px", resize: "none" }} type="text" name="address" placeholder="Address" onChange={this.onChange} />
+                                <input type="text" name="postalCode" placeholder="Postal Code" onChange={this.onChange} />
+                                <input type="text" name="uen" placeholder="UEN" onChange={this.onChange} />
+                                <input type="text" name="cuisine" placeholder="Cuisine" onChange={this.onChange} />
+                                <input type="password" name="password" placeholder="Password" onChange={this.onChange} />
+                                <input type="submit" value="Submit" />
+                                </form>
+                            </div>
                     </div>
                 </div>
             </div>

@@ -70,7 +70,7 @@ class MerchantSuperContainer extends Component {
                                 <li class="nav-item"><Link to="/ItemList" className="nav-link js-scroll-trigger" >Item List</Link></li>
                                 <li class="nav-item"><Link to="/CreateItem" className="nav-link js-scroll-trigger" >Create Item</Link></li>
                                 <li class="nav-item"><Link to="/AllOrders" className="nav-link js-scroll-trigger" >All Orders</Link></li>
-                                <li class="nav-item"><a className="nav-link js-scroll-trigger" onClick={this.props.onLogout} >Log out</a></li>
+                                <li class="nav-item"><a className="nav-link js-scroll-trigger logout" onClick={this.props.onLogout} >Log out</a></li>
                             </ul>
                         </div>
                     </div >

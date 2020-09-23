@@ -21,7 +21,7 @@ if (process.env.DATABASE_URL) {
   configs = {
     user: 'aurelialim',
     host: '127.0.0.1',
-    database: 'foodflash',
+    database: 'project3',
     port: 5432
   };
 }

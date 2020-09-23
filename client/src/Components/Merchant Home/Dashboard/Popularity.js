@@ -32,7 +32,7 @@ class Popularity extends Component {
           />
         </div>
 
-        <h1>Your average rating: {this.props.merchantRating}</h1>
+        <h1>Your average rating: {this.props.merchantRating.toFixed(2)}</h1>
       </div>
     );
   }
