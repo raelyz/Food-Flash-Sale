@@ -82,16 +82,6 @@ class EditForm extends Component {
             dataValidity = false;
             errors["description"] = "Cannot be Empty"
         }
-        if (!this.time_limit_min.current.value) {
-            dataValidity = false;
-            errors["time_limit_min"] = "Cannot be Empty"
-        }
-        if (typeof fields["time_limit_min"] !== "undefined") {
-            if (isNaN(fields["time_limit_min"]) || parseInt(fields["time_limit_min"]) < 0) {
-                dataValidity = false;
-                errors["time_limit_min"] = "Only Numbers";
-            }
-        }
         if (parseInt(fields["unit_price"]) < parseInt(fields["price_ceiling"]) || parseInt(fields["unit_price"]) < parseInt(fields["price_floor"]) || parseInt(fields["price_ceiling"]) < parseInt(fields["price_floor"])) {
             dataValidity = false;
             errors["algorithm_error"] = "Unit Price > Price Ceiling > Price Floor"

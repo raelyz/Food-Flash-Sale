@@ -31,6 +31,7 @@ class OrderList extends React.Component {
                     if (res.length < 1) {
                         this.setState({ html: 'You have no orders yet' })
                     } else {
+                        console.log(res)
                         let formattedResult = this.format(res);
                         this.setState({ ordersResult: res, html: formattedResult })
                     }
