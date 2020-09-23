@@ -52,9 +52,9 @@ export default class Navbar extends Component {
                         <LoginModal open={this.state.LisOpen} onClose={this.onClose} onClose={this.LoginOnClose} onClick={this.props.onClickLogin} onLogin={this.props.onLogin} />
                     </div>
                 </nav>
-                <img src="./egg.png" style={{ zIndex: "1000000", position: "fixed", left: "0" }} width="100px" height="100px" />
-                <img src="./egg.png" style={{ zIndex: "1000000", position: "fixed", left: "5%" }} width="100px" height="100px" />
-                <img src="./egg.png" style={{ zIndex: "1000000", position: "fixed", left: "10%" }} width="100px" height="100px" />
+                <img src="./egg.png" style={{ zIndex: "1000000", position: "fixed", left: "0" }} width="100px" height="95px" />
+                <img src="./egg.png" style={{ zIndex: "1000000", position: "fixed", left: "5%" }} width="100px" height="95px" />
+                <img src="./egg.png" style={{ zIndex: "1000000", position: "fixed", left: "10%" }} width="100px" height="95px" />
             </>
         )
     }
