@@ -227,15 +227,6 @@ class TimeLine extends Component {
                     </div>
                 </nav>
                 <ControlledCarousel></ControlledCarousel>
-                <div className="select" id="ongoing">
-                    <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
-                    <select onChange={this.changePage} style={{ display: this.state.sortDisplay }} >
-                        <option value="Time">Time Left</option>
-                        <option value="Discount">Discount</option>
-                        <option value="Distance">Distance</option>
-                    </select>
-                </div>
-
 
                 <section className="page-section  bg-trans portfolio wrapper" id="services" >
                     <div className="container">
