@@ -13,11 +13,19 @@ export default class GeoLocation extends React.Component {
     componentDidMount() {
         if ('geolocation' in navigator) {
             console.log('geolocation available');
+            var options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 100
+            };
+            function error(err) {
+                console.warn(`ERROR(${err.code}): ${err.message}`);
+            }
             navigator.geolocation.getCurrentPosition(position => {
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
                 this.setState({ latUser: lat, lonUser: lon })
-            })
+            }, error, options)
         } else {
             console.log('geolocation not available');
         }
