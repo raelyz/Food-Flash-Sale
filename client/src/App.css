@@ -64,8 +64,8 @@
   background-color: cornflowerblue;
 }
 .footer {
-  height: 15vh;
-  background-color: grey;
+  /* background-color: #2BB673 */
+  background-image: linear-gradient(to right, #25AAE1, #40E495, #30DD8A, #2BB673);
 }
 /*.login-overlay {
   display: flex;
