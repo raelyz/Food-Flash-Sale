@@ -5,7 +5,7 @@ export default class Footer extends Component {
         return (
             <div className="footer">
                 <div>User login page</div>
-                <br/>
+                <br />
                 <div>options here</div>
             </div>
         )

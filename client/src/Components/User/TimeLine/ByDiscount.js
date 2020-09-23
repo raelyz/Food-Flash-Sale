@@ -142,54 +142,51 @@ export default class TimeLine extends Component {
             const discount = (eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100
             let path = "/" + eachCard.merchant_id + "/" + eachCard.listing_id
             return (
-
-                <Link class="col-lg-4 col-md-6 mb-4" to={path}>
-                    <EachMerchant className="card h-100" key={index} duration={eachCard.time_limit_min} time={eachCard.time} merchant_Id={eachCard.merchant_id} what={this.testing}>
-                        <img class="card-img-top" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
-                        <h4>{eachCard.name} {discount.toFixed(0)}% off !</h4>
-                        <p class="card-text">{eachCard.description}</p>
-                    </EachMerchant>
-                </Link>)
+                <EachMerchant key={index} duration={eachCard.time_limit_min} time={eachCard.time} merchant_Id={eachCard.merchant_id} what={this.testing}>
+                    <Link className="portfolio-link" to={path}>
+                        <div className="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                            </div>
+                        </div>
+                        <img class="img-fluid" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
+                    </Link>
+                    <div className="portfolio-caption">
+                        <div className="portfolio-caption-heading">{eachCard.name} {discount}%</div>
+                        <div className="portfolio-caption-subheading text-muted">{eachCard.description}</div>
+                    </div>
+                </EachMerchant>)
         })
-        // console.log(newerArray, `After splice`)
         let deletedMerchantCard = this.state.deletedArray.map((eachCard, index) => {
             const discount = ((eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100).toFixed(0)
             let path = "/" + eachCard.merchant_id
-            return <Link class="col-lg-4 col-md-6 mb-4" to={path}>
-                <div className="card h-100">
-                    <img class="card-img-top" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
-                    <div className="card-body">
-                        <h4 class="card-title">
-                            {eachCard.Merchant}
-                        </h4>
-                        <div>{eachCard.name}</div>
-                        <div>Up to{discount}%</div>
+            return
+            <div className="col-lg-4 col-sm-6 mb-4">
+                <div className="itemWrapper">
+                    <div className="portfolio-item">
+                        <Link className="portfolio-link" to={path}>
+                            <div className="portfolio-hover">
+                                <div className="portfolio-hover-content">
+                                </div>
+                            </div>
+                            <img className="img-fluid" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
+                        </Link>
+                        <div className="portfolio-caption">
+                            <div className="portfolio-caption-heading">{eachCard.name}up to{discount}%</div>
+                            <div className="portfolio-caption-subheading text-muted">{eachCard.description}</div>
+                        </div>
                     </div>
                 </div>
-            </Link>
+            </div>
         })
-        return (<>
-            <div className='container'>
-                <main className="mainDisplay">
-                    <Switch>
-                        <Route path="/Orderhistory" render={
-                            () => <OrderHistory />
-                        } />
-                        {/* <Route path="/ByCategory" render={
-                            () => <ByCategory data={this.state.timeLine} lon={this.props.lon} lat={this.props.lat} />
-                        } /> */}
-                        <Route path="/" render={
-                            () => <>
-                                <h1>By Discount</h1>
-                                <div className="row">{merchantCard}</div>
-                                <h1>Expired Deals</h1>
-                                <div className="row">{deletedMerchantCard}</div>
-                            </>
-                        } />
-                    </Switch>
-                </main>
-            </div >
-        </>
+        return (
+            <Switch>
+                <Route path="/Orderhistory" render={
+                    () => <OrderHistory />
+                } />
+                <Route path="/" render={
+                    () => <><div className="row">{merchantCard}</div></>
+                } />
+            </Switch>
         )
     }
 }
