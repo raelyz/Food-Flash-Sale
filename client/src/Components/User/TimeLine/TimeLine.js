@@ -219,8 +219,6 @@ class TimeLine extends Component {
                             <ul class="navbar-nav text-uppercase ml-auto">
                                 <li class="nav-item"><Link to="/Timeline" class="nav-link js-scroll-trigger active" onClick={this.unhideSort}>Timeline</Link></li>
                                 <li class="nav-item"><Link to="/Orderhistory" class="nav-link js-scroll-trigger" onClick={this.hideSort}>Order history</Link></li>
-                                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#ongoing">Ongoing</a></li>
-                                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#expired">Expired</a></li>
                                 <li class="nav-item"><a class="nav-link js-scroll-trigger logout" onClick={this.props.onLogout} >Logout</a></li>
                             </ul>
                         </div>
