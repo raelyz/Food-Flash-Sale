@@ -12,6 +12,7 @@ import MerchFooter from "./Components/Merchant Home/Footer/Footer";
 import GeoLocation from "./Components/User/GeoLocation/GeoLocation";
 import UserSuperContainer from "./Components/User/UserSuperContainer";
 import MerchantSuperContainer from "./Components/Merchant Home/MerchantSuperContainer";
+
 const stripper = process.env.REACT_APP_PUBLISHABLE_KEY;
 
 class App extends React.Component {
@@ -27,9 +28,11 @@ class App extends React.Component {
             displayOverlayLogin: "none",
             alternate: true,
             alternate2: true,
-            changePage: "user"
+            changePage: "user",
+            isOpen: false
         }
     }
+
     componentDidMount() {
         fetch('/home')
             .then(res => res.json())
@@ -147,18 +150,16 @@ class App extends React.Component {
             if (this.state.changePage == 'user') {
                 return (
                     <div className="App">
-                    <Navbar
+                        <Navbar
                             onClickSignUp={this.onClickSignUp}
                             onClickLogin={this.onClickLogin}
+
+                            onLogin={this.onLogin}
+                            onRegistered={this.onRegistered}
+
                             changePage={this.changePage}
                         />
-
-                        <Home
-                            displaysignup={this.state.displayOverlaySignUp}
-                            displaylogin={this.state.displayOverlayLogin}
-                            onRegistered={this.onRegistered}
-                            onLogin={this.onLogin}
-                        />
+                        <Home />
                         <Footer />
                     </div>
                 );
@@ -168,13 +169,13 @@ class App extends React.Component {
                         <MercNavbar
                             onClickSignUp={this.onClickSignUp}
                             onClickLogin={this.onClickLogin}
+
                             changePage={this.changePage}
-                        />
-                        <MercHome
-                            displaysignup={this.state.displayOverlaySignUp}
-                            displaylogin={this.state.displayOverlayLogin}
+
                             MercOnRegistered={this.MercOnRegistered}
                             MercOnLogin={this.MercOnLogin}
+                        />
+                        <MercHome
                         />
                         <MerchFooter />
                     </div>

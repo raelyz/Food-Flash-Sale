@@ -6,7 +6,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class EditForm extends Component {
     constructor(props) {
         super(props)
-        this.state = { fields: {}, errors: {} }
+        console.log(this.props)
+        this.state = {
+            fields: {},
+            errors: {}
+         }
+    }
+    static getDerivedStateFromProps(props) {
+        return {
+            item_name: props.item_name,
+            unit_price: props.unit_price,
+            quantity: props.quantity,
+            price_ceiling: props.price_ceiling,
+            price_floor: props.price_floor,
+            description: props.description,
+            category_id: props.category_id,
+            time_limit_min: props.time_limit_min,
+            listing_id: props.listing_id,
+            defaultvalue1: props.item_name
+        }
     }
     fieldValidation() {
         console.log(`triggering`)
@@ -85,10 +103,14 @@ class EditForm extends Component {
         this.setState({ errors: errors })
         return dataValidity
     }
-    onChangeHandler(e, field) {
-        let fields = this.state.fields;
-        fields[field] = e.target.value;
-        this.setState({ fields });
+    onChangeHandler=(e)=> {
+        // let fields = this.state.fields;
+        // fields[field] = e.target.value;
+        this.setState({
+            // fields,
+            item_name: e.target.value
+        });
+        console.log(this.state.item_name)
     }
     onSubmitHandler(e) {
         e.preventDefault()
@@ -127,7 +149,7 @@ class EditForm extends Component {
                 <Form.Row>
                     <Form.Label column lg={2}>Item Name</Form.Label>
                     <Col>
-                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "item_name") }} type="text" placeholder={this.props.item_name} name="item_name" value={this.state.fields["item_name"]} />
+                        <Form.Control onKeyUp={this.onChangeHandler} type="text" placeholder={this.props.item_name} name="item_name" defaultValue={this.state.item_name} />
                         {this.state.errors.item_name ? <span style={{ color: 'red' }}>Text</span> : null}
                     </Col>
                 </Form.Row>
