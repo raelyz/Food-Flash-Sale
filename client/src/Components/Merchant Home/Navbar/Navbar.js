@@ -28,29 +28,33 @@ export default class Navbar extends Component {
         this.setState({ LisOpen: false });
     };
     render() {
-        return (
-            <div className="navbar">
-                <div>Image here</div>
-                <select className="options" onChange={this.props.changePage}>
-                    <option value="merchant">Merchant</option>
-                    <option value="user">User</option>
-                </select>
-                <button type="button" onClick={this.RegisterShowModal} >Sign Up 2</button>
-                <RegisterModal
-                open={this.state.RisOpen}
-                onClose={this.onClose}
-                onClose={this.RegisterOnClose}
-                onClick={this.props.onClickSignUp}
-                MercOnRegistered={this.props.MercOnRegistered} />
+        return (<>
+            <nav class="navbar navbar-expand-lg navbar-trans fixed-top navbar-shrink" id="mainNav">
+                <div class="container">
+                    <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="" /></a>
+                    <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        Menu
+                    <svg class="svg-inline--fa fa-bars fa-w-14 ml-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg><i class="fas fa-bars ml-1"></i>
+                    </button>
+                    <div class="navbar-collapse collapse" id="navbarResponsive" >
+                        <ul class="navbar-nav text-uppercase ml-auto">
+                            <li class="nav-item"><a className="nav-link js-scroll-trigger active" href='#login' onClick={this.RegisterShowModal}>Register</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Register" onClick={this.LoginShowModal}>Login</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
+                            <select className="select" onChange={this.props.changePage}><option value="merchant">Merchant</option>
+                                <option value="user">User</option>
+                            </select>
 
-                <button type="button" onClick={this.LoginShowModal} >Login</button>
-                <LoginModal
-                open={this.state.LisOpen}
-                onClose={this.onClose}
-                onClose={this.LoginOnClose}
-                onClick={this.props.onClickLogin}
-                MercOnLogin={this.props.MercOnLogin} />
-            </div>
+                        </ul>
+                    </div>
+                    <RegisterModal open={this.state.RisOpen} onClose={this.onClose} onClose={this.RegisterOnClose} onClick={this.props.onClickSignUp} MercOnRegistered={this.props.MercOnRegistered} />
+                    <LoginModal open={this.state.LisOpen} onClose={this.onClose} onClose={this.LoginOnClose} onClick={this.props.onClickLogin} MercOnLogin={this.props.MercOnLogin} />
+                </div >
+            </nav>
+        </>
+
+
         )
     }
 }

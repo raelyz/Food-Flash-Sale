@@ -215,7 +215,7 @@ class EditForm extends Component {
                 <Form.Row>
                     <Form.Label column lg={2}>Duration</Form.Label>
                     <Col>
-                        <Form.Control name="category_id" as="select" custom>
+                        <Form.Control name="time_limit_min" as="select" custom>
                             <option value="30">30 mins</option>
                             <option value="60">1 hour</option>
                             <option value="90">1hour 30 mins</option>

@@ -54,8 +54,8 @@ class TimeLine extends Component {
                 }
             })
     }
-    changePage=(e)=> {
-        if(e.target.value === "Discount") {
+    changePage = (e) => {
+        if (e.target.value === "Discount") {
             this.props.history.push("/ByDiscount")
         } else if (e.target.value === "Distance") {
             this.props.history.push("/ByDistance")
@@ -182,8 +182,7 @@ class TimeLine extends Component {
         let deletedMerchantCard = this.state.deletedArray.map((eachCard, index) => {
             const discount = ((eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100).toFixed(0)
             let path = "/" + eachCard.merchant_id
-            return
-            <div className="col-lg-4 col-sm-6 mb-4">
+            return <div className="col-lg-4 col-sm-6 mb-4">
                 <div className="itemWrapper">
                     <div className="portfolio-item">
                         <Link className="portfolio-link" to={path}>
@@ -208,73 +207,73 @@ class TimeLine extends Component {
             } />
         })
         return (
-        <>
-            <div id="background"></div>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-                <div className="container">
-                    <a className="navbar-brand" href="#">Start Bootstrap</a>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarResponsive">
-                        <ul className="navbar-nav ml-auto">
-                            <li className="nav-item active">
-                                <Link to="/Timeline" onClick={this.unhideSort}>Timeline<span className="sr-only">(current)</span></Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/Orderhistory" onClick={this.hideSort}>Order history</Link>
-                            </li>
-                        </ul>
-                        <button onClick={this.props.onLogout}>Log out</button>
+            <>
+                <nav class="navbar navbar-expand-lg navbar-trans fixed-top navbar-shrink" id="mainNav">
+                    <div class="container">
+                        <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="" /></a>
+                        <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                            Menu
+                    <svg class="svg-inline--fa fa-bars fa-w-14 ml-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg><i class="fas fa-bars ml-1"></i>
+                        </button>
+                        <div class="navbar-collapse collapse" id="navbarResponsive" >
+                            <ul class="navbar-nav text-uppercase ml-auto">
+                                <li class="nav-item"><Link to="/Timeline" class="nav-link js-scroll-trigger active" onClick={this.unhideSort}>Timeline</Link></li>
+                                <li class="nav-item"><Link to="/Orderhistory" class="nav-link js-scroll-trigger" onClick={this.hideSort}>Order history</Link></li>
+                                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#ongoing">Ongoing</a></li>
+                                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#expired">Expired</a></li>
+                                <li class="nav-item"><a class="nav-link js-scroll-trigger" onClick={this.props.onLogout}>Logout</a></li>
+                            </ul>
+                        </div>
                     </div>
+                </nav>
+                <ControlledCarousel></ControlledCarousel>
+                <div className="dropdown" id="ongoing">
+                    <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
+                    <select onChange={this.changePage} style={{ display: this.state.sortDisplay }} >
+                        <option value="Time">Time Left</option>
+                        <option value="Discount">Discount</option>
+                        <option value="Distance">Distance</option>
+                    </select>
                 </div>
-            </nav>
 
-            <ControlledCarousel></ControlledCarousel>
-
-            <section className="page-section  bg-trans portfolio wrapper" id="services" >
-                <div className="container">
-                    <div className="text-center">
-                        <h2 className="section-heading text-uppercase">Ongoing Deals</h2>
-                        <h3 className="section-subheading text-muted">Catch them while you can!</h3>
-                    </div>
-                    <div>
-                        <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
-                        <select onChange={this.changePage} style={{ display: this.state.sortDisplay }}>
-                            <option value="Time">Time Left</option>
-                            <option value="Discount">Discount</option>
-                            <option value="Distance">Distance</option>
-                        </select>
-                    </div>
-                    <Switch>
-                        {routeArray}
-                        <Route path="/Orderhistory" render={
-                            () => <OrderHistory user_id={this.props.user_id} />
-                        } />
-                        {/* <Route path="/ByCategory" render={
+                <Switch>
+                    {routeArray}
+                    <Route path="/Orderhistory" render={
+                        () => <OrderHistory user_id={this.props.user_id} />
+                    } />
+                    {/* <Route path="/ByCategory" render={
                             () => <ByCategory data={this.state.timeLine} lon={this.props.lon} lat={this.props.lat} />
                         } /> */}
-                        <Route path="/ByDistance" render={() => <ByDistance lon={this.props.lon} lat={this.props.lat} />} />
-                        <Route path="/ByDiscount" render={() => <ByDiscount lon={this.props.lon} lat={this.props.lat} />} />
-                        <Route path="/" render={() => <div className="row">{merchantCard}</div>} />
-                    </Switch>
-                </div>
-            </section>
+                    <Route path="/ByDistance" render={() => <ByDistance lon={this.props.lon} lat={this.props.lat} />} />
+                    <Route path="/ByDiscount" render={() => <ByDiscount lon={this.props.lon} lat={this.props.lat} />} />
+                    <Route path="/" render={() => <><section className="page-section  bg-trans portfolio wrapper">
+                        <div className="container">
+                            <div className="text-center" >
+                                <h2 className="section-heading text-uppercase">Ongoing Deals</h2>
+                                <h3 className="section-subheading text-muted">Catch them while you can!</h3>
+                            </div>
+                            <div className="row" >{merchantCard}</div>
+                        </div >
+                    </section>
+                        <section className="page-section  bg-trans portfolio wrapper" id="expired" >
+                            <div className="container">
+                                <div className="text-center">
+                                    <h2 className="section-heading text-uppercase">They are gone..</h2>
 
-            <section className="page-section  bg-trans portfolio wrapper">
-                <div className="container">
-                    <div className="text-center">
-                        <h2 className="section-heading text-uppercase">They are gone..</h2>
+                                    <h3 className="section-subheading text-muted">You were too late!</h3>
+                                </div>
+                                <div className="row">
+                                    {deletedMerchantCard}
+                                </div>
+                            </div>
+                        </section></>
+                    } />
+                </Switch>
 
-                        <h3 className="section-subheading text-muted">You were too late!</h3>
-                    </div>
-                    <div className="row">
-                        {deletedMerchantCard}
-                    </div>
-                </div>
-            </section>
 
-        </>
+
+
+            </>
         )
     }
 }

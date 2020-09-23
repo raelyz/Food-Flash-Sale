@@ -176,8 +176,6 @@ class App extends React.Component {
                             MercOnRegistered={this.MercOnRegistered}
                             MercOnLogin={this.MercOnLogin}
                         />
-                        <MercHome />
-
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path className="gradient-bg" points="0,0 100,0 0,66" fill-opacity="1" d="M0,32L48,64C96,96,192,160,288,202.7C384,245,480,267,576,261.3C672,256,768,224,864,229.3C960,235,1056,277,1152,282.7C1248,288,1344,256,1392,240L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
                             <defs>
                                 <linearGradient id="header-shape-gradient" x2="0.35" y2="1">
