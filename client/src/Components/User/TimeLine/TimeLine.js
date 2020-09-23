@@ -236,12 +236,27 @@ class TimeLine extends Component {
                     </select>
                 </div>
 
-                <Switch>
-                    {routeArray}
-                    <Route path="/Orderhistory" render={
-                        () => <OrderHistory user_id={this.props.user_id} />
-                    } />
-                    {/* <Route path="/ByCategory" render={
+
+                <section className="page-section  bg-trans portfolio wrapper" id="services" >
+                    <div className="container">
+                        <div className="text-center">
+                            <h2 className="section-heading text-uppercase">Ongoing Deals</h2>
+                            <h3 className="section-subheading text-muted">Catch them while you can!</h3>
+                        </div>
+                        <div>
+                            <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
+                            <select id="normal-select-1" onChange={this.changePage} style={{ display: this.state.sortDisplay }}>
+                                <option className="select-dropdown__list-item" value="Time">Time Left</option>
+                                <option className="select-dropdown__list-item" value="Discount">Discount</option>
+                                <option className="select-dropdown__list-item" value="Distance">Distance</option>
+                            </select>
+                        </div>
+                        <Switch>
+                            {routeArray}
+                            <Route path="/Orderhistory" render={
+                                () => <OrderHistory user_id={this.props.user_id} />
+                            } />
+                            {/* <Route path="/ByCategory" render=
                             () => <ByCategory data={this.state.timeLine} lon={this.props.lon} lat={this.props.lat} />
                         } /> */}
                     <Route path="/ByDistance" render={() => <ByDistance lon={this.props.lon} lat={this.props.lat} />} />

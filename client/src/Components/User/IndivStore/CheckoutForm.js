@@ -56,7 +56,8 @@ function Checkout(props) {
             })
                 .then(res => {
                     setLoading("Loading. . .")
-                    return res.json()})
+                    return res.json()
+                })
                 .then(res => {
                     switch (res.status) {
                         case "Payment Complete": {
@@ -81,7 +82,7 @@ function Checkout(props) {
     return (
         <form style={{ maxWidth: "500px", margin: "0 auto" }} onSubmit={handleSubmit}>
             <CardElement />
-            <button type="submit" disabled={!stripe}>
+            <button className="buttons btn-hover color-10" type="submit" disabled={!stripe}>
                 Pay
         </button>
             <p style={{ display: loadingDisplay }} >{loading}</p>
