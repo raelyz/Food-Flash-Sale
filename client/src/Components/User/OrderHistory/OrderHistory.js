@@ -33,34 +33,39 @@ class OrderHistory extends Component {
   render() {
     const orderHistory = this.state.orderHistory.map((orderHistory, index) => {
       return (
-        <div>
-          <div key={index}>
-            {orderHistory.receipt_id}
-            {orderHistory.name} {orderHistory.cuisine}
-          </div>
+
+        <tr key={index}>
           <OrderDetails
+            name={orderHistory.name}
+            cuisine={orderHistory.cuisine}
             user_id={orderHistory.user_id}
             receipt_id={orderHistory.receipt_id}
             merchant_id={orderHistory.merchant_id}
           />
-          <button
-            onClick={(e) => {
-              e.persist();
-              e.preventDefault();
-            }}
-          >
-            Order Again
-          </button>
-        </div>
+        </tr>
       );
     });
 
     return (
-      <div className="orderHistoryWrapper">
-        {/* {orderHistory} */}
-        {this.state.fetch ? orderHistory : null}
+      <div>
+        {this.state.fetch ?
+          <section className="page-section  bg-trans" >
+            <table className="table">
+              <tr>
+                <th className="th">Store</th>
+                <th className="th">Cuisine</th>
+                <th className="th">Total</th>
+                <th className="th">Rate it</th>
+              </tr>
+
+              {orderHistory}
+
+            </table>
+          </section>
+
+          : null}
       </div>
-    );
+    )
   }
 }
 

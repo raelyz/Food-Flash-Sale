@@ -30,15 +30,14 @@ class OrderListContainer extends React.Component {
         if (this.state.display) {
             return (
                 <div>
-                    <div id="backgroundMerc "></div>
-
-                    <section className="page-section  bg-trans" >
+                    <div id="backgroundMerc"></div>
+                    <div id="wrapper" >
                         <Sort onChange={this.onChangeSort} optionChoice={this.state.sort} />
 
                         <OrderList display={this.state.display} sort={this.state.sort} merchant_id={this.props.merchant_id} />
 
-                    </section>
-                </div>
+                    </div>
+                </div >
             )
         }
     }

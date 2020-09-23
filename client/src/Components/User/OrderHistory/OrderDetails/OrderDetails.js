@@ -44,15 +44,18 @@ export default class OrderDetails extends Component {
       return acc + val;
     }, 0);
     return (
-      <div>
+      <>
+        <td className="td">{this.props.name}</td>
+        <td className="td">{this.props.cuisine}</td>
+        <td className="td">${total} SGD</td>
         <RatingStarsContainer
           listing_id={listing_id[0]}
           merchant_id={this.props.merchant_id}
           user_id={this.props.user_id}
           receipt_id={this.props.receipt_id}
         />
-        <div>{total}</div>
-      </div>
+
+      </>
     );
   }
 }
