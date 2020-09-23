@@ -239,10 +239,10 @@ class TimeLine extends Component {
                         </div>
                         <div>
                             <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
-                            <select onChange={this.changePage} style={{ display: this.state.sortDisplay }}>
-                                <option value="Time">Time Left</option>
-                                <option value="Discount">Discount</option>
-                                <option value="Distance">Distance</option>
+                            <select id="normal-select-1" onChange={this.changePage} style={{ display: this.state.sortDisplay }}>
+                                <option className="select-dropdown__list-item" value="Time">Time Left</option>
+                                <option className="select-dropdown__list-item" value="Discount">Discount</option>
+                                <option className="select-dropdown__list-item" value="Distance">Distance</option>
                             </select>
                         </div>
                         <Switch>
