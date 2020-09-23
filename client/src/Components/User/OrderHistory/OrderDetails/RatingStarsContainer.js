@@ -48,7 +48,7 @@ class RatingStarsContainer extends Component {
   }
   render() {
     return (
-      <div>
+      <>
         <RatingStars
           displayStar={this.state.displayStar}
           receipt_id={this.state.receipt_id}
@@ -59,7 +59,7 @@ class RatingStarsContainer extends Component {
           submitted={this.state.submitted}
           rating={this.state.rating}
         />
-      </div>
+      </>
     );
   }
 }

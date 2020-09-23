@@ -7,6 +7,7 @@ import ListingContainer from '../IndivStore/ListingContainer'
 import ByCategory from './housekeeping switch'
 import ByDiscount from './ByDiscount';
 import ByDistance from './ByDistance';
+import ControlledCarousel from './ControlledCarousel';
 var fetching = true
 var newArray = []
 
@@ -56,18 +57,19 @@ class TimeLine extends Component {
     changePage=(e)=> {
         if(e.target.value === "Discount") {
             this.props.history.push("/ByDiscount")
-        } else if(e.target.value === "Distance") {
+        } else if (e.target.value === "Distance") {
             this.props.history.push("/ByDistance")
         } else {
             this.props.history.push("/")
         }
     }
-    hideSort=()=> {
+
+    hideSort = () => {
         this.setState({
             sortDisplay: "none"
         })
     }
-    unhideSort=()=> {
+    unhideSort = () => {
         this.setState({
             sortDisplay: "block"
         })
@@ -162,30 +164,42 @@ class TimeLine extends Component {
             const discount = ((eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100).toFixed(0)
             let path = "/" + eachCard.merchant_id + "/" + eachCard.listing_id
             return (
-                <Link class="col-lg-4 col-md-6 mb-4" to={path}>
-                    <EachMerchant className="card h-100" key={index} duration={eachCard.time_limit_min} time={eachCard.time} merchant_Id={eachCard.merchant_id} what={this.testing}>
-                        <img class="card-img-top" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
-                        <h4>{eachCard.name} {discount}%</h4>
-                        <p class="card-text">{eachCard.description}</p>
-                    </EachMerchant>
-                </Link>)
+                <EachMerchant key={index} duration={eachCard.time_limit_min} time={eachCard.time} merchant_Id={eachCard.merchant_id} what={this.testing}>
+                    <Link className="portfolio-link" to={path}>
+                        <div className="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                            </div>
+                        </div>
+                        <img class="img-fluid" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
+                    </Link>
+                    <div className="portfolio-caption">
+                        <div className="portfolio-caption-heading">{eachCard.name} {discount}%</div>
+                        <div className="portfolio-caption-subheading text-muted">{eachCard.description}</div>
+                    </div>
+                </EachMerchant>
+            )
         })
-        // console.log(newerArray, `After splice`)
         let deletedMerchantCard = this.state.deletedArray.map((eachCard, index) => {
             const discount = ((eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100).toFixed(0)
             let path = "/" + eachCard.merchant_id
-            return <Link class="col-lg-4 col-md-6 mb-4" to={path}>
-                <div className="card h-100">
-                    <img class="card-img-top" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
-                    <div className="card-body">
-                        <h4 class="card-title">
-                            {eachCard.Merchant}
-                        </h4>
-                        <div>{eachCard.name}</div>
-                        <div>up to{discount}%</div>
+            return
+            <div className="col-lg-4 col-sm-6 mb-4">
+                <div className="itemWrapper">
+                    <div className="portfolio-item">
+                        <Link className="portfolio-link" to={path}>
+                            <div className="portfolio-hover">
+                                <div className="portfolio-hover-content">
+                                </div>
+                            </div>
+                            <img className="img-fluid" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
+                        </Link>
+                        <div className="portfolio-caption">
+                            <div className="portfolio-caption-heading">{eachCard.name}up to{discount}%</div>
+                            <div className="portfolio-caption-subheading text-muted">{eachCard.description}</div>
+                        </div>
                     </div>
                 </div>
-            </Link>
+            </div>
         })
         const routeArray = nArray.map((eachCard, index) => {
             let path = "/" + eachCard.merchant_id + "/" + eachCard.listing_id
@@ -193,19 +207,21 @@ class TimeLine extends Component {
                 () => <ListingContainer user_id={this.props.user_id} listing_id={eachCard.listing_id} merchant_id={eachCard.merchant_id} stripper={this.props.stripper} />
             } />
         })
-        return (<>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-                <div class="container">
-                    <a class="navbar-brand" href="#">Start Bootstrap</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+        return (
+        <>
+            <div id="background"></div>
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                <div className="container">
+                    <a className="navbar-brand" href="#">Start Bootstrap</a>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarResponsive">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <Link to="/Timeline" onClick={this.unhideSort}>Timeline<span class="sr-only">(current)</span></Link>
+                    <div className="collapse navbar-collapse" id="navbarResponsive">
+                        <ul className="navbar-nav ml-auto">
+                            <li className="nav-item active">
+                                <Link to="/Timeline" onClick={this.unhideSort}>Timeline<span className="sr-only">(current)</span></Link>
                             </li>
-                            <li class="nav-item">
+                            <li className="nav-item">
                                 <Link to="/Orderhistory" onClick={this.hideSort}>Order history</Link>
                             </li>
                         </ul>
@@ -213,34 +229,23 @@ class TimeLine extends Component {
                     </div>
                 </div>
             </nav>
-            <div className='container'>
-                <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active">
-                            <img class="d-block img-fluid" src="https://picsum.photos/1110/350" alt="First slide" />
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block img-fluid" src="https://picsum.photos/1110/350" alt="Second slide" />
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block img-fluid" src="https://picsum.photos/1110/350" alt="Third slide" />
-                        </div>
+
+            <ControlledCarousel></ControlledCarousel>
+
+            <section className="page-section  bg-trans portfolio wrapper" id="services" >
+                <div className="container">
+                    <div className="text-center">
+                        <h2 className="section-heading text-uppercase">Ongoing Deals</h2>
+                        <h3 className="section-subheading text-muted">Catch them while you can!</h3>
                     </div>
-                </div>
-                <div>
-                    <label style={{display: this.state.sortDisplay}}>Sort by:</label>
-                    <select onChange={this.changePage} style={{display: this.state.sortDisplay}}>
-                        <option value="Time">Time Left</option>
-                        <option value="Discount">Discount</option>
-                        <option value="Distance">Distance</option>
-                    </select>
-                </div>
-                <main className="mainDisplay">
+                    <div>
+                        <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
+                        <select onChange={this.changePage} style={{ display: this.state.sortDisplay }}>
+                            <option value="Time">Time Left</option>
+                            <option value="Discount">Discount</option>
+                            <option value="Distance">Distance</option>
+                        </select>
+                    </div>
                     <Switch>
                         {routeArray}
                         <Route path="/Orderhistory" render={
@@ -251,17 +256,24 @@ class TimeLine extends Component {
                         } /> */}
                         <Route path="/ByDistance" render={() => <ByDistance lon={this.props.lon} lat={this.props.lat} />} />
                         <Route path="/ByDiscount" render={() => <ByDiscount lon={this.props.lon} lat={this.props.lat} />} />
-                        <Route path="/" render={
-                            () => <>
-                                <h1>Ongoing Deals</h1>
-                                <div className="row">{merchantCard}</div>
-                                <h1>Expired Deals</h1>
-                                <div className="row">{deletedMerchantCard}</div>
-                            </>
-                        } />
+                        <Route path="/" render={() => <div className="row">{merchantCard}</div>} />
                     </Switch>
-                </main>
-            </div >
+                </div>
+            </section>
+
+            <section className="page-section  bg-trans portfolio wrapper">
+                <div className="container">
+                    <div className="text-center">
+                        <h2 className="section-heading text-uppercase">They are gone..</h2>
+
+                        <h3 className="section-subheading text-muted">You were too late!</h3>
+                    </div>
+                    <div className="row">
+                        {deletedMerchantCard}
+                    </div>
+                </div>
+            </section>
+
         </>
         )
     }

@@ -44,60 +44,30 @@ class RatingStars extends Component {
     if (this.state.displayStar) {
       if (!this.state.rated) {
         return (
-          <div>
-            <div>
-              <button
+          <td class="rating">
+            <input type="radio" name="rating" value="5" id="5" onClick={(e) => this.props.onClick(e)} />
+            <label for="5">☆</label>
+            <input type="radio" name="rating" value="4" id="4" onClick={(e) => this.props.onClick(e)} />
+            <label for="4">☆</label>
+            <input type="radio" name="rating" value="3" id="3" onClick={(e) => this.props.onClick(e)} />
+            <label for="3">☆</label>
+            <input type="radio" name="rating" value="2" id="2" onClick={(e) => this.props.onClick(e)} />
+            <label for="2" >☆</label>
+            <input type="radio" name="rating" value="1" id="1" onClick={(e) => this.props.onClick(e)} />
+            <label for="1">☆</label>
 
-                onClick={(e) => this.props.onClick(e)}
-                value="5"
-                id="5"
-              >
-                ☆
-              </button>
-              <button
-
-                onClick={(e) => this.props.onClick(e)}
-                value="4"
-                id="4"
-              >
-                ☆
-              </button>
-              <button
-
-                onClick={(e) => this.props.onClick(e)}
-                value="3"
-                id="3"
-              >
-                ☆
-              </button>
-              <button
-
-                onClick={(e) => this.props.onClick(e)}
-                value="2"
-                id="2"
-              >
-                ☆
-              </button>
-              <button
-
-                onClick={(e) => this.props.onClick(e)}
-                value="1"
-                id="1"
-              >
-                ☆
-              </button>
-            </div>
-          </div>
+          </td>
         );
       }
     } else if (!this.props.display && !this.state.rated) {
-      return <div>You have already rated this!</div>;
+      return <td>You have already rated this!</td>;
     } else if (this.props.display && this.state.rated) {
-      return <div>Thanks for your feedback</div>;
+      return <td>Thanks for your feedback</td>;
     } else {
-      return <div>You have already rated this!</div>;
+      return <td>You have already rated this!</td>;
     }
   }
 }
 
 export default RatingStars;
+

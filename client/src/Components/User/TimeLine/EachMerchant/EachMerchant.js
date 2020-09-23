@@ -45,7 +45,7 @@ export default function EachMerchant(props) {
         }
 
         timerComponents.push(
-            <span >
+            <span className="portfolio-caption-subheading text-muted">
                 {timeLeft[interval]} {interval}{" "}
             </span >
         );
@@ -72,9 +72,10 @@ export default function EachMerchant(props) {
     return (
         <>
             {
-                timerComponents.length ? <div key={props.index}>
-                    {props.children} {timerComponents}</div> : null
+                timerComponents.length ? <div className="col-lg-4 col-sm-6 mb-4"><div className="itemWrapper"><div className="portfolio-item">  {props.children} <div className="portfolio-caption">{timerComponents}</div></div></div></div> : null
             }
         </>
     )
 }
+
+

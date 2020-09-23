@@ -27,39 +27,38 @@ export default class ItemList extends Component {
             })
     }
     render() {
-        // console.log(this.state.list)
         let itemList = this.props.list.map((item, index) => {
             return <tr key={item.listing_id}>
-                <td><Link to={`/EditItem/${item.listing_id}`} ><EditIcon className="edit" /></Link></td>
-                <td>{item.item_name}</td>
-                <td>{item.unit_price}</td>
-                <td>{item.quantity}</td>
-                <td>{item.price_ceiling}</td>
-                <td>{item.price_floor}</td>
-                <td>{item.category_id}</td>
-                <td>{item.description}</td>
-                <td>{item.time_limit_min}</td>
-                <td><Toggle onToggle={this.toggleOnclickHandler} id={item.listing_id} boolean={item.live}></Toggle></td>
+                <td className="td">{item.item_name}</td>
+                <td className="td">{item.unit_price}</td>
+                <td className="td">{item.quantity}</td>
+                <td className="td">{item.price_ceiling}</td>
+                <td className="td">{item.price_floor}</td>
+                <td className="td">{item.category_id}</td>
+                <td className="td">{item.description}</td>
+                <td className="td">{item.time_limit_min}</td>
+                <td className="td"><Toggle onToggle={this.toggleOnclickHandler} id={item.listing_id} boolean={item.live}></Toggle></td>
+                <td className="td"><Link to={`/EditItem/${item.listing_id}`} ><EditIcon className="edit" /></Link></td>
             </tr>
         })
-
         return (
-            <table>
-                <tr>
-                    <th>Edit Item</th>
-                    <th>Item Name</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Maximum Price</th>
-                    <th>Minimum Price</th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th>Duration</th>
-                    <th>Status</th>
-                </tr>
-                {itemList}
-            </table>
-
+            <section className="page-section  bg-trans" >
+                <table className="table">
+                    <tr>
+                        <th className="th">Item Name</th>
+                        <th className="th">Unit Price</th>
+                        <th className="th">Quantity</th>
+                        <th className="th">Maximum Price</th>
+                        <th className="th">Minimum Price</th>
+                        <th className="th">Category</th>
+                        <th className="th">Description</th>
+                        <th className="th">Duration</th>
+                        <th className="th">Status</th>
+                        <th className="th">Edit Item</th>
+                    </tr>
+                    {itemList}
+                </table>
+            </section>
         )
     }
 }

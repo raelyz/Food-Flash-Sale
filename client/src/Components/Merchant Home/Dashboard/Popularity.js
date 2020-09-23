@@ -8,7 +8,7 @@ class Popularity extends Component {
 
   render() {
     return (
-      <div>
+      <div id='bigwrapper'>
         <div className="chart">
           <Polar
             data={{
