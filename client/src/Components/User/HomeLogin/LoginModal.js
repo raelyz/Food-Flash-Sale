@@ -1,6 +1,8 @@
 import React from "react";
+import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
+import { withRouter } from 'react-router'
 
-export default class RegisterModal extends React.Component {
+class LoginModal extends React.Component {
 constructor(props) {
         super(props)
         this.state = {
@@ -44,18 +46,22 @@ constructor(props) {
             <div className="overlayBackground">
                 <div className="overlay">
                     <div className="formsParent" >
-                        <div>User Login</div>
-                        <form onSubmit={this.onSubmit} className="forms" >
-                        <input type="text" name="username" placeholder="Username" onChange={this.onChange} />
-                        <br />
-                        <input type="password" name="password" placeholder="password" onChange={this.onChange} />
-                        <br />
-                        <input type="submit" value="Submit" />
-                    </form>
-                    <button onClick={this.props.onClose}>Close</button>
+                        <div class="wrapper2">
+                            <div class="container2">
+                                <div className="userRegisterX" onClick={this.props.onClose} ><HighlightOffRoundedIcon /></div>
+                                <h1 className="h1R">Welcome Back!</h1>
+                                <form onSubmit={this.onSubmit} className="forms" >
+                                    <input type="text" name="username" placeholder="Username" onChange={this.onChange} />
+                                    <input type="password" name="password" placeholder="Password" onChange={this.onChange} />
+                                    <input type="submit" value ="Login" id="login-button"/>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         )
     }
 }
+
+export default withRouter(LoginModal);
