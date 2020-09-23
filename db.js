@@ -19,7 +19,7 @@ if (process.env.DATABASE_URL) {
   };
 } else {
   configs = {
-    user: 'aurelialim',
+    user: 'eugenelim',
     host: '127.0.0.1',
     database: 'project3',
     port: 5432
