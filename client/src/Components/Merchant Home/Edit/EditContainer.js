@@ -27,10 +27,10 @@ class EditContainer extends React.Component {
         let filteredList = this.props.list.filter((item) => {
             return item.listing_id == this.props.match.params.listing_id
         })
-        // console.log(filteredList, "--------filtered list")
+        console.log(filteredList, "--------filtered list")
         this.setState({
             displayEdit: true,
-            listing_id: this.props.match.params.listing_id,// later change to this.props.listing_id
+            listing_id: this.props.match.params.listing_id,
             item_name: filteredList[0].item_name,
             unit_price: filteredList[0].unit_price,
             quantity: filteredList[0].quantity,

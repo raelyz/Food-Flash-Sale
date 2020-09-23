@@ -19,10 +19,11 @@ class MerchantSuperContainer extends Component {
         fetch(`/all/listing/${this.props.merchant_id}`) // change to this.props.merchantId
             .then(res => res.json())
             .then(res => {
-                console.log(res, "------ inside fetch request")
                 this.setState({
                     list: res
                 })
+            }).catch(err=> {
+                console.log(err)
             })
     }
 

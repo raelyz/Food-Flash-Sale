@@ -68,4 +68,4 @@ export default class Login extends Component {
 //         formIsValid = false;
 //         errors["email"] = "Email is not valid";
 //     }
-// }  
+// }

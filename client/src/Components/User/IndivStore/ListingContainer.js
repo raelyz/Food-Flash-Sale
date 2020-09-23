@@ -34,22 +34,13 @@ export default class ListingContainer extends React.Component {
   }
   //delete from cart
   handleRemoveFromCart(e, item) {
+    let cart = this.state.cart;
     if (this.state.cart[0]) {
-
-      this.setState((state) => {
-        if (state.cart[0].count > 2) {
-          const cart = state.cart.filter((element) => element.count = element.count - 1);
-          // localStorage.setItem("cart", cart);
-          return { cart };
-        } else {
-          console.log(`hello`)
-          const cart = state.cart.filter((element) => element.count = 0);
-          // localStorage.setItem('cart', cart);
-          return { cart };
-        }
-
-      });
+      if (item.quantity > 1 && cart[0].count > 0) {
+        cart[0].count--
+      }
     }
+    this.setState({ cart: cart })
   }
   //   //add to cart button
   //   addToCart(e, addToCart) {
@@ -65,31 +56,28 @@ export default class ListingContainer extends React.Component {
   //add to cart button
   handleAddToCart(e, product) {
     console.log(product);
-    this.setState((state) => {
-      const cart = state.cart;
-      console.log(state.cart, `statecart`)
-      console.log(cart, `cart`)
-      let productAlreadyInCart = false;
-      cart.forEach((item) => {
-        if (item.name === product.name) {
-          if (item.count / 2 < product.quantity) {
-            productAlreadyInCart = true;
-            console.log(`you're adding`)
-            item.count++;
-          } else {
-            productAlreadyInCart = true;
-          }
-        }
-      });
-      if (!productAlreadyInCart) {
-        if (product.quantity > 0) {
-          cart.push({ ...product, count: 1 });
+    let cart = this.state.cart;
+    console.log(this.state.cart, `statecart`)
+    console.log(cart, `cart`)
+    let productAlreadyInCart = false;
+    cart.forEach((item) => {
+      if (item.name === product.name) {
+        if (item.count < product.quantity) {
+          console.log(item.count, "---hello from before increment")
+          productAlreadyInCart = true;
+          console.log(`you're adding`)
+          item.count += 1
+          console.log(item.count, "---hello from count after increment")
         }
       }
-      localStorage.setItem("cart", JSON.stringify(cart));
-      console.log(this.state.cart, "----cart");
-      return cart;
     });
+    if (!productAlreadyInCart) {
+      if (product.quantity > 0) {
+        cart.push({ ...product, count: 1 });
+        console.log("---hello from first add")
+      }
+    }
+    this.setState({ cart: cart })
   }
   //when state is changed, FETCH results from aPI
   //side effects ie: HTTP requests are allowed here
@@ -117,7 +105,6 @@ export default class ListingContainer extends React.Component {
     let cuisine = array[0].cuisine;
     let listing_id = array[0].listing_id;
     let merchant_id = array[0].merchant_id;
-
     return (
       <IndivListing
         item_name={item_name}
@@ -142,7 +129,6 @@ export default class ListingContainer extends React.Component {
     //         <div><PaymentOverlay cart={this.state.cart} stripper={this.props.stripper} /></div>
     //     )
     // }
-
     let data = {}
     if (this.state.cart[0]) {
       data = {
@@ -151,20 +137,19 @@ export default class ListingContainer extends React.Component {
         name: this.state.cart[0].name,
         listing_id: this.state.cart[0].listing_id,
         price: this.state.cart[0].price,
-        quantity: this.state.cart[0].count / 2,
-        revenue: (this.state.cart[0].count / 2) * this.state.cart[0].price,
+        quantity: this.state.cart[0].count,
+        revenue: (this.state.cart[0].count) * this.state.cart[0].price,
       };
     }
     console.log(data)
     return (
       <div>
         <div>
-
           <h1>You are viewing deals from {this.state.merchant_name}</h1>
           <br />
           <div className="ListItems">{this.state.html}</div>
           <button onClick={this.navigateTo}>
-            View Cart {this.state.cart.length}
+            View Cart {(this.state.cart[0] ? this.state.cart[0].count : 0)}
           </button>
           {(this.state.viewCart && this.state.cart[0]) ?
             <>
@@ -177,10 +162,10 @@ export default class ListingContainer extends React.Component {
                 </tr>
                 <tr>
                   <td>{this.state.cart[0].name}</td>
-                  <td>{this.state.cart[0].count / 2}</td>
+                  <td>{this.state.cart[0].count}</td>
                   <td>
                     Total: $
-                  {(this.state.cart[0].count / 2) * this.state.cart[0].price}
+                  {(this.state.cart[0].count) * this.state.cart[0].price}
                   </td>
                 </tr>
               </table>
@@ -189,9 +174,7 @@ export default class ListingContainer extends React.Component {
               </Elements>
             </> : null}
         </div>
-
       </div>
     );
-
   }
 }

@@ -62,9 +62,10 @@ export default class Register extends Component {
             })
     }
     render() {
+    if(!this.props.open) return null
         return (
-            <div className="login-overlay" style={{ display: this.props.displaysignup }}>
-                <div className="formsParent" style={{ height: "250px" }}>
+            <div className="overlayBackground">
+                <div className="overlay">
                     <div>Sign Up as a New Merchant</div>
                     <form onSubmit={this.onSubmit} className="forms" >
                         <input type="text" name="name" placeholder="username" onChange={this.onChange} />
@@ -83,7 +84,7 @@ export default class Register extends Component {
                         <br />
                         <input type="submit" value="Submit" />
                     </form>
-                    <button >testing</button>
+                    <button onClick={this.props.onClose}>Close</button>
                 </div>
             </div>
         )
