@@ -17,12 +17,12 @@ export default class ListingContainer extends React.Component {
       html: [],
       result: [],
       cart: [],
-      viewCart: false,
+      viewCart: true,
       checkout: false,
       listing_id: props.listing_id,
     };
     // this.addToCart = this.addToCart.bind(this);
-    this.navigateTo = this.navigateTo.bind(this);
+    // this.navigateTo = this.navigateTo.bind(this);
     this.handleAddToCart = this.handleAddToCart.bind(this);
     this.handleRemoveFromCart = this.handleRemoveFromCart.bind(this);
     this.handleCheckOut = this.handleCheckOut.bind(this);
@@ -47,12 +47,7 @@ export default class ListingContainer extends React.Component {
   //     console.log(addToCart);
   //     this.setState((prevState) => ({ cart: [...prevState.cart, addToCart] }));
   //   }
-  // view cart button
-  navigateTo() {
-    if (this.state.cart[0]) {
-      this.setState({ viewCart: !this.state.viewCart });
-    }
-  }
+
   //add to cart button
   handleAddToCart(e, product) {
     console.log(product);
@@ -149,9 +144,9 @@ export default class ListingContainer extends React.Component {
           <h1>You are viewing deals from {this.state.merchant_name}</h1>
           <br />
           <div className="ListItems">{this.state.html}</div>
-          <button onClick={this.navigateTo}>
+          {/* <button onClick={this.navigateTo}>
             View Cart {(this.state.cart[0] ? this.state.cart[0].count : 0)}
-          </button>
+          </button> */}
           {(this.state.viewCart && this.state.cart[0]) ?
             <>
               <h1>Order Summary</h1>
