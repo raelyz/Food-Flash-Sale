@@ -1,5 +1,4 @@
 import React from "react";
-import './UserModalCss.scss'
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 
 export default class RegisterModal extends React.Component {

@@ -12,6 +12,7 @@ import MercHome from "./Components/Merchant Home/Home";
 import MerchFooter from "./Components/Merchant Home/Footer/Footer";
 import GeoLocation from "./Components/User/GeoLocation/GeoLocation";
 import UserSuperContainer from "./Components/User/UserSuperContainer";
+import './UserModalCss.scss'
 import MerchantSuperContainer from "./Components/Merchant Home/MerchantSuperContainer";
 
 const stripper = process.env.REACT_APP_PUBLISHABLE_KEY;

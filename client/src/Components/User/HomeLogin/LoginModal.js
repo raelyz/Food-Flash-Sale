@@ -1,7 +1,6 @@
 import React from "react";
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import { withRouter } from 'react-router'
-
 class LoginModal extends React.Component {
 constructor(props) {
         super(props)
