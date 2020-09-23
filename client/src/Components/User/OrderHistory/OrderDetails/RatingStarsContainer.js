@@ -14,38 +14,10 @@ class RatingStarsContainer extends Component {
       submitted: false,
       rating: 0,
     };
-    this.decide = this.decide.bind(this);
-    this.onSubmitHandler = this.onSubmitHandler.bind(this);
+
   }
 
-  onSubmitHandler(e) {
-    console.log("clicked star");
-    e.preventDefault();
-    this.setState({ submitted: true, rating: e.target.value });
-  }
-  componentDidMount() {
-    if (this.state.display) {
-      fetch(`/getratingsuser/${this.state.user_id}/${this.state.receipt_id}`)
-        .then((res) => res.json())
-        .then((res) =>
-          this.setState({
-            displayStar: this.decide(res),
-            submitted: !this.decide(res),
-          })
-        );
-    }
-  }
 
-  //helper function
-  decide(array) {
-    let displayStar;
-    if (array[0].rating_stars === null) {
-      displayStar = true;
-    } else {
-      displayStar = false;
-    }
-    return displayStar;
-  }
   render() {
     return (
       <>
@@ -58,6 +30,7 @@ class RatingStarsContainer extends Component {
           onClick={this.onSubmitHandler}
           submitted={this.state.submitted}
           rating={this.state.rating}
+          clicked={this.state.clicked}
         />
       </>
     );
