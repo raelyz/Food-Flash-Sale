@@ -54,8 +54,8 @@ class TimeLine extends Component {
                 }
             })
     }
-    changePage=(e)=> {
-        if(e.target.value === "Discount") {
+    changePage = (e) => {
+        if (e.target.value === "Discount") {
             this.props.history.push("/ByDiscount")
         } else if (e.target.value === "Distance") {
             this.props.history.push("/ByDistance")
@@ -182,8 +182,7 @@ class TimeLine extends Component {
         let deletedMerchantCard = this.state.deletedArray.map((eachCard, index) => {
             const discount = ((eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100).toFixed(0)
             let path = "/" + eachCard.merchant_id
-            return
-            <div className="col-lg-4 col-sm-6 mb-4">
+            return <div className="col-lg-4 col-sm-6 mb-4">
                 <div className="itemWrapper">
                     <div className="portfolio-item">
                         <Link className="portfolio-link" to={path}>
@@ -208,73 +207,73 @@ class TimeLine extends Component {
             } />
         })
         return (
-        <>
-            <div id="background"></div>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-                <div className="container">
-                    <a className="navbar-brand" href="#">Start Bootstrap</a>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarResponsive">
-                        <ul className="navbar-nav ml-auto">
-                            <li className="nav-item active">
-                                <Link to="/Timeline" onClick={this.unhideSort}>Timeline<span className="sr-only">(current)</span></Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/Orderhistory" onClick={this.hideSort}>Order history</Link>
-                            </li>
-                        </ul>
-                        <button onClick={this.props.onLogout}>Log out</button>
+            <>
+                <div id="background"></div>
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                    <div className="container">
+                        <a className="navbar-brand" href="#">Start Bootstrap</a>
+                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarResponsive">
+                            <ul className="navbar-nav ml-auto">
+                                <li className="nav-item active">
+                                    <Link to="/Timeline" onClick={this.unhideSort}>Timeline<span className="sr-only">(current)</span></Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to="/Orderhistory" onClick={this.hideSort}>Order history</Link>
+                                </li>
+                            </ul>
+                            <button onClick={this.props.onLogout}>Log out</button>
+                        </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
 
-            <ControlledCarousel></ControlledCarousel>
+                <ControlledCarousel></ControlledCarousel>
 
-            <section className="page-section  bg-trans portfolio wrapper" id="services" >
-                <div className="container">
-                    <div className="text-center">
-                        <h2 className="section-heading text-uppercase">Ongoing Deals</h2>
-                        <h3 className="section-subheading text-muted">Catch them while you can!</h3>
-                    </div>
-                    <div>
-                        <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
-                        <select onChange={this.changePage} style={{ display: this.state.sortDisplay }}>
-                            <option value="Time">Time Left</option>
-                            <option value="Discount">Discount</option>
-                            <option value="Distance">Distance</option>
-                        </select>
-                    </div>
-                    <Switch>
-                        {routeArray}
-                        <Route path="/Orderhistory" render={
-                            () => <OrderHistory user_id={this.props.user_id} />
-                        } />
-                        {/* <Route path="/ByCategory" render={
+                <section className="page-section  bg-trans portfolio wrapper" id="services" >
+                    <div className="container">
+                        <div className="text-center">
+                            <h2 className="section-heading text-uppercase">Ongoing Deals</h2>
+                            <h3 className="section-subheading text-muted">Catch them while you can!</h3>
+                        </div>
+                        <div>
+                            <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
+                            <select onChange={this.changePage} style={{ display: this.state.sortDisplay }}>
+                                <option value="Time">Time Left</option>
+                                <option value="Discount">Discount</option>
+                                <option value="Distance">Distance</option>
+                            </select>
+                        </div>
+                        <Switch>
+                            {routeArray}
+                            <Route path="/Orderhistory" render={
+                                () => <OrderHistory user_id={this.props.user_id} />
+                            } />
+                            {/* <Route path="/ByCategory" render={
                             () => <ByCategory data={this.state.timeLine} lon={this.props.lon} lat={this.props.lat} />
                         } /> */}
-                        <Route path="/ByDistance" render={() => <ByDistance lon={this.props.lon} lat={this.props.lat} />} />
-                        <Route path="/ByDiscount" render={() => <ByDiscount lon={this.props.lon} lat={this.props.lat} />} />
-                        <Route path="/" render={() => <div className="row">{merchantCard}</div>} />
-                    </Switch>
-                </div>
-            </section>
-
-            <section className="page-section  bg-trans portfolio wrapper">
-                <div className="container">
-                    <div className="text-center">
-                        <h2 className="section-heading text-uppercase">They are gone..</h2>
-
-                        <h3 className="section-subheading text-muted">You were too late!</h3>
+                            <Route path="/ByDistance" render={() => <ByDistance lon={this.props.lon} lat={this.props.lat} />} />
+                            <Route path="/ByDiscount" render={() => <ByDiscount lon={this.props.lon} lat={this.props.lat} />} />
+                            <Route path="/" render={() => <div className="row">{merchantCard}</div>} />
+                        </Switch>
                     </div>
-                    <div className="row">
-                        {deletedMerchantCard}
-                    </div>
-                </div>
-            </section>
+                </section>
 
-        </>
+                <section className="page-section  bg-trans portfolio wrapper">
+                    <div className="container">
+                        <div className="text-center">
+                            <h2 className="section-heading text-uppercase">They are gone..</h2>
+
+                            <h3 className="section-subheading text-muted">You were too late!</h3>
+                        </div>
+                        <div className="row">
+                            {deletedMerchantCard}
+                        </div>
+                    </div>
+                </section>
+
+            </>
         )
     }
 }

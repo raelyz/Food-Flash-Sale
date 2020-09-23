@@ -69,16 +69,6 @@ class CreateItem extends Component {
             dataValidity = false;
             errors["description"] = "Cannot be Empty"
         }
-        if (!fields["time_limit_min"]) {
-            dataValidity = false;
-            errors["time_limit_min"] = "Cannot be Empty"
-        }
-        if (typeof fields["time_limit_min"] !== "undefined") {
-            if (isNaN(fields["time_limit_min"]) || parseInt(fields["time_limit_min"]) < 0) {
-                dataValidity = false;
-                errors["time_limit_min"] = "Only Numbers";
-            }
-        }
         if (parseInt(fields["unit_price"]) < parseInt(fields["price_ceiling"]) || parseInt(fields["unit_price"]) < parseInt(fields["price_floor"]) || parseInt(fields["price_ceiling"]) < parseInt(fields["price_floor"])) {
             dataValidity = false;
             errors["algorithm_error"] = "Unit Price > Price Ceiling > Price Floor"
@@ -204,8 +194,12 @@ class CreateItem extends Component {
                         <Form.Row>
                             <Form.Label column lg={2}>Duration</Form.Label>
                             <Col>
-                                <Form.Control pattern="[0-9]*" onChange={(e) => { this.onChangeHandler(e, "time_limit_min") }} type="text" placeholder="Time in Minutes" name="time_limit_min" value={this.state.fields["time_limit_min"]} />
-                                {this.state.errors.time_limit_min ? <span style={{ color: 'red' }}>Please key in a Description</span> : null}
+                                <Form.Control name="time_limit_min" as="select" custom>
+                                    <option value="30">30 mins</option>
+                                    <option value="60">1 hour</option>
+                                    <option value="90">1hour 30 mins</option>
+                                    <option value="120">2hours</option>
+                                </Form.Control>
                             </Col>
                         </Form.Row>
                         <Button type="submit" onClick={() => this.fieldValidation()} className="mb-2">
