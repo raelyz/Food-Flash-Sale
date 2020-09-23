@@ -10,7 +10,7 @@ const Home = ({ displaysignup, displaylogin, onRegistered, onLogin }) => {
                 <div class="container">
                     <div class="masthead-subheading">Food Flash Sale</div>
                     <div class="masthead-heading text-uppercase">Waste not, Want alot!</div>
-                    <button className="buttons btn-hover color-1"><a id="whitebutton" class=" js-scroll-trigger" href="#us">Tell Me More</a></button>
+                    <button className="buttons btn-hover color-1" ><a id="whitebutton" class=" js-scroll-trigger" href="#us">Tell Me More</a></button>
                 </div>
             </header>
             <section class="page-section" id="us">
@@ -67,7 +67,7 @@ const Home = ({ displaysignup, displaylogin, onRegistered, onLogin }) => {
                         <div class="col-lg-4">
                             <div class="team-member">
                                 <img class="mx-auto rounded-circle" src="assets/img/team/1.jpg" alt="" />
-                                <h4>Kay Garland</h4>
+                                <h4>Eugene Lim</h4>
                                 <p class="text-muted">Lead Designer</p>
                                 <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
                                 <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
@@ -77,7 +77,7 @@ const Home = ({ displaysignup, displaylogin, onRegistered, onLogin }) => {
                         <div class="col-lg-4">
                             <div class="team-member">
                                 <img class="mx-auto rounded-circle" src="assets/img/team/2.jpg" alt="" />
-                                <h4>Larry Parker</h4>
+                                <h4>Xuan</h4>
                                 <p class="text-muted">Lead Marketer</p>
                                 <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
                                 <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
@@ -87,7 +87,7 @@ const Home = ({ displaysignup, displaylogin, onRegistered, onLogin }) => {
                         <div class="col-lg-4">
                             <div class="team-member">
                                 <img class="mx-auto rounded-circle" src="assets/img/team/3.jpg" alt="" />
-                                <h4>Diana Petersen</h4>
+                                <h4>Hao</h4>
                                 <p class="text-muted">Lead Developer</p>
                                 <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
                                 <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>

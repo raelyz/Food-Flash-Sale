@@ -227,7 +227,7 @@ class TimeLine extends Component {
                     </div>
                 </nav>
                 <ControlledCarousel></ControlledCarousel>
-                <div className="dropdown" id="ongoing">
+                <div className="select" id="ongoing">
                     <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
                     <select onChange={this.changePage} style={{ display: this.state.sortDisplay }} >
                         <option value="Time">Time Left</option>
@@ -259,35 +259,33 @@ class TimeLine extends Component {
                             {/* <Route path="/ByCategory" render=
                             () => <ByCategory data={this.state.timeLine} lon={this.props.lon} lat={this.props.lat} />
                         } /> */}
-                    <Route path="/ByDistance" render={() => <ByDistance lon={this.props.lon} lat={this.props.lat} />} />
-                    <Route path="/ByDiscount" render={() => <ByDiscount lon={this.props.lon} lat={this.props.lat} />} />
-                    <Route path="/" render={() => <><section className="page-section  bg-trans portfolio wrapper">
-                        <div className="container">
-                            <div className="text-center" >
-                                <h2 className="section-heading text-uppercase">Ongoing Deals</h2>
-                                <h3 className="section-subheading text-muted">Catch them while you can!</h3>
-                            </div>
-                            <div className="row" >{merchantCard}</div>
-                        </div >
-                    </section>
-                        <section className="page-section  bg-trans portfolio wrapper" id="expired" >
-                            <div className="container">
-                                <div className="text-center">
-                                    <h2 className="section-heading text-uppercase">They are gone..</h2>
+                            <Route path="/ByDistance" render={() => <ByDistance lon={this.props.lon} lat={this.props.lat} />} />
+                            <Route path="/ByDiscount" render={() => <ByDiscount lon={this.props.lon} lat={this.props.lat} />} />
+                            <Route path="/" render={() => <><section className="page-section  bg-trans portfolio wrapper">
+                                <div className="container">
+                                    <div className="text-center" >
+                                        <h2 className="section-heading text-uppercase">Ongoing Deals</h2>
+                                        <h3 className="section-subheading text-muted">Catch them while you can!</h3>
+                                    </div>
+                                    <div className="row" >{merchantCard}</div>
+                                </div >
+                            </section>
+                                <section className="page-section  bg-trans portfolio wrapper" id="expired" >
+                                    <div className="container">
+                                        <div className="text-center">
+                                            <h2 className="section-heading text-uppercase">They are gone..</h2>
 
-                                    <h3 className="section-subheading text-muted">You were too late!</h3>
-                                </div>
-                                <div className="row">
-                                    {deletedMerchantCard}
-                                </div>
-                            </div>
-                        </section></>
-                    } />
-                </Switch>
-
-
-
-
+                                            <h3 className="section-subheading text-muted">You were too late!</h3>
+                                        </div>
+                                        <div className="row">
+                                            {deletedMerchantCard}
+                                        </div>
+                                    </div>
+                                </section></>
+                            } />
+                        </Switch>
+                    </div>
+                </section>
             </>
         )
     }
