@@ -50,14 +50,9 @@ export default class Navbar extends Component {
                         </div>
                         <RegisterModal open={this.state.RisOpen} onClose={this.onClose} onClose={this.RegisterOnClose} onClick={this.props.onClickSignUp} onRegistered={this.props.onRegistered} />
                         <LoginModal open={this.state.LisOpen} onClose={this.onClose} onClose={this.LoginOnClose} onClick={this.props.onClickLogin} onLogin={this.props.onLogin} />
-
                     </div>
                 </nav>
             </>
-
-
-
-
         )
     }
 }

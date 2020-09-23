@@ -275,6 +275,7 @@ class TimeLine extends Component {
                                         <div className="text-center">
                                             <h2 className="section-heading text-uppercase">They are gone..</h2>
 
+
                                             <h3 className="section-subheading text-muted">You were too late!</h3>
                                         </div>
                                         <div className="row">
@@ -287,6 +288,18 @@ class TimeLine extends Component {
                     </div>
                 </section>
 
+
+                                            <h3 className="section-subheading text-muted">You were too late!</h3>
+                                        </div>
+                                        <div className="row">
+                                            {deletedMerchantCard}
+                                        </div>
+                                    </div>
+                                </section></>
+                            } />
+                        </Switch>
+                    </div>
+                </section>
             </>
         )
     }
