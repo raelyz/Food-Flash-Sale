@@ -183,7 +183,27 @@ export default class TimeLine extends Component {
                     () => <OrderHistory />
                 } />
                 <Route path="/" render={
-                    () => <><div className="row">{merchantCard}</div></>
+                    () => <><section className="page-section  bg-trans portfolio wrapper" id="services" >
+                        <div className="container">
+                            <div className="text-center">
+                                <h2 className="section-heading text-uppercase">Ongoing Deals</h2>
+                                <h3 className="section-subheading text-muted">Catch them while you can!</h3>
+                            </div>
+                            <div className="row">{merchantCard}</div>
+                        </div>
+                    </section>
+                        <section className="page-section  bg-trans portfolio wrapper">
+                            <div className="container">
+                                <div className="text-center">
+                                    <h2 className="section-heading text-uppercase">They are gone..</h2>
+
+                                    <h3 className="section-subheading text-muted">You were too late!</h3>
+                                </div>
+                                <div className="row">
+                                    {deletedMerchantCard}
+                                </div>
+                            </div>
+                        </section></>
                 } />
             </Switch>
         )

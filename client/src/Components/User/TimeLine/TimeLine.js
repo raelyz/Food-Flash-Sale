@@ -230,48 +230,51 @@ class TimeLine extends Component {
                 </nav>
 
                 <ControlledCarousel></ControlledCarousel>
+                <div className="dropdown">
+                    <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
+                    <select onChange={this.changePage} style={{ display: this.state.sortDisplay }}>
+                        <option value="Time">Time Left</option>
+                        <option value="Discount">Discount</option>
+                        <option value="Distance">Distance</option>
+                    </select>
+                </div>
 
-                <section className="page-section  bg-trans portfolio wrapper" id="services" >
-                    <div className="container">
-                        <div className="text-center">
-                            <h2 className="section-heading text-uppercase">Ongoing Deals</h2>
-                            <h3 className="section-subheading text-muted">Catch them while you can!</h3>
-                        </div>
-                        <div>
-                            <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
-                            <select onChange={this.changePage} style={{ display: this.state.sortDisplay }}>
-                                <option value="Time">Time Left</option>
-                                <option value="Discount">Discount</option>
-                                <option value="Distance">Distance</option>
-                            </select>
-                        </div>
-                        <Switch>
-                            {routeArray}
-                            <Route path="/Orderhistory" render={
-                                () => <OrderHistory user_id={this.props.user_id} />
-                            } />
-                            {/* <Route path="/ByCategory" render={
+                <Switch>
+                    {routeArray}
+                    <Route path="/Orderhistory" render={
+                        () => <OrderHistory user_id={this.props.user_id} />
+                    } />
+                    {/* <Route path="/ByCategory" render={
                             () => <ByCategory data={this.state.timeLine} lon={this.props.lon} lat={this.props.lat} />
                         } /> */}
-                            <Route path="/ByDistance" render={() => <ByDistance lon={this.props.lon} lat={this.props.lat} />} />
-                            <Route path="/ByDiscount" render={() => <ByDiscount lon={this.props.lon} lat={this.props.lat} />} />
-                            <Route path="/" render={() => <div className="row">{merchantCard}</div>} />
-                        </Switch>
-                    </div>
-                </section>
-
-                <section className="page-section  bg-trans portfolio wrapper">
-                    <div className="container">
-                        <div className="text-center">
-                            <h2 className="section-heading text-uppercase">They are gone..</h2>
-
-                            <h3 className="section-subheading text-muted">You were too late!</h3>
+                    <Route path="/ByDistance" render={() => <ByDistance lon={this.props.lon} lat={this.props.lat} />} />
+                    <Route path="/ByDiscount" render={() => <ByDiscount lon={this.props.lon} lat={this.props.lat} />} />
+                    <Route path="/" render={() => <><section className="page-section  bg-trans portfolio wrapper" id="services" >
+                        <div className="container">
+                            <div className="text-center">
+                                <h2 className="section-heading text-uppercase">Ongoing Deals</h2>
+                                <h3 className="section-subheading text-muted">Catch them while you can!</h3>
+                            </div>
+                            <div className="row">{merchantCard}</div>
                         </div>
-                        <div className="row">
-                            {deletedMerchantCard}
-                        </div>
-                    </div>
-                </section>
+                    </section>
+                        <section className="page-section  bg-trans portfolio wrapper">
+                            <div className="container">
+                                <div className="text-center">
+                                    <h2 className="section-heading text-uppercase">They are gone..</h2>
+
+                                    <h3 className="section-subheading text-muted">You were too late!</h3>
+                                </div>
+                                <div className="row">
+                                    {deletedMerchantCard}
+                                </div>
+                            </div>
+                        </section></>
+                    } />
+                </Switch>
+
+
+
 
             </>
         )
