@@ -89,13 +89,13 @@ class OrderList extends React.Component {
 
     render() {
         return (
-            <table>
+            <table className="table">
                 <tr>
-                    <th>Order ID</th>
-                    <th>Name</th>
-                    <th>Quantity</th>
-                    <th>Date</th>
-                    <th>Revenue</th>
+                    <th className="th">Order ID</th>
+                    <th className="th">Name</th>
+                    <th className="th">Quantity</th>
+                    <th className="th">Date</th>
+                    <th className="th">Revenue</th>
                 </tr>
                 {this.state.html}
             </table>
