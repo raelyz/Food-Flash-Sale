@@ -67,7 +67,7 @@
   height: 15vh;
   background-color: grey;
 }
-.login-overlay {
+/*.login-overlay {
   display: flex;
   position: absolute;
   height: 90vh;
@@ -80,7 +80,7 @@
 	background-color: grey;
 	opacity: 0.7;
 	width: 100%;*/
-}
+/*}*/
 
 .indMerc {
   display: flex;

@@ -34,7 +34,6 @@ export default class Navbar extends Component {
                     <option value="user">User</option>
                     <option value="merchant">Merchant</option>
                 </select>
-
                 <button type="button" onClick={this.RegisterShowModal} >Sign Up 2</button>
                 <RegisterModal  open={this.state.RisOpen} onClose={this.onClose} onClose={this.RegisterOnClose} onClick={this.props.onClickSignUp} onRegistered={this.props.onRegistered} />
 
