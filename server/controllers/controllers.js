@@ -101,7 +101,6 @@ module.exports = (db) => {
       // If the username already exists render the same login page
       // If query returned nothing || if user registers with an empty username || if user register a password with no length
       // Add @ email check here
-
       if (
         results.rows.length !== 0 ||
         request.body.username.length == 0 ||
@@ -132,6 +131,7 @@ module.exports = (db) => {
       }
     });
   };
+
   // WHEN REGISTERING A NEW MERCHANT
   let postMerchantDetails = (request, response) => {
     let address = request.body.address + "!!!!" + request.body.postalCode
@@ -285,7 +285,6 @@ module.exports = (db) => {
       listing_id,
       time_limit_min
     ];
-    //     console.log(values)
     db.poolRoutes.getUpdateListingFX(values, (error, result) => {
       if (error) {
         console.log(error, `erroratgetupdatelisting controlelr`);
@@ -429,7 +428,6 @@ module.exports = (db) => {
 
   let getMerchantOrders = (request, response) => {
     let values = [request.params.id];
-
     db.poolRoutes.getMerchantOrdersFX(values, (err, result) => {
       if (err) {
         console.log(err, `err at getMerchant Orderscontroller`);

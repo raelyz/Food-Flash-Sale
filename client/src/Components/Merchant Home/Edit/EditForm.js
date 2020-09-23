@@ -5,16 +5,30 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 class EditForm extends Component {
     constructor(props) {
-        super(props)
-        this.state = { fields: {}, errors: {} }
+        super()
+        this.state = {
+            fields: {
+            }, errors: {}, validation: {},
+
+        }
+        this.item_name = React.createRef();
+        this.unit_price = React.createRef()
+        this.quantity = React.createRef()
+        this.price_ceiling = React.createRef()
+        this.price_floor = React.createRef()
+        this.description = React.createRef()
+        this.time_limit_min = React.createRef()
     }
-    fieldValidation() {
-        console.log(`triggering`)
+
+
+    fieldValidation(e) {
+        console.log(this)
         let fields = this.state.fields;
         let errors = {};
         let dataValidity = true;
 
-        if (!fields["item_name"]) {
+        if (!this.item_name.current.value) {
+            console.log(this.item_name)
             dataValidity = false;
             errors["item_name"] = "Cannot be Empty"
         }
@@ -24,7 +38,7 @@ class EditForm extends Component {
                 errors["item_name"] = "Only letters";
             }
         }
-        if (!fields["unit_price"]) {
+        if (!this.unit_price.current.value) {
             dataValidity = false;
             errors["unit_price"] = "Cannot be Empty"
         }
@@ -34,7 +48,7 @@ class EditForm extends Component {
                 errors["unit_price"] = "Only Numbers";
             }
         }
-        if (!fields["quantity"]) {
+        if (!this.quantity.current.value) {
             dataValidity = false;
             errors["quantity"] = "Cannot be Empty"
         }
@@ -44,7 +58,7 @@ class EditForm extends Component {
                 errors["quantity"] = "Only Numbers";
             }
         }
-        if (!fields["price_ceiling"]) {
+        if (!this.price_ceiling.current.value) {
             dataValidity = false;
             errors["price_ceiling"] = "Cannot be Empty"
         }
@@ -54,7 +68,7 @@ class EditForm extends Component {
                 errors["price_ceiling"] = "Only Numbers";
             }
         }
-        if (!fields["price_floor"]) {
+        if (!this.price_floor.current.value) {
             dataValidity = false;
             errors["price_floor"] = "Cannot be Empty"
         }
@@ -64,11 +78,11 @@ class EditForm extends Component {
                 errors["price_floor"] = "Only Numbers";
             }
         }
-        if (!fields["description"]) {
+        if (!this.description.current.value) {
             dataValidity = false;
             errors["description"] = "Cannot be Empty"
         }
-        if (!fields["time_limit_min"]) {
+        if (!this.time_limit_min.current.value) {
             dataValidity = false;
             errors["time_limit_min"] = "Cannot be Empty"
         }
@@ -85,10 +99,12 @@ class EditForm extends Component {
         this.setState({ errors: errors })
         return dataValidity
     }
-    onChangeHandler(e, field) {
+    onChangeHandler = (e, field) => {
         let fields = this.state.fields;
         fields[field] = e.target.value;
-        this.setState({ fields });
+        this.setState({
+            fields
+        });
     }
     onSubmitHandler(e) {
         e.preventDefault()
@@ -104,7 +120,7 @@ class EditForm extends Component {
                 time_limit_min: e.target.time_limit_min.value,
                 listing_id: e.target.listing_id.value
             }
-            fetch('/newListing', {
+            fetch('/editlisting', {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json"
@@ -122,12 +138,13 @@ class EditForm extends Component {
     }
 
     render() {
+        console.log(this.item_name)
         return (
             <Form action="/editlisting" method="post" onSubmit={(e) => this.onSubmitHandler(e)}>
                 <Form.Row>
                     <Form.Label column lg={2}>Item Name</Form.Label>
                     <Col>
-                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "item_name") }} type="text" placeholder={this.props.item_name} name="item_name" value={this.state.fields["item_name"]} />
+                        <Form.Control onKeyUp={(e) => this.onChangeHandler(e, "item_name")} type="text" placeholder={this.props.item_name} name="item_name" ref={this.item_name} defaultValue={this.props.item_name} />
                         {this.state.errors.item_name ? <span style={{ color: 'red' }}>Text</span> : null}
                     </Col>
                 </Form.Row>
@@ -135,7 +152,7 @@ class EditForm extends Component {
                 <Form.Row>
                     <Form.Label column lg={2}>Unit Price</Form.Label>
                     <Col>
-                        <Form.Control pattern="[0-9]*" onChange={(e) => { this.onChangeHandler(e, "unit_price") }} type="text" placeholder={this.props.unit_price} name="unit_price" value={this.state.fields["unit_price"]} />
+                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "unit_price") }} type="text" placeholder={this.props.unit_price} name="unit_price" ref={this.unit_price} defaultValue={this.props.unit_price} />
                         {this.state.errors.unit_price ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
                         {this.state.errors.algorithm_error ? <span style={{ color: 'red' }}>Unit Price &#62;  Max Price &#62; Min Price </span> : null}
                     </Col>
@@ -144,7 +161,7 @@ class EditForm extends Component {
                 <Form.Row>
                     <Form.Label column lg={2}>Quantity</Form.Label>
                     <Col>
-                        <Form.Control pattern="[0-9]*" onChange={(e) => { this.onChangeHandler(e, "quantity") }} type="text" placeholder={this.props.quantity} name="quantity" value={this.state.fields["quantity"]} />
+                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "quantity") }} type="text" placeholder={this.props.quantity} name="quantity" ref={this.quantity} defaultValue={this.props["quantity"]} />
                         {this.state.errors.quantity ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
                     </Col>
                 </Form.Row>
@@ -152,7 +169,7 @@ class EditForm extends Component {
                 <Form.Row>
                     <Form.Label column lg={2}>Maximum Price</Form.Label>
                     <Col>
-                        <Form.Control pattern="[0-9]*" onChange={(e) => { this.onChangeHandler(e, "price_ceiling") }} type="text" placeholder={this.props.price_ceiling} name="price_ceiling" value={this.state.fields["price_ceiling"]} />
+                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "price_ceiling") }} type="text" placeholder={this.props.price_ceiling} name="price_ceiling" ref={this.price_ceiling} defaultValue={this.props["price_ceiling"]} />
                         {this.state.errors.price_ceiling ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
                         {this.state.errors.algorithm_error ? <span style={{ color: 'red' }}>Unit Price &#62;  Max Price &#62; Min Price </span> : null}
                     </Col>
@@ -161,7 +178,7 @@ class EditForm extends Component {
                 <Form.Row>
                     <Form.Label column lg={2}>Minimum Price</Form.Label>
                     <Col>
-                        <Form.Control pattern="[0-9]*" onChange={(e) => { this.onChangeHandler(e, "price_floor") }} type="text" placeholder={this.props.price_floor} name="price_floor" value={this.state.fields["price_floor"]} />
+                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "price_floor") }} type="text" placeholder={this.props.price_floor} name="price_floor" ref={this.price_floor} defaultValue={this.props["price_floor"]} />
                         {this.state.errors.price_floor ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
                         {this.state.errors.algorithm_error ? <span style={{ color: 'red' }}>Unit Price &#62;  Max Price &#62; Min Price </span> : null}
                     </Col>
@@ -190,7 +207,7 @@ class EditForm extends Component {
                 <Form.Row>
                     <Form.Label column lg={2}>Description</Form.Label>
                     <Col>
-                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "description") }} type="text" placeholder={this.props.description} name="description" value={this.state.fields["description"]} />
+                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "description") }} type="text" placeholder={this.props.description} name="description" ref={this.description} defaultValue={this.props["description"]} />
                         {this.state.errors.description ? <span style={{ color: 'red' }}>Please key in a Description</span> : null}
                     </Col>
                 </Form.Row>
@@ -198,8 +215,12 @@ class EditForm extends Component {
                 <Form.Row>
                     <Form.Label column lg={2}>Duration</Form.Label>
                     <Col>
-                        <Form.Control pattern="[0-9]*" onChange={(e) => { this.onChangeHandler(e, "time_limit_min") }} type="text" placeholder={this.props.time_limit} name="time_limit_min" value={this.state.fields["time_limit_min"]} />
-                        {this.state.errors.time_limit_min ? <span style={{ color: 'red' }}>Please key in a Description</span> : null}
+                        <Form.Control name="category_id" as="select" custom>
+                            <option value="30">30 mins</option>
+                            <option value="60">1 hour</option>
+                            <option value="90">1hour 30 mins</option>
+                            <option value="120">2hours</option>
+                        </Form.Control>
                     </Col>
                 </Form.Row>
                 <Button type="submit" onClick={() => this.fieldValidation()} className="mb-2">

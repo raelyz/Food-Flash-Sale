@@ -30,6 +30,7 @@ export default class ItemList extends Component {
         // console.log(this.state.list)
         let itemList = this.props.list.map((item, index) => {
             return <tr key={item.listing_id}>
+                <td><Link to={`/EditItem/${item.listing_id}`} ><EditIcon className="edit" /></Link></td>
                 <td>{item.item_name}</td>
                 <td>{item.unit_price}</td>
                 <td>{item.quantity}</td>
@@ -39,13 +40,13 @@ export default class ItemList extends Component {
                 <td>{item.description}</td>
                 <td>{item.time_limit_min}</td>
                 <td><Toggle onToggle={this.toggleOnclickHandler} id={item.listing_id} boolean={item.live}></Toggle></td>
-                <td><Link to={`/EditItem/${item.listing_id}`} ><EditIcon className="edit" /></Link></td>
             </tr>
         })
 
         return (
             <table>
                 <tr>
+                    <th>Edit Item</th>
                     <th>Item Name</th>
                     <th>Unit Price</th>
                     <th>Quantity</th>
@@ -55,7 +56,6 @@ export default class ItemList extends Component {
                     <th>Description</th>
                     <th>Duration</th>
                     <th>Status</th>
-                    <th>Edit Item</th>
                 </tr>
                 {itemList}
             </table>
