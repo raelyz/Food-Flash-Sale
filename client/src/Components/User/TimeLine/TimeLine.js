@@ -208,31 +208,28 @@ class TimeLine extends Component {
         })
         return (
             <>
-                <div id="background"></div>
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-                    <div className="container">
-                        <a className="navbar-brand" href="#">Start Bootstrap</a>
-                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
+                <nav class="navbar navbar-expand-lg navbar-trans fixed-top navbar-shrink" id="mainNav">
+                    <div class="container">
+                        <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="" /></a>
+                        <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                            Menu
+                    <svg class="svg-inline--fa fa-bars fa-w-14 ml-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg><i class="fas fa-bars ml-1"></i>
                         </button>
-                        <div className="collapse navbar-collapse" id="navbarResponsive">
-                            <ul className="navbar-nav ml-auto">
-                                <li className="nav-item active">
-                                    <Link to="/Timeline" onClick={this.unhideSort}>Timeline<span className="sr-only">(current)</span></Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link to="/Orderhistory" onClick={this.hideSort}>Order history</Link>
-                                </li>
+                        <div class="navbar-collapse collapse" id="navbarResponsive" >
+                            <ul class="navbar-nav text-uppercase ml-auto">
+                                <li class="nav-item"><Link to="/Timeline" class="nav-link js-scroll-trigger active" onClick={this.unhideSort}>Timeline</Link></li>
+                                <li class="nav-item"><Link to="/Orderhistory" class="nav-link js-scroll-trigger" onClick={this.hideSort}>Order history</Link></li>
+                                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#ongoing">Ongoing</a></li>
+                                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#expired">Expired</a></li>
+                                <li class="nav-item"><a class="nav-link js-scroll-trigger" onClick={this.props.onLogout}>Logout</a></li>
                             </ul>
-                            <button onClick={this.props.onLogout}>Log out</button>
                         </div>
                     </div>
                 </nav>
-
                 <ControlledCarousel></ControlledCarousel>
-                <div className="dropdown">
+                <div className="dropdown" id="ongoing">
                     <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
-                    <select onChange={this.changePage} style={{ display: this.state.sortDisplay }}>
+                    <select onChange={this.changePage} style={{ display: this.state.sortDisplay }} >
                         <option value="Time">Time Left</option>
                         <option value="Discount">Discount</option>
                         <option value="Distance">Distance</option>
@@ -249,16 +246,16 @@ class TimeLine extends Component {
                         } /> */}
                     <Route path="/ByDistance" render={() => <ByDistance lon={this.props.lon} lat={this.props.lat} />} />
                     <Route path="/ByDiscount" render={() => <ByDiscount lon={this.props.lon} lat={this.props.lat} />} />
-                    <Route path="/" render={() => <><section className="page-section  bg-trans portfolio wrapper" id="services" >
+                    <Route path="/" render={() => <><section className="page-section  bg-trans portfolio wrapper">
                         <div className="container">
-                            <div className="text-center">
+                            <div className="text-center" >
                                 <h2 className="section-heading text-uppercase">Ongoing Deals</h2>
                                 <h3 className="section-subheading text-muted">Catch them while you can!</h3>
                             </div>
-                            <div className="row">{merchantCard}</div>
-                        </div>
+                            <div className="row" >{merchantCard}</div>
+                        </div >
                     </section>
-                        <section className="page-section  bg-trans portfolio wrapper">
+                        <section className="page-section  bg-trans portfolio wrapper" id="expired" >
                             <div className="container">
                                 <div className="text-center">
                                     <h2 className="section-heading text-uppercase">They are gone..</h2>

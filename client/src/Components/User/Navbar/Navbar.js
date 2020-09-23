@@ -41,18 +41,23 @@ export default class Navbar extends Component {
                                 <li class="nav-item"><a className="nav-link js-scroll-trigger active" href='#login' onClick={this.LoginShowModal}>Login</a></li>
                                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Register" onClick={this.RegisterShowModal}>Register</a></li>
                                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
-                                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#team">Team</a></li>
                                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
+                                <select className="select" onChange={this.props.changePage}><option value="user">User</option>
+                                    <option value="merchant">Merchant</option>
+                                </select>
+
                             </ul>
                         </div>
+                        <RegisterModal open={this.state.RisOpen} onClose={this.onClose} onClose={this.RegisterOnClose} onClick={this.props.onClickSignUp} onRegistered={this.props.onRegistered} />
+                        <LoginModal open={this.state.LisOpen} onClose={this.onClose} onClose={this.LoginOnClose} onClick={this.props.onClickLogin} onLogin={this.props.onLogin} />
+
                     </div>
                 </nav>
-
-                <RegisterModal open={this.state.RisOpen} onClose={this.onClose} onClose={this.RegisterOnClose} onClick={this.props.onClickSignUp} onRegistered={this.props.onRegistered} />
-
-
-                <LoginModal open={this.state.LisOpen} onClose={this.onClose} onClose={this.LoginOnClose} onClick={this.props.onClickLogin} onLogin={this.props.onLogin} />
             </>
+
+
+
+
         )
     }
 }
