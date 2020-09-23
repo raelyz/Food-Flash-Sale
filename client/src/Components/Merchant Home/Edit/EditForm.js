@@ -140,96 +140,102 @@ class EditForm extends Component {
     render() {
         console.log(this.item_name)
         return (
-            <Form action="/editlisting" method="post" onSubmit={(e) => this.onSubmitHandler(e)}>
-                <Form.Row>
-                    <Form.Label column lg={2}>Item Name</Form.Label>
-                    <Col>
-                        <Form.Control onKeyUp={(e) => this.onChangeHandler(e, "item_name")} type="text" placeholder={this.props.item_name} name="item_name" ref={this.item_name} defaultValue={this.props.item_name} />
-                        {this.state.errors.item_name ? <span style={{ color: 'red' }}>Text</span> : null}
-                    </Col>
-                </Form.Row>
-                <br />
-                <Form.Row>
-                    <Form.Label column lg={2}>Unit Price</Form.Label>
-                    <Col>
-                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "unit_price") }} type="text" placeholder={this.props.unit_price} name="unit_price" ref={this.unit_price} defaultValue={this.props.unit_price} />
-                        {this.state.errors.unit_price ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
-                        {this.state.errors.algorithm_error ? <span style={{ color: 'red' }}>Unit Price &#62;  Max Price &#62; Min Price </span> : null}
-                    </Col>
-                </Form.Row>
-                <br />
-                <Form.Row>
-                    <Form.Label column lg={2}>Quantity</Form.Label>
-                    <Col>
-                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "quantity") }} type="text" placeholder={this.props.quantity} name="quantity" ref={this.quantity} defaultValue={this.props["quantity"]} />
-                        {this.state.errors.quantity ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
-                    </Col>
-                </Form.Row>
-                <br />
-                <Form.Row>
-                    <Form.Label column lg={2}>Maximum Price</Form.Label>
-                    <Col>
-                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "price_ceiling") }} type="text" placeholder={this.props.price_ceiling} name="price_ceiling" ref={this.price_ceiling} defaultValue={this.props["price_ceiling"]} />
-                        {this.state.errors.price_ceiling ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
-                        {this.state.errors.algorithm_error ? <span style={{ color: 'red' }}>Unit Price &#62;  Max Price &#62; Min Price </span> : null}
-                    </Col>
-                </Form.Row>
-                <br />
-                <Form.Row>
-                    <Form.Label column lg={2}>Minimum Price</Form.Label>
-                    <Col>
-                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "price_floor") }} type="text" placeholder={this.props.price_floor} name="price_floor" ref={this.price_floor} defaultValue={this.props["price_floor"]} />
-                        {this.state.errors.price_floor ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
-                        {this.state.errors.algorithm_error ? <span style={{ color: 'red' }}>Unit Price &#62;  Max Price &#62; Min Price </span> : null}
-                    </Col>
-                </Form.Row>
-                <br />
-                <Form.Row>
-                    <Form.Label column lg={2}>Category</Form.Label>
-                    <Col>
-                        <Form.Control name="category_id" as="select" custom>
-                            <option value="1">Snacks</option>
-                            <option value="2">Light Bites</option>
-                            <option value="3">Dim Sum</option>
-                            <option value="4">Noodles</option>
-                            <option value="5">Junk Food</option>
-                            <option value="6">Hearty Meals</option>
-                            <option value="7">Snacks</option>
-                            <option value="8">Light Bites</option>
-                            <option value="9">Dim Sum</option>
-                            <option value="10">Noodles</option>
-                            <option value="11">Junk Food</option>
-                            <option value="12">Hearty Meals</option>
-                        </Form.Control>
-                    </Col>
-                </Form.Row>
-                <br />
-                <Form.Row>
-                    <Form.Label column lg={2}>Description</Form.Label>
-                    <Col>
-                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "description") }} type="text" placeholder={this.props.description} name="description" ref={this.description} defaultValue={this.props["description"]} />
-                        {this.state.errors.description ? <span style={{ color: 'red' }}>Please key in a Description</span> : null}
-                    </Col>
-                </Form.Row>
-                <br />
-                <Form.Row>
-                    <Form.Label column lg={2}>Duration</Form.Label>
-                    <Col>
-                        <Form.Control name="time_limit_min" as="select" custom>
-                            <option value="30">30 mins</option>
-                            <option value="60">1 hour</option>
-                            <option value="90">1hour 30 mins</option>
-                            <option value="120">2hours</option>
-                        </Form.Control>
-                    </Col>
-                </Form.Row>
-                <Button type="submit" onClick={() => this.fieldValidation()} className="mb-2">
-                    Submit
+            <div>
+                <div id="backgroundMerc"></div>
+                <section className="page-section  bg-trans" >
+                    <Form action="/editlisting" method="post" onSubmit={(e) => this.onSubmitHandler(e)}>
+                        <Form.Row>
+                            <Form.Label column lg={2}>Item Name</Form.Label>
+                            <Col>
+                                <Form.Control onKeyUp={(e) => this.onChangeHandler(e, "item_name")} type="text" placeholder={this.props.item_name} name="item_name" ref={this.item_name} defaultValue={this.props.item_name} />
+                                {this.state.errors.item_name ? <span style={{ color: 'red' }}>Text</span> : null}
+                            </Col>
+                        </Form.Row>
+                        <br />
+                        <Form.Row>
+                            <Form.Label column lg={2}>Unit Price</Form.Label>
+                            <Col>
+                                <Form.Control onChange={(e) => { this.onChangeHandler(e, "unit_price") }} type="text" placeholder={this.props.unit_price} name="unit_price" ref={this.unit_price} defaultValue={this.props.unit_price} />
+                                {this.state.errors.unit_price ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
+                                {this.state.errors.algorithm_error ? <span style={{ color: 'red' }}>Unit Price &#62;  Max Price &#62; Min Price </span> : null}
+                            </Col>
+                        </Form.Row>
+                        <br />
+                        <Form.Row>
+                            <Form.Label column lg={2}>Quantity</Form.Label>
+                            <Col>
+                                <Form.Control onChange={(e) => { this.onChangeHandler(e, "quantity") }} type="text" placeholder={this.props.quantity} name="quantity" ref={this.quantity} defaultValue={this.props["quantity"]} />
+                                {this.state.errors.quantity ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
+                            </Col>
+                        </Form.Row>
+                        <br />
+                        <Form.Row>
+                            <Form.Label column lg={2}>Maximum Price</Form.Label>
+                            <Col>
+                                <Form.Control onChange={(e) => { this.onChangeHandler(e, "price_ceiling") }} type="text" placeholder={this.props.price_ceiling} name="price_ceiling" ref={this.price_ceiling} defaultValue={this.props["price_ceiling"]} />
+                                {this.state.errors.price_ceiling ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
+                                {this.state.errors.algorithm_error ? <span style={{ color: 'red' }}>Unit Price &#62;  Max Price &#62; Min Price </span> : null}
+                            </Col>
+                        </Form.Row>
+                        <br />
+                        <Form.Row>
+                            <Form.Label column lg={2}>Minimum Price</Form.Label>
+                            <Col>
+                                <Form.Control onChange={(e) => { this.onChangeHandler(e, "price_floor") }} type="text" placeholder={this.props.price_floor} name="price_floor" ref={this.price_floor} defaultValue={this.props["price_floor"]} />
+                                {this.state.errors.price_floor ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
+                                {this.state.errors.algorithm_error ? <span style={{ color: 'red' }}>Unit Price &#62;  Max Price &#62; Min Price </span> : null}
+                            </Col>
+                        </Form.Row>
+                        <br />
+                        <Form.Row>
+                            <Form.Label column lg={2}>Category</Form.Label>
+                            <Col>
+                                <Form.Control name="category_id" as="select" custom>
+                                    <option value="1">Snacks</option>
+                                    <option value="2">Light Bites</option>
+                                    <option value="3">Dim Sum</option>
+                                    <option value="4">Noodles</option>
+                                    <option value="5">Junk Food</option>
+                                    <option value="6">Hearty Meals</option>
+                                    <option value="7">Snacks</option>
+                                    <option value="8">Light Bites</option>
+                                    <option value="9">Dim Sum</option>
+                                    <option value="10">Noodles</option>
+                                    <option value="11">Junk Food</option>
+                                    <option value="12">Hearty Meals</option>
+                                </Form.Control>
+                            </Col>
+                        </Form.Row>
+                        <br />
+                        <Form.Row>
+                            <Form.Label column lg={2}>Description</Form.Label>
+                            <Col>
+                                <Form.Control onChange={(e) => { this.onChangeHandler(e, "description") }} type="text" placeholder={this.props.description} name="description" ref={this.description} defaultValue={this.props["description"]} />
+                                {this.state.errors.description ? <span style={{ color: 'red' }}>Please key in a Description</span> : null}
+                            </Col>
+                        </Form.Row>
+                        <br />
+                        <Form.Row>
+                            <Form.Label column lg={2}>Duration</Form.Label>
+                            <Col>
+                                <Form.Control name="time_limit_min" as="select" custom>
+                                    <option value="30">30 mins</option>
+                                    <option value="60">1 hour</option>
+                                    <option value="90">1hour 30 mins</option>
+                                    <option value="120">2hours</option>
+                                </Form.Control>
+                            </Col>
+                        </Form.Row>
+                        <Button type="submit" onClick={() => this.fieldValidation()} className="mb-2">
+                            Submit
                 </Button>
-                <Col>
-                    <Form.Control type="hidden" placeholder="Normal text" name="listing_id" value={this.props.listing_id} />
-                </Col>
-            </Form>
+                        <Col>
+                            <Form.Control type="hidden" placeholder="Normal text" name="listing_id" value={this.props.listing_id} />
+                        </Col>
+                    </Form>
+                </section>
+
+            </div >
         )
     }
 }
