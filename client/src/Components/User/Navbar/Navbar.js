@@ -45,13 +45,14 @@ export default class Navbar extends Component {
                                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
                             </ul>
                         </div>
+                        <RegisterModal open={this.state.RisOpen} onClose={this.onClose} onClose={this.RegisterOnClose} onClick={this.props.onClickSignUp} onRegistered={this.props.onRegistered} />
+                        <LoginModal open={this.state.LisOpen} onClose={this.onClose} onClose={this.LoginOnClose} onClick={this.props.onClickLogin} onLogin={this.props.onLogin} />
                     </div>
                 </nav>
 
-                <RegisterModal open={this.state.RisOpen} onClose={this.onClose} onClose={this.RegisterOnClose} onClick={this.props.onClickSignUp} onRegistered={this.props.onRegistered} />
 
 
-                <LoginModal open={this.state.LisOpen} onClose={this.onClose} onClose={this.LoginOnClose} onClick={this.props.onClickLogin} onLogin={this.props.onLogin} />
+
             </>
         )
     }

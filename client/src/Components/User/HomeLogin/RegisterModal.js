@@ -1,4 +1,6 @@
 import React from "react";
+import './UserModalCss.scss'
+import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 
 export default class RegisterModal extends React.Component {
 
@@ -48,17 +50,18 @@ export default class RegisterModal extends React.Component {
             <div className="overlayBackground">
                 <div className="overlay">
                     <div className="formsParent" >
-                        <div>Sign Up as a New User</div>
-                            <form onSubmit={this.onSubmit} className="forms" >
-                                <input type="text" name="username" placeholder="Username" onChange={this.onChange}/>
-                                <br/>
-                                <input type="text" name="email" placeholder="Email" onChange={this.onChange}/>
-                                <br/>
-                                <input type="password" name="password" placeholder="password" onChange={this.onChange}/>
-                                <br/>
-                                <input type="submit" value ="Submit"/>
-                            </form>
-                        <button onClick={this.props.onClose}>Close</button>
+                        <div class="wrapper2">
+                            <div class="container2">
+                                <div className="userRegisterX" onClick={this.props.onClose} ><HighlightOffRoundedIcon /></div>
+                                <h1 className="h1R">New User</h1>
+                                <form onSubmit={this.onSubmit} className="forms" >
+                                    <input type="text" name="username" placeholder="Username" onChange={this.onChange} className="formsInput" />
+                                    <input type="email" name="email" placeholder="Email" onChange={this.onChange} className="formsInput" />
+                                    <input type="password" name="password" placeholder="Password" onChange={this.onChange} className="formsInput"/>
+                                    <input type="submit" value ="Register" id="login-button"/>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
