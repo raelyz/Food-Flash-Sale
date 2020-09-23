@@ -138,7 +138,7 @@ class CreateItem extends Component {
                 <Form.Row>
                     <Form.Label column lg={2}>Unit Price</Form.Label>
                     <Col>
-                        <Form.Control pattern="[0-9]*" onChange={(e) => { this.onChangeHandler(e, "unit_price") }} type="text" placeholder="Unit Price" name="unit_price" value={this.state.fields["unit_price"]} />
+                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "unit_price") }} type="text" placeholder="Unit Price" name="unit_price" value={this.state.fields["unit_price"]} />
                         {this.state.errors.unit_price ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
                         {this.state.errors.algorithm_error ? <span style={{ color: 'red' }}>Unit Price &#62;  Max Price &#62; Min Price </span> : null}
                     </Col>
@@ -147,7 +147,7 @@ class CreateItem extends Component {
                 <Form.Row>
                     <Form.Label column lg={2}>Quantity</Form.Label>
                     <Col>
-                        <Form.Control pattern="[0-9]*" onChange={(e) => { this.onChangeHandler(e, "quantity") }} type="text" placeholder="Quantity" name="quantity" value={this.state.fields["quantity"]} />
+                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "quantity") }} type="text" placeholder="Quantity" name="quantity" value={this.state.fields["quantity"]} />
                         {this.state.errors.quantity ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
                     </Col>
                 </Form.Row>
@@ -155,7 +155,7 @@ class CreateItem extends Component {
                 <Form.Row>
                     <Form.Label column lg={2}>Maximum Price</Form.Label>
                     <Col>
-                        <Form.Control pattern="[0-9]*" onChange={(e) => { this.onChangeHandler(e, "price_ceiling") }} type="text" placeholder="maximum price" name="price_ceiling" value={this.state.fields["price_ceiling"]} />
+                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "price_ceiling") }} type="text" placeholder="maximum price" name="price_ceiling" value={this.state.fields["price_ceiling"]} />
                         {this.state.errors.price_ceiling ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
                         {this.state.errors.algorithm_error ? <span style={{ color: 'red' }}>Unit Price &#62;  Max Price &#62; Min Price </span> : null}
                     </Col>
@@ -164,7 +164,7 @@ class CreateItem extends Component {
                 <Form.Row>
                     <Form.Label column lg={2}>Minimum Price</Form.Label>
                     <Col>
-                        <Form.Control pattern="[0-9]*" onChange={(e) => { this.onChangeHandler(e, "price_floor") }} type="text" placeholder="minimum price" name="price_floor" value={this.state.fields["price_floor"]} />
+                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "price_floor") }} type="text" placeholder="minimum price" name="price_floor" value={this.state.fields["price_floor"]} />
                         {this.state.errors.price_floor ? <span style={{ color: 'red' }}>+ve Numbers Only</span> : null}
                         {this.state.errors.algorithm_error ? <span style={{ color: 'red' }}>Unit Price &#62;  Max Price &#62; Min Price </span> : null}
                     </Col>
@@ -201,7 +201,7 @@ class CreateItem extends Component {
                 <Form.Row>
                     <Form.Label column lg={2}>Duration</Form.Label>
                     <Col>
-                        <Form.Control pattern="[0-9]*" onChange={(e) => { this.onChangeHandler(e, "time_limit_min") }} type="text" placeholder="Time in Minutes" name="time_limit_min" value={this.state.fields["time_limit_min"]} />
+                        <Form.Control onChange={(e) => { this.onChangeHandler(e, "time_limit_min") }} type="text" placeholder="Time in Minutes" name="time_limit_min" value={this.state.fields["time_limit_min"]} />
                         {this.state.errors.time_limit_min ? <span style={{ color: 'red' }}>Please key in a Description</span> : null}
                     </Col>
                 </Form.Row>
