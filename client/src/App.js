@@ -178,8 +178,20 @@ class App extends React.Component {
                             MercOnRegistered={this.MercOnRegistered}
                             MercOnLogin={this.MercOnLogin}
                         />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path className="gradient-bg" points="0,0 100,0 0,66" fill-opacity="1" d="M0,32L48,64C96,96,192,160,288,202.7C384,245,480,267,576,261.3C672,256,768,224,864,229.3C960,235,1056,277,1152,282.7C1248,288,1344,256,1392,240L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                            <defs>
+                                <linearGradient id="header-shape-gradient" x2="0.35" y2="1">
+                                    <stop offset="0%" stop-color="var(--color-stop)" />
+                                    <stop offset="30%" stop-color="var(--color-stop)" />
+                                    <stop offset="100%" stop-color="var(--color-bot)" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#E8DAFF" d="M44.7,-57.1C60.4,-50.1,77.3,-40.4,85.3,-25.4C93.3,-10.5,92.3,9.6,83.3,23.9C74.2,38.2,57.2,46.7,41.9,51.9C26.7,57.2,13.4,59.2,0.8,58.2C-11.8,57.1,-23.6,52.9,-39.3,47.8C-55,42.7,-74.5,36.6,-77.6,25.6C-80.6,14.6,-67.2,-1.4,-60.5,-18.9C-53.8,-36.4,-53.9,-55.4,-45,-64.5C-36,-73.7,-18,-73,-1.8,-70.6C14.5,-68.2,29,-64.1,44.7,-57.1Z" transform="translate(100 100)" />
+                        </svg>
                         <MerchFooter />
-                    </div>
+                    </div >
                 )
             }
         }

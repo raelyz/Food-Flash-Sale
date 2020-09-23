@@ -10760,3 +10760,12 @@ header {
   width: 500px;
   border-radius: 50%;
 }
+
+.gradient-bg {
+  fill: url(#header-shape-gradient) rgba(250,126,97,1);
+}
+
+#header-shape-gradient {
+  --color-stop: rgba(250,126,97,1);
+  --color-bot:rgba(255,217,2,1);
+}

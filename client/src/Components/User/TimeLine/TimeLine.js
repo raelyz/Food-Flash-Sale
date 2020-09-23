@@ -232,77 +232,54 @@ class TimeLine extends Component {
                 </div>
             </nav>
             <ControlledCarousel></ControlledCarousel>
-            {/* <div className='container'>
-                <div id="carouselExampleIndicators" className="carousel slide my-4" data-ride="carousel">
-                    <ol className="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    </ol>
-                    <div className="carousel-inner" role="listbox">
-                        <div className="carousel-item active">
-                            <img className="d-block img-fluid" src="https://picsum.photos/1110/350" alt="First slide" />
-                        </div>
-                        <div className="carousel-item">
-                            <img className="d-block img-fluid" src="https://picsum.photos/1110/350" alt="Second slide" />
-                        </div>
-                        <div className="carousel-item">
-                            <img className="d-block img-fluid" src="https://picsum.photos/1110/350" alt="Third slide" />
-                        </div>
-                    </div>
-                </div>
+            <section className="page-section  bg-trans portfolio wrapper" id="services" >
 
-            </div> */}
-            <Switch>
-                {routeArray}
-                <Route path="/Orderhistory" render={
-                    () => <OrderHistory user_id={this.props.user_id} />
-                } />
-                {/* <Route path="/ByCategory" render={
+                <div className="container">
+                    <div className="text-center">
+                        <h2 className="section-heading text-uppercase">Ongoing Deals</h2>
+
+                        <h3 className="section-subheading text-muted">Catch them while you can!</h3>
+                    </div>
+                    <div>
+                        <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
+                        <select onChange={this.changePage} style={{ display: this.state.sortDisplay }}>
+                            <option value="Time">Time Left</option>
+                            <option value="Discount">Discount</option>
+                            <option value="Distance">Distance</option>
+                        </select>
+                    </div>
+                    <Switch>
+                        {routeArray}
+                        <Route path="/Orderhistory" render={
+                            () => <OrderHistory user_id={this.props.user_id} />
+                        } />
+                        {/* <Route path="/ByCategory" render={
                             () => <ByCategory data={this.state.timeLine} lon={this.props.lon} lat={this.props.lat} />
                         } /> */}
-                <Route path="/ByDistance" render={() => <ByDistance lon={this.props.lon} lat={this.props.lat} />} />
-                <Route path="/ByDiscount" render={() => <ByDiscount lon={this.props.lon} lat={this.props.lat} />} />
-                <Route path="/" render={
-                    () => <>
+                        <Route path="/ByDistance" render={() => <ByDistance lon={this.props.lon} lat={this.props.lat} />} />
+                        <Route path="/ByDiscount" render={() => <ByDiscount lon={this.props.lon} lat={this.props.lat} />} />
+                        <Route path="/" render={() => <div className="row">{merchantCard}</div>} />
+                    </Switch>
+                </div>
+            </section>
+            <section className="page-section  bg-trans portfolio wrapper">
+                <div className="container">
+                    <div className="text-center">
+                        <h2 className="section-heading text-uppercase">They are gone..</h2>
 
-                        <section className="page-section  bg-trans portfolio wrapper" id="services" >
-
-                            <div className="container">
-                                <div className="text-center">
-                                    <h2 className="section-heading text-uppercase">Ongoing Deals</h2>
-
-                                    <h3 className="section-subheading text-muted">Catch them while you can!</h3>
-                                </div>
-                                <div>
-                                    <label style={{ display: this.state.sortDisplay }}>Sort by:</label>
-                                    <select onChange={this.changePage} style={{ display: this.state.sortDisplay }}>
-                                        <option value="Time">Time Left</option>
-                                        <option value="Discount">Discount</option>
-                                        <option value="Distance">Distance</option>
-                                    </select>
-                                </div>
-                                <div className="row">{merchantCard}</div>
-                            </div>
-                        </section>
-                        <section className="page-section  bg-trans portfolio wrapper">
-                            <div className="container">
-                                <div className="text-center">
-                                    <h2 className="section-heading text-uppercase">They are gone..</h2>
-
-                                    <h3 className="section-subheading text-muted">You were too late!</h3>
-                                </div>
-                                <div className="row">
-                                    {deletedMerchantCard}
-                                </div>
-                            </div>
-                        </section>
-                    </>
-                } />
-            </Switch>
-
-
+                        <h3 className="section-subheading text-muted">You were too late!</h3>
+                    </div>
+                    <div className="row">
+                        {deletedMerchantCard}
+                    </div>
+                </div>
+            </section>
         </>
+
+
+
+
+
         )
     }
 }
