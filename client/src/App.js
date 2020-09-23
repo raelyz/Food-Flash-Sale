@@ -62,34 +62,34 @@ class App extends React.Component {
             })
     }
     onClickSignUp = (e) => {
-        if (this.state.alternate) {
-            this.setState({
-                displayOverlaySignUp: "block",
-                displayOverlayLogin: "none",
-                alternate2: true,
-                alternate: false
-            })
-        } else {
-            this.setState({
-                displayOverlaySignUp: "none",
-                alternate: true
-            })
-        }
+        // if (this.state.alternate) {
+        //     this.setState({
+        //         displayOverlaySignUp: "block",
+        //         displayOverlayLogin: "none",
+        //         alternate2: true,
+        //         alternate: false
+        //     })
+        // } else {
+        //     this.setState({
+        //         displayOverlaySignUp: "none",
+        //         alternate: true
+        //     })
+        // }
     }
     onClickLogin = (e) => {
-        if (this.state.alternate2) {
-            this.setState({
-                displayOverlayLogin: "block",
-                displayOverlaySignUp: "none",
-                alternate: true,
-                alternate2: false
-            })
-        } else {
-            this.setState({
-                displayOverlayLogin: "none",
-                alternate2: true
-            })
-        }
+        // if (this.state.alternate2) {
+        //     this.setState({
+        //         displayOverlayLogin: "block",
+        //         displayOverlaySignUp: "none",
+        //         alternate: true,
+        //         alternate2: false
+        //     })
+        // } else {
+        //     this.setState({
+        //         displayOverlayLogin: "none",
+        //         alternate2: true
+        //     })
+        // }
     }
     // PASS THIS 2 THINGS BELOW TO YOUR CHILD COMPONENTS IF YOU NEED THE ID OR USERNAME FOR LOGIN AND REGISTER
     // userId={this.state.userId} userName={this.state.userName}
