@@ -31,3 +31,23 @@ Food wastage is one of the biggest waste streams in Singapore.  Over the last de
 ## ERD ##
 
 ![image](FFS-wireframe/erd.png)
+
+## TECH STACK ##
+Postgres SQL
+Node.js
+Express
+React
+
+Chart.js
+Bootstrap
+
+Stripe Api
+One Map Api
+
+
+##DEMO##
+
+![](gif1.gif)
+![](gif2.gif)
+![](gif3.gif)
+![](gif5.gif)
