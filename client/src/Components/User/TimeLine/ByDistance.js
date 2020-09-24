@@ -188,7 +188,9 @@ export default class TimeLine extends Component {
                 </Link >
                 <div className="portfolio-caption">
                     <div className="portfolio-caption-heading">{eachCard.name} {discount.toFixed(2)}% <span>{distance}km</span></div>
+                    <div className="portfolio-caption-heading">{eachCard.item_name} up to {discount}% off</div>
                     <div className="portfolio-caption-subheading text-muted">{eachCard.description}</div>
+
                 </div>
             </EachMerchant>
         })
