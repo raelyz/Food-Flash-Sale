@@ -2,7 +2,7 @@ import React from "react";
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 
 export default class RegisterModal extends React.Component {
-constructor(props) {
+    constructor(props) {
         super(props)
         this.state = {
             name: "",
@@ -23,7 +23,7 @@ constructor(props) {
         e.preventDefault();
         const { name, password, email, address, uen, postalCode, cuisine } = this.state;
 
-        fetch(`https://developers.onemap.sg/commonapi/search?searchVal=revenue&returnGeom=Y&getAddrDetails=Y&pageNum=1`)
+        fetch(`https://developers.onemap.sg/commonapi/search?searchVal=${postalCode}&returnGeom=Y&getAddrDetails=Y&pageNum=1`)
             .then(res => {
                 console.log(res);
                 return res.json();
@@ -63,15 +63,15 @@ constructor(props) {
             })
     }
     render() {
-    if(!this.props.open) return null
-    return (
+        if (!this.props.open) return null
+        return (
             <div className="overlayBackgroundMerc">
                 <div className="overlayMerc">
                     <div class="wrapperMerc">
-                            <div class="container2">
-                                <div className="mercRegisterX" onClick={this.props.onClose} ><HighlightOffRoundedIcon /></div>
-                                <h1>Sign Up as a New Merchant</h1>
-                                <form onSubmit={this.onSubmit} className="forms" >
+                        <div class="container2">
+                            <div className="mercRegisterX" onClick={this.props.onClose} ><HighlightOffRoundedIcon /></div>
+                            <h1>Sign Up as a New Merchant</h1>
+                            <form onSubmit={this.onSubmit} className="forms" >
                                 <input type="text" name="name" placeholder="Username" onChange={this.onChange} />
                                 <input type="email" name="email" placeholder="Email" onChange={this.onChange} />
                                 <textarea style={{ width: "250px", resize: "none" }} type="text" name="address" placeholder="Address" onChange={this.onChange} />
@@ -80,8 +80,8 @@ constructor(props) {
                                 <input type="text" name="cuisine" placeholder="Cuisine" onChange={this.onChange} />
                                 <input type="password" name="password" placeholder="Password" onChange={this.onChange} />
                                 <input type="submit" value="Submit" />
-                                </form>
-                            </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

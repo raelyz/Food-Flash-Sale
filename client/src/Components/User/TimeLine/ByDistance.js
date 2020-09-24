@@ -187,8 +187,8 @@ export default class TimeLine extends Component {
                     <img class="img-fluid" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
                 </Link >
                 <div className="portfolio-caption">
-                    <div className="portfolio-caption-heading">{eachCard.name} {discount.toFixed(2)}% <span>{distance}km</span></div>
-                    <div className="portfolio-caption-heading">{eachCard.item_name} up to {discount}% off</div>
+                    <div className="portfolio-caption-heading">{eachCard.item_name} up to {discount.toFixed(2)}% off!</div>
+                    <div className="portfolio-caption-subheading">{eachCard.name}<span> {distance}km away</span></div>
                     <div className="portfolio-caption-subheading text-muted">{eachCard.description}</div>
 
                 </div>
@@ -208,7 +208,8 @@ export default class TimeLine extends Component {
                             <img className="img-fluid" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
                         </Link >
                         <div className="portfolio-caption">
-                            <div className="portfolio-caption-heading">{eachCard.name}up to{discount}%</div>
+                            <div className="portfolio-caption-heading">{eachCard.item_name}up to {discount.toFixed(2)}% off!</div>
+                            <div className="portfolio-caption-subheading">{eachCard.name}</div>
                             <div className="portfolio-caption-subheading text-muted">{eachCard.description}</div>
                         </div>
                     </div>

@@ -22,7 +22,7 @@ export default class Register extends Component {
         e.preventDefault();
         const { name, password, email, address, uen, postalCode, cuisine } = this.state;
 
-        fetch(`https://developers.onemap.sg/commonapi/search?searchVal=${this.state.address}&returnGeom=Y&getAddrDetails=Y&pageNum=1`)
+        fetch(`https://developers.onemap.sg/commonapi/search?searchVal=${postalCode}&returnGeom=Y&getAddrDetails=Y&pageNum=1`)
             .then(res => {
                 console.log(res);
                 return res.json();
