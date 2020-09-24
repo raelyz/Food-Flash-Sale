@@ -177,7 +177,7 @@ export default class TimeLine extends Component {
             distA = distA * 180 / Math.PI;
             distA = distA * 60 * 1.1515;
             distA = distA * 1.609344;
-            let distance = distA * 1.609344;
+            let distance = (distA * 1.609344).toFixed(2);
             return <EachMerchant key={index} duration={eachCard.time_limit_min} time={eachCard.time} merchant_Id={eachCard.merchant_id} what={this.testing}>
                 <Link className="portfolio-link" to={path}>
                     <div className="portfolio-hover">
@@ -187,7 +187,7 @@ export default class TimeLine extends Component {
                     <img class="img-fluid" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
                 </Link >
                 <div className="portfolio-caption">
-                    <div className="portfolio-caption-heading">{eachCard.name} {discount}%</div>
+                    <div className="portfolio-caption-heading">{eachCard.name} {discount.toFixed(2)}% <span>{distance}km</span></div>
                     <div className="portfolio-caption-subheading text-muted">{eachCard.description}</div>
                 </div>
             </EachMerchant>

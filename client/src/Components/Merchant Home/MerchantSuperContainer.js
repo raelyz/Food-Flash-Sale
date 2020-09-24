@@ -86,7 +86,7 @@ class MerchantSuperContainer extends Component {
 
                 <Switch>
                     <Route path="/ItemList" render={
-                        () => <ItemList list={this.state.list} />
+                        () => <ItemList list={this.state.list} merchant_id={this.props.merchant_id} />
                     } />
 
                     <Route path="/CreateItem" render={
@@ -97,7 +97,7 @@ class MerchantSuperContainer extends Component {
                         () => <OrderListContainer merchant_id={this.props.merchant_id} />
                     } />
 
-                    <Route path="/EditItem/:listing_id" render={
+                    <Route path="/EditItem/:listing_id/:category_id/:time_limit_min" render={
                         (props) => <EditContainer {...props} list={this.state.list} onClick={this.onClickHandler} />
                     } />
 
