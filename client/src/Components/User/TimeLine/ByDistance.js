@@ -187,8 +187,10 @@ export default class TimeLine extends Component {
                     <img class="img-fluid" src={`https://picsum.photos/id/${Math.pow(index, 2)}/700/400`} alt="" />
                 </Link >
                 <div className="portfolio-caption">
-                    <div className="portfolio-caption-heading">{eachCard.name} {discount}%</div>
+                    <div className="portfolio-caption-heading">{eachCard.item_name} up to {discount}% off</div>
+                    <div className="portfolio-caption-subheading text-muted">{eachCard.name}</div>
                     <div className="portfolio-caption-subheading text-muted">{eachCard.description}</div>
+
                 </div>
             </EachMerchant>
         })
