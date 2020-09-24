@@ -7,8 +7,20 @@ export default class ItemList extends Component {
     constructor() {
         super()
         this.state = {
+            list: [],
             fetch: false
         }
+    }
+    componentDidMount() {
+        fetch(`/all/listing/${this.props.merchant_id}`) // change to this.props.merchantId
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    list: res
+                })
+            }).catch(err => {
+                console.log(err)
+            })
     }
     toggleOnclickHandler = (boolean, id) => {
         fetch('/togglelisting', {
@@ -42,7 +54,7 @@ export default class ItemList extends Component {
             "12": "Hearty Meals"
         }
 
-        let itemList = this.props.list.map((item, index) => {
+        let itemList = this.state.list.map((item, index) => {
             return <tr key={item.listing_id}>
                 <td className="td">{item.item_name}</td>
                 <td className="td">{item.unit_price}</td>
@@ -53,7 +65,7 @@ export default class ItemList extends Component {
                 <td className="td">{item.description}</td>
                 <td className="td">{item.time_limit_min}</td>
                 <td className="td"><Toggle onToggle={this.toggleOnclickHandler} id={item.listing_id} boolean={item.live}></Toggle></td>
-                <td className="td"><Link to={`/EditItem/${item.listing_id}`} ><EditIcon className="edit" /></Link></td>
+                <td className="td"><Link to={`/EditItem/${item.listing_id}/${item.category_id}/${item.time_limit_min}`} ><EditIcon className="edit" /></Link></td>
             </tr>
         })
         return (

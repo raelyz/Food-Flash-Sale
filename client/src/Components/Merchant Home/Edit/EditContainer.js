@@ -36,16 +36,16 @@ class EditContainer extends React.Component {
             quantity: filteredList[0].quantity,
             price_ceiling: filteredList[0].price_ceiling,
             price_floor: filteredList[0].price_floor,
-            category_id: filteredList[0].category_id,
+            category_id: this.props.match.params.category_id,
             merchant_id: filteredList[0].merchant_id,
             description: filteredList[0].description,
-            time_limit_min: filteredList[0].time_limit_min,
+            time_limit_min: this.props.match.time_limit_min,
         })
     }
     render() {
         return (
             <div>
-            <EditForm item_name={this.state.item_name} listing_id={this.props.match.params.listing_id} unit_price={this.state.unit_price} quantity={this.state.quantity} price_ceiling={this.state.price_ceiling} price_floor={this.state.price_floor} category_id={this.state.category_id} merchant_id={this.props.merchant_id} description={this.state.description} time_limit_min={this.state.time_limit_min} onClick={this.props.onClick}/>
+                <EditForm item_name={this.state.item_name} listing_id={this.props.match.params.listing_id} unit_price={this.state.unit_price} quantity={this.state.quantity} price_ceiling={this.state.price_ceiling} price_floor={this.state.price_floor} category_id={this.props.match.params.category_id} merchant_id={this.props.merchant_id} description={this.state.description} time_limit_min={this.props.match.params.time_limit_min} onClick={this.props.onClick} />
             </div>
         )
     }

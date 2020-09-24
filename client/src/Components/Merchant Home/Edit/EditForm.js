@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 class EditForm extends Component {
     constructor(props) {
-        super()
+        super(props)
         this.state = {
             fields: {
             }, errors: {}, validation: {},
@@ -19,7 +19,6 @@ class EditForm extends Component {
         this.description = React.createRef()
         this.time_limit_min = React.createRef()
     }
-
 
     fieldValidation(e) {
         console.log(this)
@@ -128,7 +127,6 @@ class EditForm extends Component {
     }
 
     render() {
-        console.log(this.item_name)
         return (
             <div>
                 <div id="backgroundMerc"></div>
@@ -180,7 +178,7 @@ class EditForm extends Component {
                         <Form.Row>
                             <Form.Label column lg={2}>Category</Form.Label>
                             <Col>
-                                <Form.Control name="category_id" as="select" custom>
+                                <Form.Control name="category_id" as="select" defaultValue={this.props.category_id} custom>
                                     <option value="1">Snacks</option>
                                     <option value="2">Light Bites</option>
                                     <option value="3">Dim Sum</option>
@@ -208,7 +206,7 @@ class EditForm extends Component {
                         <Form.Row>
                             <Form.Label column lg={2}>Duration</Form.Label>
                             <Col>
-                                <Form.Control name="time_limit_min" as="select" custom>
+                                <Form.Control name="time_limit_min" as="select" defaultValue={this.props.time_limit_min} custom>
                                     <option value="30">30 mins</option>
                                     <option value="60">1 hour</option>
                                     <option value="90">1hour 30 mins</option>
@@ -218,16 +216,16 @@ class EditForm extends Component {
                         </Form.Row>
                         <Button type="submit" onClick={() => this.fieldValidation()} className="mb-2">
                             Submit
-                </Button>
+                        </Button>
                         <Col>
                             <Form.Control type="hidden" placeholder="Normal text" name="listing_id" value={this.props.listing_id} />
                         </Col>
                     </Form>
                 </section>
-
             </div >
         )
     }
 }
 
 export default withRouter(EditForm)
+
