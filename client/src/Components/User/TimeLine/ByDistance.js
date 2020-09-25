@@ -195,7 +195,7 @@ export default class TimeLine extends Component {
             </EachMerchant>
         })
         let deletedMerchantCard = this.state.deletedArray.map((eachCard, index) => {
-            const discount = ((eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100).toFixed(0)
+            const discount = ((eachCard.unit_price - eachCard.price_floor) / eachCard.unit_price * 100)
             let path = "/" + eachCard.merchant_id
             return <div className="col-lg-4 col-sm-6 mb-4">
                 <div className="itemWrapper">
