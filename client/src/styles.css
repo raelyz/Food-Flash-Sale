@@ -10631,11 +10631,12 @@ text-decoration: underline;
 .rating {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: center
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .rating>input {
-  display: none
+  display: none;
 }
 
 .rating>label {
@@ -10643,7 +10644,8 @@ text-decoration: underline;
   width: 1em;
   font-size: 4vw;
   color: #FFD600;
-  cursor: pointer
+  cursor: pointer;
+  font-size:55px
 }
 
 .rating>label::before {

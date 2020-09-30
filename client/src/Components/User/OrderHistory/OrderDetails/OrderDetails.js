@@ -47,7 +47,7 @@ export default class OrderDetails extends Component {
       <>
         <td className="td">{this.props.name}</td>
         <td className="td">{this.props.cuisine}</td>
-        <td className="td">${total} SGD</td>
+        <td className="td">${(total / 200).toFixed(2)} SGD</td>
         <RatingStarsContainer
           listing_id={listing_id[0]}
           merchant_id={this.props.merchant_id}

@@ -93,7 +93,7 @@ export default class ListingContainer extends React.Component {
   format(array) {
     let item_name = array[0].item_name;
     let quantity = array[0].quantity;
-    let discPrice = array[0].price_ceiling;
+    let discPrice = this.props.price.toFixed(2);
     let originalPrice = array[0].unit_price;
     let discount = (originalPrice - discPrice) / originalPrice;
     let merchant_name = array[0].name;
@@ -133,7 +133,7 @@ export default class ListingContainer extends React.Component {
         listing_id: this.state.cart[0].listing_id,
         price: this.state.cart[0].price,
         quantity: this.state.cart[0].count,
-        revenue: (this.state.cart[0].count) * this.state.cart[0].price,
+        revenue: ((this.state.cart[0].count) * this.state.cart[0].price).toFixed(2),
       };
     }
     console.log(data)
@@ -161,7 +161,7 @@ export default class ListingContainer extends React.Component {
                   <td>{this.state.cart[0].count}</td>
                   <td>
                     Total: $
-                  {(this.state.cart[0].count) * this.state.cart[0].price}
+                  {((this.state.cart[0].count) * this.state.cart[0].price).toFixed(2)}
                   </td>
                 </tr>
               </table>

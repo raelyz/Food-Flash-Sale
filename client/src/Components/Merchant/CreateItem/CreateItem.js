@@ -194,11 +194,8 @@ class CreateItem extends Component {
                         <Form.Row>
                             <Form.Label column lg={2}>Duration</Form.Label>
                             <Col>
-                                <Form.Control name="time_limit_min" as="select" custom>
-                                    <option value="30">30 mins</option>
-                                    <option value="60">1 hour</option>
+                                <Form.Control name="time_limit_min" as="select" defaultValue="90" disabled custom>
                                     <option value="90">1hour 30 mins</option>
-                                    <option value="120">2hours</option>
                                 </Form.Control>
                             </Col>
                         </Form.Row>
