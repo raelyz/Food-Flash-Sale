@@ -347,9 +347,9 @@ module.exports = (db) => {
               let value = [
                 receipt_id,
                 request.body.order.listing_id,
-                request.body.order.price,
+                request.body.order.price * 100,
                 request.body.order.quantity,
-                request.body.order.revenue,
+                request.body.order.revenue * 100,
               ];
               db.poolRoutes.postSubmitOrderFX(value, (err, ress) => {
                 if (err) {
@@ -363,7 +363,7 @@ module.exports = (db) => {
                     if (err) {
                       console.log(err.message, "---error at updateinvenyory");
                     } else {
-                      let amount = parseInt(request.body.order.revenue) * 100;
+                      let amount = request.body.order.revenue * 100;
                       let { id } = request.body.card;
                       //                       console.log(`authenticating`);
                       stripe.paymentIntents
@@ -517,7 +517,7 @@ module.exports = (db) => {
 
   //LeAVE at the bottom catch all method
   let catchAll = (request, response) => {
-    res.sendFile(path.join(__dirname, "../client/build/index.html"))
+    response.sendFile(path.join(__dirname, "../client/build/index.html"))
   };
 
   return {
