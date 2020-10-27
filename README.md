@@ -2,7 +2,7 @@
 
 ## About ##
 
-Hosted [here](https://flash-food-sale.herokuapp.com/) on heroku. Register a new account to access the project.
+Hosted <a href="https://flash-food-sale.herokuapp.com/" target="_blank">Here</a> on heroku. Register a new account to access the project.
 
 ## Motivation ##
 
